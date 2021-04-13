@@ -28,9 +28,9 @@ public class MbtiMainUIEvent implements ActionListener{
 		}else if(obj == main.buttonlist.get(1)) {
 			new CreateUI(main);
 		}else if(obj == main.buttonlist.get(2)) {
-			System.out.println("채팅");
+			new ChatUI();
 		}else if(obj == main.buttonlist.get(3)) {
-			System.out.println("게시판");
+			new BoardUI(main);
 		}else if(obj == main.buttonlist.get(4)) {
 			System.out.println("마이페이지");
 		}else if(obj == main.buttonlist.get(5)) {
