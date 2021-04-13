@@ -37,8 +37,8 @@ public class JoinUI {
 	//Method
 	public void init() {
 		f = new JFrame("회원가입");
-		label_panel = new Panel(new GridLayout(6,1));
-		tf_panel = new Panel(new GridLayout(6,1));
+		label_panel = new Panel(new GridLayout(4,1));
+		tf_panel = new Panel(new GridLayout(4,1));
 		btn_panel = new Panel();
 		join = new JButton("회원가입");
 		join.setFont(Commons.getFont());
@@ -55,7 +55,7 @@ public class JoinUI {
 			Panel t_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 
 			if(name.equals("비밀번호") || name.equals("비밀번호확인")) {
-				JPasswordField tf = new JPasswordField(24);
+				JPasswordField tf = new JPasswordField(15);
 				t_panel.add(tf);
 				tf_panel.add(t_panel);
 				list.add(tf);
@@ -85,7 +85,7 @@ public class JoinUI {
 				list.add(mbtilist);
 				
 			}else {
-				JTextField tf = new JTextField(24);
+				JTextField tf = new JTextField(15);
 				t_panel.add(tf);
 				tf_panel.add(t_panel);
 				list.add(tf);
@@ -96,8 +96,8 @@ public class JoinUI {
 		f.add(BorderLayout.CENTER,tf_panel);
 		f.add(BorderLayout.SOUTH,btn_panel);
 		
-		f.setSize(400, 400);
-		f.setLocation(650, 300);
+		f.setSize(300, 300);
+		f.setLocation(800, 400);
 		f.setVisible(true);
 		
 		f.addWindowListener(new JoinUIEvent());
