@@ -40,13 +40,13 @@ public class CreateUI implements ActionListener{
 	//Method
 	public void init() {
 		main.switch_panel(MbtiMainUI.CREATE);
-		/** Æ÷ÀÎÆ® ÆĞ³Î **/
+		/** í¬ì¸íŠ¸ íŒ¨ë„ **/
 		point_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,50));
-		point_label = new JLabel("³» Æ÷ÀÎÆ® : 0 point");
+		point_label = new JLabel("ë‚´ í¬ì¸íŠ¸ : 0 point");
 		point_label.setFont(Commons.getFont2());
 		point_panel.add(point_label);
 		
-		/** ¼¾ÅÍ ÆĞ³Î **/
+		/** ì„¼í„° íŒ¨ë„ **/
 		center_panel = new JPanel(new GridLayout(1,3));
 		hair_panel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,50));
 		top_panel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,50));
@@ -84,7 +84,7 @@ public class CreateUI implements ActionListener{
 		center_panel.add(top_panel);
 		center_panel.add(bottom_panel);
 		
-		/** ÅØ½ºÆ® ÆĞ³Î **/
+		/** í…ìŠ¤íŠ¸ íŒ¨ë„ **/
 		text_panel = new JPanel (new GridLayout(1,3));
 		h_text_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		t_text_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -101,7 +101,7 @@ public class CreateUI implements ActionListener{
 		text_panel.add(t_text_panel);
 		text_panel.add(b_text_panel);
 		
-		/** È­¸é ±¸¼º **/
+		/** í™”ë©´ êµ¬ì„± **/
 		main.create_panel.setLayout(new BorderLayout());
 		main.create_panel.add(BorderLayout.NORTH,point_panel);
 		main.create_panel.add(BorderLayout.CENTER,center_panel);
@@ -137,9 +137,9 @@ public class CreateUI implements ActionListener{
 		
 	}
 	
-	/** »Ì±â Ã¢ **/
+	/** ë½‘ê¸° ì°½ **/
 	public void random_hair() {
-		JFrame f = new JFrame("Â¥ÀÜ! ¸ÚÁø Çì¾î ´çÃ·!");
+		JFrame f = new JFrame("ì§œì”! ë©‹ì§„ í—¤ì–´ ë‹¹ì²¨!");
 		JPanel p = new JPanel(new BorderLayout());
 		
 		random = new Random();
@@ -178,7 +178,7 @@ public class CreateUI implements ActionListener{
 	}
 	
 	public void random_top() {
-		JFrame f = new JFrame("Â¥ÀÜ! ¸ÚÁø »óÀÇ ´çÃ·!");
+		JFrame f = new JFrame("ì§œì”! ë©‹ì§„ ìƒì˜ ë‹¹ì²¨!");
 		JPanel p = new JPanel(new BorderLayout());
 
 		random = new Random();
@@ -219,7 +219,7 @@ public class CreateUI implements ActionListener{
 	}
 	
 	public void random_bottom() {
-		JFrame f = new JFrame("Â¥ÀÜ! ¸ÚÁø ¹ÙÁö ´çÃ·!");
+		JFrame f = new JFrame("ì§œì”! ë©‹ì§„ ë°”ì§€ ë‹¹ì²¨!");
 		JPanel p = new JPanel(new BorderLayout());
 		
 		random = new Random();

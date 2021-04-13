@@ -28,9 +28,9 @@ import javax.swing.table.TableColumnModel;
 
 
 public class BoardUI implements MouseListener, ActionListener{
-  //Field  //한글 잘 나오나요,,?
+  //Field
 	
-	String[] colNames = {"번호","제목","작성자","작성일","추천/반대"};
+	String[] colNames = {"번호","제목","작성자","작성일","추천"};
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
         public boolean isCellEditable(int i, int c) {  //내용 편집 막기
             return false;
@@ -147,7 +147,7 @@ public class BoardUI implements MouseListener, ActionListener{
 		row[1] = "제목 테스트 제목 테스트 제목 테스트";
 		row[2] = "어피치";
 		row[3] = "2021.01.01";
-		row[4] = "1/1";
+		row[4] = "추천/반대";
 
 		model.addRow(row);
 		
@@ -307,14 +307,10 @@ public class BoardUI implements MouseListener, ActionListener{
 			recommend_panel.add(up_count);
 			recommend_panel.add(down_label);
 			recommend_panel.add(down_count);
-			
-			ImageIcon writer = new ImageIcon("images/character.png");  //0413: 게시글에 캐릭터 추가
-			JLabel character_label = new JLabel(writer);
 
 			content_panel.add(ta_pane);
 			center_panel.add(BorderLayout.NORTH, title_panel);
 			center_panel.add(BorderLayout.CENTER, content_panel);
-			center_panel.add(BorderLayout.EAST, character_label);  //0413: 게시글에 캐릭터 추가
 			center_panel.add(BorderLayout.SOUTH, recommend_panel);
 			
 			//바텀패널
@@ -448,5 +444,3 @@ public class BoardUI implements MouseListener, ActionListener{
 	}
 	
 }
-
-

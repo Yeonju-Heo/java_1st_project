@@ -17,7 +17,7 @@ public class ChatServer {
 	public ChatServer() {
 		try {
 			server = new ServerSocket(9000);
-			System.out.println("¼­¹ö½ÇÇà");
+			System.out.println("ì„œë²„ì‹¤í–‰");
 			
 			while(true) {
 				Socket s = server.accept();
@@ -26,7 +26,7 @@ public class ChatServer {
 				
 				msg_list.add(st.dos);
 				new ChatClient();
-				System.out.println("Å¬¶óÀÌ¾ğÆ® Á¢¼Ó");
+				System.out.println("í´ë¼ì´ì–¸íŠ¸ ì ‘ì†");
 			}
 			
 			

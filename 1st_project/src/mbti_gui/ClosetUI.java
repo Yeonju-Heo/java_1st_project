@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 public class ClosetUI {
 	//Field
 //	MbtiMgmSystem system;
-	//¼öÁ¤
+	//ìˆ˜ì •
 //	JFrame closetFrame;
 	JPanel type_panel, clothes_panel, btn_panel,char_panel, closet_panel;
 	ArrayList<JButton> buttonlist = new ArrayList<JButton>();
@@ -32,9 +32,9 @@ public class ClosetUI {
 	}
 	
 	public void init() {
-		char_panel = new JPanel();//Ä³¸¯ÅÍ »çÁø
-		closet_panel = new JPanel(new GridLayout(3,1));//¿ÊÀå
-		type_panel = new JPanel(new GridLayout(1,3));//¿Ê Á¾·ù
+		char_panel = new JPanel();//ìºë¦­í„° ì‚¬ì§„
+		closet_panel = new JPanel(new GridLayout(3,1));//ì˜·ì¥
+		type_panel = new JPanel(new GridLayout(1,3));//ì˜· ì¢…ë¥˜
 		clothes_panel = new JPanel(new GridLayout());
 		ImageIcon icon = new ImageIcon("images/top5.png");
 		JLabel top5 = new JLabel(icon);

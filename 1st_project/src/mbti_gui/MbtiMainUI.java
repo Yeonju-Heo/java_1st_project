@@ -30,7 +30,7 @@ public class MbtiMainUI {
 	JButton btn_login, btn_join;
 	JTextField id_tf;
 	JPasswordField pw_tf;
-	String[] menulist = {"¸ŞÀÎ","Ä³¸¯ÅÍ»ı¼º","Ã¤ÆÃ","°Ô½ÃÆÇ","¸¶ÀÌÆäÀÌÁö","Á¾·á"};
+	String[] menulist = {"ë©”ì¸","ìºë¦­í„°ìƒì„±","ì±„íŒ…","ê²Œì‹œíŒ","ë§ˆì´í˜ì´ì§€","ì¢…ë£Œ"};
 	ArrayList<JButton> buttonlist = new ArrayList<JButton>();
 	MbtiMainUIEvent eventObj = new MbtiMainUIEvent(this);
 	
