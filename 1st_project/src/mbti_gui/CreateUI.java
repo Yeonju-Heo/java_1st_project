@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -23,12 +24,12 @@ public class CreateUI implements ActionListener{
 	MainUI main;
 	JPanel point_panel, center_panel, hair_panel, top_panel, bottom_panel, 
 		   text_panel, h_text_panel, t_text_panel, b_text_panel;
-	
 	JButton btn_hair, btn_top, btn_bottom;
 	JLabel point_label, hair_label, top_label, bottom_label, text_label;
 	ImageIcon hair_normal, hair_rollover, hair_pressed, 
 			  top_normal, top_rollover, top_pressed,
 			  bottom_normal, bottom_rollover, bottom_pressed;
+	Random random;
 	
 	//Constructor
 	public CreateUI(MainUI main) {
@@ -140,18 +141,25 @@ public class CreateUI implements ActionListener{
 	public void random_hair() {
 		JFrame f = new JFrame("Â¥ÀÜ! ¸ÚÁø Çì¾î ´çÃ·!");
 		JPanel p = new JPanel(new BorderLayout());
-//		Random ran = new Random();
+		
+		random = new Random();
+		int bound = 5;
+		ArrayList<ImageIcon> hairlist = new ArrayList<ImageIcon>();
+		
 		ImageIcon hair1 = new ImageIcon("images/hair1.png");
 		ImageIcon hair2 = new ImageIcon("images/hair2.png");
 		ImageIcon hair3 = new ImageIcon("images/hair3.png");
 		ImageIcon hair4 = new ImageIcon("images/hair4.png");
 		ImageIcon hair5 = new ImageIcon("images/hair5.png");
+		hairlist.add(hair1);
+		hairlist.add(hair2);
+		hairlist.add(hair3);
+		hairlist.add(hair4);
+		hairlist.add(hair5);
 		
-//		int[] photos = {top1, top2, top3, top4, top5, top6};
-		
-		JLabel l = new JLabel(hair1);
+		JLabel l = new JLabel(hairlist.get(random.nextInt(bound)));
 		p.add(l);
-		f.add(BorderLayout.CENTER,l);
+		f.add(BorderLayout.CENTER,p);
 		f.setSize(350,350);
 		
 		Dimension fsize = f.getSize();
@@ -172,19 +180,27 @@ public class CreateUI implements ActionListener{
 	public void random_top() {
 		JFrame f = new JFrame("Â¥ÀÜ! ¸ÚÁø »óÀÇ ´çÃ·!");
 		JPanel p = new JPanel(new BorderLayout());
-//		Random ran = new Random();
+
+		random = new Random();
+		int bound = 6;
+		ArrayList<ImageIcon> toplist = new ArrayList<ImageIcon>();
+		
 		ImageIcon top1 = new ImageIcon("images/top1.png");
 		ImageIcon top2 = new ImageIcon("images/top2.png");
 		ImageIcon top3 = new ImageIcon("images/top3.png");
 		ImageIcon top4 = new ImageIcon("images/top4.png");
 		ImageIcon top5 = new ImageIcon("images/top5.png");
 		ImageIcon top6 = new ImageIcon("images/top6.png");
+		toplist.add(top1);
+		toplist.add(top2);
+		toplist.add(top3);
+		toplist.add(top4);
+		toplist.add(top5);
+		toplist.add(top6);
 		
-//		int[] photos = {top1, top2, top3, top4, top5, top6};
-		
-		JLabel l = new JLabel(top1);
+		JLabel l = new JLabel(toplist.get(random.nextInt(bound)));
 		p.add(l);
-		f.add(BorderLayout.CENTER,l);
+		f.add(BorderLayout.CENTER,p);
 		f.setSize(350,350);
 		
 		Dimension fsize = f.getSize();
@@ -205,16 +221,23 @@ public class CreateUI implements ActionListener{
 	public void random_bottom() {
 		JFrame f = new JFrame("Â¥ÀÜ! ¸ÚÁø ¹ÙÁö ´çÃ·!");
 		JPanel p = new JPanel(new BorderLayout());
-//		Random ran = new Random();
+		
+		random = new Random();
+		int bound = 5;
+		ArrayList<ImageIcon> bottomlist = new ArrayList<ImageIcon>();
+		
 		ImageIcon bottom1 = new ImageIcon("images/bottom1.png");
 		ImageIcon bottom2 = new ImageIcon("images/bottom2.png");
 		ImageIcon bottom3 = new ImageIcon("images/bottom3.png");
 		ImageIcon bottom4 = new ImageIcon("images/bottom4.png");
 		ImageIcon bottom5 = new ImageIcon("images/bottom5.png");
+		bottomlist.add(bottom1);
+		bottomlist.add(bottom2);
+		bottomlist.add(bottom3);
+		bottomlist.add(bottom4);
+		bottomlist.add(bottom5);
 		
-//		int[] photos = {top1, top2, top3, top4, top5, top6};
-		
-		JLabel l = new JLabel(bottom1);
+		JLabel l = new JLabel(bottomlist.get(random.nextInt(bound)));
 		p.add(l);
 		f.add(BorderLayout.CENTER,l);
 		f.setSize(350,350);
