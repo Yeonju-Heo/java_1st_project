@@ -20,7 +20,7 @@ public class MainUI {
 		init();
 	}
 	
-	//Method
+	//Method//
 	public void init() {
 		main.switch_panel(MbtiMainUI.MAIN);
 		
