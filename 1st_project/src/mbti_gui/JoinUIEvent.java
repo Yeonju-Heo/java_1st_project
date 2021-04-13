@@ -11,14 +11,14 @@ import javax.swing.JTextField;
 public class JoinUIEvent extends WindowAdapter implements ActionListener {
 	//Field
 	JoinUI ui;
-	MainUI main;
+	MbtiMainUI main;
 	
 	//Constructor
 	public JoinUIEvent() {}
 	public JoinUIEvent(JoinUI ui) {
 		this.ui = ui;
 	}
-	public JoinUIEvent(JoinUI ui, MainUI main) {
+	public JoinUIEvent(JoinUI ui, MbtiMainUI main) {
 		this.ui = ui;
 		this.main = main;
 	}

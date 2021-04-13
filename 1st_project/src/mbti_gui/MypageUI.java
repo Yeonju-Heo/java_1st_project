@@ -26,7 +26,7 @@ import mbti_system.MbtiMgmSystem;
 
 public class MypageUI implements ActionListener{
 	//Field
-	MainUI main;
+	MbtiMainUI main;
 //	MbtiMgmSystem system;
 //	JFrame mypageFrame;
 	JPanel closet_panel, my_info_panel, my_info_btn_panel,content_panel;
@@ -45,13 +45,13 @@ public class MypageUI implements ActionListener{
 	public MypageUI() {
 		init();
 	}
-	public MypageUI(MainUI main) {
+	public MypageUI(MbtiMainUI main) {
 		this.main = main;
 		init();
 	}
 	
 	public void init() {
-		main.switch_panel(MainUI.MYPAGE);
+		main.switch_panel(MbtiMainUI.MYPAGE);
 //		mypageFrame = new JFrame("마이페이지");
 //		
 //		main.menu_panel = new JPanel(new GridLayout(1,6));

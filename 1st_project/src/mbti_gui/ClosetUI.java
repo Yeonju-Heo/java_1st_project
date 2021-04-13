@@ -21,12 +21,12 @@ public class ClosetUI {
 	Panel chat_panel = new Panel();
 	Panel board_panel = new Panel();
 	Panel mypage_panel = new Panel();
-	MainUI main;
+	MbtiMainUI main;
 		
 	//Constructor
 	public ClosetUI() {};
 	
-	public ClosetUI(MainUI main) {
+	public ClosetUI(MbtiMainUI main) {
 		this.main = main;
 		init();
 	}

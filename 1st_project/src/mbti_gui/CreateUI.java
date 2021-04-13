@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 public class CreateUI implements ActionListener{
 	//Field
-	MainUI main;
+	MbtiMainUI main;
 	JPanel point_panel, center_panel, hair_panel, top_panel, bottom_panel, 
 		   text_panel, h_text_panel, t_text_panel, b_text_panel;
 	JButton btn_hair, btn_top, btn_bottom;
@@ -32,14 +32,14 @@ public class CreateUI implements ActionListener{
 	Random random;
 	
 	//Constructor
-	public CreateUI(MainUI main) {
+	public CreateUI(MbtiMainUI main) {
 		this.main = main;
 		init();
 	}
 	
 	//Method
 	public void init() {
-		main.switch_panel(MainUI.CREATE);
+		main.switch_panel(MbtiMainUI.CREATE);
 		/** 포인트 패널 **/
 		point_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,50));
 		point_label = new JLabel("내 포인트 : 0 point");

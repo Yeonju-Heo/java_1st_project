@@ -39,7 +39,7 @@ public class BoardUI implements MouseListener, ActionListener{
 	Object[] row = new Object[5];
 	JTable list_table = new JTable(model);
 
-	MainUI main;
+	MbtiMainUI main;
 	JTextField search_tf, title_tf;
 	JTextArea content_ta;
 	JButton btn_search, btn_write, btn_insert, btn_cancel, 
@@ -50,7 +50,7 @@ public class BoardUI implements MouseListener, ActionListener{
 	
 	
 	//Constructor
-	public BoardUI(MainUI main) {
+	public BoardUI(MbtiMainUI main) {
 		this.main = main;
 		main.board_panel.setBackground(Color.white);
 		main.content_panel.setBackground(Color.white);
@@ -61,7 +61,7 @@ public class BoardUI implements MouseListener, ActionListener{
 	//Method
 	/** 글 목록 **/
 	public void init() {
-		main.switch_panel(MainUI.BOARD);
+		main.switch_panel(MbtiMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
 		
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
@@ -187,7 +187,7 @@ public class BoardUI implements MouseListener, ActionListener{
 	/** 글 작성 화면 **/
 	public void writeUI() {
 		main.board_panel.removeAll();
-		main.switch_panel(MainUI.BOARD);
+		main.switch_panel(MbtiMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
 		
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
@@ -247,7 +247,7 @@ public class BoardUI implements MouseListener, ActionListener{
 	/** 글 읽기 화면 **/
 	public void readUI() {
 			main.board_panel.removeAll();
-			main.switch_panel(MainUI.BOARD);
+			main.switch_panel(MbtiMainUI.BOARD);
 			main.board_panel.setLayout(new BorderLayout());
 			Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 			Panel center_panel = new Panel(new BorderLayout());

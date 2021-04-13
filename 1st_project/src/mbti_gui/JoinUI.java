@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 public class JoinUI {
 	//Field
-	MainUI main;
+	MbtiMainUI main;
 	JFrame f;
 	Panel label_panel, tf_panel, btn_panel;
 	JButton join, cancel;
@@ -30,7 +30,7 @@ public class JoinUI {
 		init();
 	}
 	
-	public JoinUI(MainUI main) {
+	public JoinUI(MbtiMainUI main) {
 		this.main = main;
 		init();
 	}
