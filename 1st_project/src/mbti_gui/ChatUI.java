@@ -1,5 +1,6 @@
 package mbti_gui;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -43,8 +44,10 @@ public class ChatUI implements ActionListener{
 	JLabel la_count;
 	JLabel title_label;
 	
+	ChatClient cc = new ChatClient();
+	
 	//Constructor
-	public ChatUI(){	
+	public ChatUI(){
 		chat_frame = new JFrame("MBTI WORLD");//프레임
 		left_panel = new JPanel(new GridLayout());//왼쪽 채팅화면
 		right_panel = new JPanel(new GridLayout());//오른쪽 채팅 참여자 목록
@@ -125,9 +128,13 @@ public class ChatUI implements ActionListener{
 		Object obj = e.getSource();
 		if(obj == chat_tf || obj == btn_send) {
 			if(!chat_tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "쓰레드연결");
-				chat_tf.setText("");
-				
+				try {
+					cc.dos.writeUTF("홍길동" + ">" + chat_tf.getText());
+					chat_tf.setText("");
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("메시지를 입력해주세요."));
 				chat_tf.requestFocus();
