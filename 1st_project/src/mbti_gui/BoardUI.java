@@ -29,418 +29,422 @@ import javax.swing.table.TableColumnModel;
 
 public class BoardUI implements MouseListener, ActionListener{
   //Field
-	
-	String[] colNames = {"¹øÈ£","Á¦¸ñ","ÀÛ¼ºÀÚ","ÀÛ¼ºÀÏ","ÃßÃµ"};
-	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
-        public boolean isCellEditable(int i, int c) {  //³»¿ë ÆíÁı ¸·±â
+   
+   String[] colNames = {"ë²ˆí˜¸","ì œëª©","ì‘ì„±ì","ì‘ì„±ì¼","ì¶”ì²œ/ë°˜ëŒ€"};
+   DefaultTableModel model = new DefaultTableModel(colNames, 0) {
+        public boolean isCellEditable(int i, int c) {  //ë‚´ìš© í¸ì§‘ ë§‰ê¸°
             return false;
         }
     };
-	Object[] row = new Object[5];
-	JTable list_table = new JTable(model);
+   Object[] row = new Object[5];
+   JTable list_table = new JTable(model);
 
-	MbtiMainUI main;
-	JTextField search_tf, title_tf;
-	JTextArea content_ta;
-	JButton btn_search, btn_write, btn_insert, btn_cancel, 
-			btn_list, btn_delete, btn_update;
-	int count = 1;
-	JLabel up_label;
-	JLabel down_label;
-	
-	
-	//Constructor
-	public BoardUI(MbtiMainUI main) {
-		this.main = main;
-		main.board_panel.setBackground(Color.white);
-		main.content_panel.setBackground(Color.white);
-		init();
-	}
-	
-	
-	//Method
-	/** ±Û ¸ñ·Ï **/
-	public void init() {
-		main.switch_panel(MbtiMainUI.BOARD);
-		main.board_panel.setLayout(new BorderLayout());
-		
-		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-		Panel center_panel = new Panel(new BorderLayout());
-		Panel bottom_panel = new Panel();
-		Panel search_panel = new Panel(new FlowLayout(FlowLayout.RIGHT));
-		Panel list_panel = new Panel();
-		
-		//Å¾ÆĞ³Î
-		JLabel board_label = new JLabel("ÀÚÀ¯°Ô½ÃÆÇ");
-		board_label.setFont(Commons.getFont(20));
-		top_panel.add(board_label);
-		
-		//¼¾ÅÍÆĞ³Î - °Ë»ö
-		search_tf = new JTextField(20);
-		btn_search = new JButton("°Ë»ö");
-		btn_search.setFont(Commons.getFont());
-		search_panel.add(search_tf);
-		search_panel.add(btn_search);
-		
-		//¼¾ÅÍÆĞ³Î - ±Û¸ñ·Ï
-		createJtableData();
-		model.setColumnIdentifiers(colNames);
-		
-		list_table.setModel(model);
-		list_table.setRowHeight(35);
-		list_table.setAutoCreateRowSorter(false);
-		
-		list_table.setRowMargin(0); 
-		list_table.getColumnModel().setColumnMargin(0);
-		list_table.getTableHeader().setReorderingAllowed(false); //¸¶¿ì½º·Î ÄÃ·³ ÀÌµ¿ ºÒ°¡
-		list_table.getTableHeader().setResizingAllowed(false); //¸¶¿ì½º·Î ÄÃ·³ Å©±â Á¶Àı ºÒ°¡
-		list_table.setBackground(Color.white);
-		list_table.setShowVerticalLines(false);  //ÄÃ·³ ±¸ºĞ¼± ¾È º¸ÀÌ°Ô
-		
-		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();  //¸ñ·Ï ¸®½ºÆ® ³»¿ë °¡¿îµ¥ Á¤·Ä
-		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
-		TableColumnModel tcm = list_table.getColumnModel();
+   MbtiMainUI main;
+   JTextField search_tf, title_tf;
+   JTextArea content_ta;
+   JButton btn_search, btn_write, btn_insert, btn_cancel, 
+         btn_list, btn_delete, btn_update;
+   int count = 1;
+   JLabel up_label;
+   JLabel down_label;
+   
+   
+   //Constructor
+   public BoardUI(MbtiMainUI main) {
+      this.main = main;
+      main.board_panel.setBackground(Color.white);
+      main.content_panel.setBackground(Color.white);
+      init();
+   }
+   
+   
+   //Method
+   /** ê¸€ ëª©ë¡ **/
+   public void init() {
+      main.switch_panel(MbtiMainUI.BOARD);
+      main.board_panel.setLayout(new BorderLayout());
+      
+      Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+      Panel center_panel = new Panel(new BorderLayout());
+      Panel bottom_panel = new Panel();
+      Panel search_panel = new Panel(new FlowLayout(FlowLayout.RIGHT));
+      Panel list_panel = new Panel();
+      
+      //íƒ‘íŒ¨ë„
+      JLabel board_label = new JLabel("ììœ ê²Œì‹œíŒ");
+      board_label.setFont(Commons.getFont(20));
+      top_panel.add(board_label);
+      
+      //ì„¼í„°íŒ¨ë„ - ê²€ìƒ‰
+      search_tf = new JTextField(20);
+      btn_search = new JButton("ê²€ìƒ‰");
+      btn_search.setFont(Commons.getFont());
+      search_panel.add(search_tf);
+      search_panel.add(btn_search);
+      
+      //ì„¼í„°íŒ¨ë„ - ê¸€ëª©ë¡
+      createJtableData();
+      model.setColumnIdentifiers(colNames);
+      
+      list_table.setModel(model);
+      list_table.setRowHeight(35);
+      list_table.setAutoCreateRowSorter(false);
+      
+      list_table.setRowMargin(0); 
+      list_table.getColumnModel().setColumnMargin(0);
+      list_table.getTableHeader().setReorderingAllowed(false); //ë§ˆìš°ìŠ¤ë¡œ ì»¬ëŸ¼ ì´ë™ ë¶ˆê°€
+      list_table.getTableHeader().setResizingAllowed(false); //ë§ˆìš°ìŠ¤ë¡œ ì»¬ëŸ¼ í¬ê¸° ì¡°ì ˆ ë¶ˆê°€
+      list_table.setBackground(Color.white);
+      list_table.setShowVerticalLines(false);  //ì»¬ëŸ¼ êµ¬ë¶„ì„  ì•ˆ ë³´ì´ê²Œ
+      
+      DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();  //ëª©ë¡ ë¦¬ìŠ¤íŠ¸ ë‚´ìš© ê°€ìš´ë° ì •ë ¬
+      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+      TableColumnModel tcm = list_table.getColumnModel();
 
-		for (int i = 0; i < tcm.getColumnCount(); i++) {
-			tcm.getColumn(i).setCellRenderer(dtcr);
-		}
-		
-//		list_table.getColumn("¹øÈ£").setPreferredWidth(5); 
-//		list_table.getColumn("Á¦¸ñ").setWidth(125);
-//		list_table.getColumn("ÀÛ¼ºÀÚ").setPreferredWidth(5);
-//		list_table.getColumn("ÀÛ¼ºÀÏ").setPreferredWidth(5);
-//		list_table.getColumn("ÃßÃµ").setPreferredWidth(5);
-		
-		resizeColumnWidth(list_table);  //ÄÃ·³ Å©±â Á¶Á¤
-		JScrollPane pane = new JScrollPane(list_table);
-		pane.setPreferredSize(new Dimension(700,400));
-		list_panel.add(pane);
-		
-		center_panel.add(BorderLayout.NORTH, search_panel);
-		center_panel.add(BorderLayout.CENTER, list_panel);
-		
-		//¹ÙÅÒÆĞ³Î
-		btn_write = new JButton("±Û¾²±â");
-		btn_write.setFont(Commons.getFont());
-		bottom_panel.add(btn_write);
-		
-		//ºÙÀÌ±â
-		main.board_panel.add(BorderLayout.NORTH, top_panel);
-		main.board_panel.add(BorderLayout.CENTER, center_panel);
-		main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
-		main.content_panel.add(main.board_panel);
-		main.secondFrame.setVisible(true);
-		
-		list_table.addMouseListener(this);
-		btn_write.addActionListener(this);
-		btn_search.addActionListener(this);
-		search_tf.addActionListener(this);
-	}
-	
-	
-	/** ±Û¸ñ·Ï »ı¼º **/
-	public void createJtableData() {
-		
-		model.setNumRows(0);
-		
-		row[0] = "1";
-		row[1] = "Á¦¸ñ Å×½ºÆ® Á¦¸ñ Å×½ºÆ® Á¦¸ñ Å×½ºÆ®";
-		row[2] = "¾îÇÇÄ¡";
-		row[3] = "2021.01.01";
-		row[4] = "ÃßÃµ/¹İ´ë";
+      for (int i = 0; i < tcm.getColumnCount(); i++) {
+         tcm.getColumn(i).setCellRenderer(dtcr);
+      }
+      
+//      list_table.getColumn("ë²ˆí˜¸").setPreferredWidth(5); 
+//      list_table.getColumn("ì œëª©").setWidth(125);
+//      list_table.getColumn("ì‘ì„±ì").setPreferredWidth(5);
+//      list_table.getColumn("ì‘ì„±ì¼").setPreferredWidth(5);
+//      list_table.getColumn("ì¶”ì²œ").setPreferredWidth(5);
+      
+      resizeColumnWidth(list_table);  //ì»¬ëŸ¼ í¬ê¸° ì¡°ì •
+      JScrollPane pane = new JScrollPane(list_table);
+      pane.setPreferredSize(new Dimension(700,400));
+      list_panel.add(pane);
+      
+      center_panel.add(BorderLayout.NORTH, search_panel);
+      center_panel.add(BorderLayout.CENTER, list_panel);
+      
+      //ë°”í…€íŒ¨ë„
+      btn_write = new JButton("ê¸€ì“°ê¸°");
+      btn_write.setFont(Commons.getFont());
+      bottom_panel.add(btn_write);
+      
+      //ë¶™ì´ê¸°
+      main.board_panel.add(BorderLayout.NORTH, top_panel);
+      main.board_panel.add(BorderLayout.CENTER, center_panel);
+      main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
+      main.content_panel.add(main.board_panel);
+      main.secondFrame.setVisible(true);
+      
+      list_table.addMouseListener(this);
+      btn_write.addActionListener(this);
+      btn_search.addActionListener(this);
+      search_tf.addActionListener(this);
+   }
+   
+   
+   /** ê¸€ëª©ë¡ ìƒì„± **/
+   public void createJtableData() {
+      
+      model.setNumRows(0);
+      
+      row[0] = "1";
+      row[1] = "ì œëª© í…ŒìŠ¤íŠ¸ ì œëª© í…ŒìŠ¤íŠ¸ ì œëª© í…ŒìŠ¤íŠ¸";
+      row[2] = "ì–´í”¼ì¹˜";
+      row[3] = "2021.01.01";
+      row[4] = "1/1";
 
-		model.addRow(row);
-		
-//		for(ScoreVO score : main.system.getScoreList()) {
-//			row[0] = score.getRno();
-//			row[1] = score.getName();
-//			row[2] = score.getKor();
-//			row[3] = score.getEng();
-//			row[4] = score.getMath();
-//			row[5] = score.getTot();
-//			row[6] = score.getAvg();
-//			
-//			model.addRow(row);			
-//		}		
-		
-		model.fireTableDataChanged();
-	}
-	
-//	public void createJtableData(JTextField tf) {
-//		
-//		model.setNumRows(count);
-//		
-//		row[0] = count;
-//		row[1] = tf.getText();
-//		row[2] = "¾îÇÇÄ¡";
-//		row[3] = "2021.01.01";
-//		row[4] = "ÃßÃµ/¹İ´ë";
-//		
-//		model.addRow(row);			
-//	
-//		count++;
-//		
-//		model.fireTableDataChanged();
-//	}
-	
-	
-	/** ±Û ÀÛ¼º È­¸é **/
-	public void writeUI() {
-		main.board_panel.removeAll();
-		main.switch_panel(MbtiMainUI.BOARD);
-		main.board_panel.setLayout(new BorderLayout());
-		
-		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-		Panel center_panel = new Panel(new BorderLayout());
-		Panel bottom_panel = new Panel();
-		Panel title_panel = new Panel();
-		Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-		
-		//Å¾ÆĞ³Î
-		JLabel board_label = new JLabel("ÀÚÀ¯°Ô½ÃÆÇ");
-		board_label.setFont(Commons.getFont(20));
-		top_panel.add(board_label);
-		
-		//¼¾ÅÍÆĞ³Î - Á¦¸ñ
-		JLabel title_label = new JLabel("Á¦¸ñ  ");
-		title_tf = new JTextField(45);
-		title_label.setFont(Commons.getFont(15));
-		title_tf.setFont(Commons.getFont(15));
-		title_panel.add(title_label);
-		title_panel.add(title_tf);
-		
-		//¼¾ÅÍÆĞ³Î - ³»¿ëÀÛ¼º
-		JLabel content_label = new JLabel("³»¿ë  ");
-		content_label.setFont(Commons.getFont(15));
-		content_ta = new JTextArea(15, 45);
-		content_ta.setFont(Commons.getFont(15));
-		content_ta.setLineWrap(true);
-		
-		JScrollPane ta_pane = new JScrollPane(content_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		
-		content_panel.add(content_label);
-		content_panel.add(ta_pane);
-		center_panel.add(BorderLayout.NORTH, title_panel);
-		center_panel.add(BorderLayout.CENTER, content_panel);
-		
-		//¹ÙÅÒÆĞ³Î
-		btn_insert = new JButton("µî·Ï");
-		btn_cancel = new JButton("Ãë¼Ò");
-		btn_insert.setFont(Commons.getFont());
-		btn_cancel.setFont(Commons.getFont());
-		bottom_panel.add(btn_insert);
-		bottom_panel.add(btn_cancel);
-		
-		//ºÙÀÌ±â
-		main.board_panel.add(BorderLayout.NORTH, top_panel);
-		main.board_panel.add(BorderLayout.CENTER, center_panel);
-		main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
-		main.content_panel.add(main.board_panel);
-		main.secondFrame.setVisible(true);
+      model.addRow(row);
+      
+//      for(ScoreVO score : main.system.getScoreList()) {
+//         row[0] = score.getRno();
+//         row[1] = score.getName();
+//         row[2] = score.getKor();
+//         row[3] = score.getEng();
+//         row[4] = score.getMath();
+//         row[5] = score.getTot();
+//         row[6] = score.getAvg();
+//         
+//         model.addRow(row);         
+//      }      
+      
+      model.fireTableDataChanged();
+   }
+   
+//   public void createJtableData(JTextField tf) {
+//      
+//      model.setNumRows(count);
+//      
+//      row[0] = count;
+//      row[1] = tf.getText();
+//      row[2] = "ì–´í”¼ì¹˜";
+//      row[3] = "2021.01.01";
+//      row[4] = "ì¶”ì²œ/ë°˜ëŒ€";
+//      
+//      model.addRow(row);         
+//   
+//      count++;
+//      
+//      model.fireTableDataChanged();
+//   }
+   
+   
+   /** ê¸€ ì‘ì„± í™”ë©´ **/
+   public void writeUI() {
+      main.board_panel.removeAll();
+      main.switch_panel(MbtiMainUI.BOARD);
+      main.board_panel.setLayout(new BorderLayout());
+      
+      Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+      Panel center_panel = new Panel(new BorderLayout());
+      Panel bottom_panel = new Panel();
+      Panel title_panel = new Panel();
+      Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+      
+      //íƒ‘íŒ¨ë„
+      JLabel board_label = new JLabel("ììœ ê²Œì‹œíŒ");
+      board_label.setFont(Commons.getFont(20));
+      top_panel.add(board_label);
+      
+      //ì„¼í„°íŒ¨ë„ - ì œëª©
+      JLabel title_label = new JLabel("ì œëª©  ");
+      title_tf = new JTextField(45);
+      title_label.setFont(Commons.getFont(15));
+      title_tf.setFont(Commons.getFont(15));
+      title_panel.add(title_label);
+      title_panel.add(title_tf);
+      
+      //ì„¼í„°íŒ¨ë„ - ë‚´ìš©ì‘ì„±
+      JLabel content_label = new JLabel("ë‚´ìš©  ");
+      content_label.setFont(Commons.getFont(15));
+      content_ta = new JTextArea(15, 45);
+      content_ta.setFont(Commons.getFont(15));
+      content_ta.setLineWrap(true);
+      
+      JScrollPane ta_pane = new JScrollPane(content_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+      
+      content_panel.add(content_label);
+      content_panel.add(ta_pane);
+      center_panel.add(BorderLayout.NORTH, title_panel);
+      center_panel.add(BorderLayout.CENTER, content_panel);
+      
+      //ë°”í…€íŒ¨ë„
+      btn_insert = new JButton("ë“±ë¡");
+      btn_cancel = new JButton("ì·¨ì†Œ");
+      btn_insert.setFont(Commons.getFont());
+      btn_cancel.setFont(Commons.getFont());
+      bottom_panel.add(btn_insert);
+      bottom_panel.add(btn_cancel);
+      
+      //ë¶™ì´ê¸°
+      main.board_panel.add(BorderLayout.NORTH, top_panel);
+      main.board_panel.add(BorderLayout.CENTER, center_panel);
+      main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
+      main.content_panel.add(main.board_panel);
+      main.secondFrame.setVisible(true);
 
-		content_ta.addMouseListener(this);
-		btn_insert.addActionListener(this);
-		btn_cancel.addActionListener(this);
-	}
-	
-	
-	/** ±Û ÀĞ±â È­¸é **/
-	public void readUI() {
-			main.board_panel.removeAll();
-			main.switch_panel(MbtiMainUI.BOARD);
-			main.board_panel.setLayout(new BorderLayout());
-			Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-			Panel center_panel = new Panel(new BorderLayout());
-			Panel bottom_panel = new Panel(new BorderLayout());
-			Panel title_panel = new Panel(new BorderLayout());
-			Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-			Panel recommend_panel = new Panel();
-			
-			//Å¾ÆĞ³Î
-			JLabel board_label = new JLabel("ÀÚÀ¯°Ô½ÃÆÇ");
-			board_label.setFont(Commons.getFont(20));
-			top_panel.add(board_label);
-			top_panel.setLayout(new GridLayout(2,1));  //ÀÚÀ¯°Ô½ÃÆÇÀÌ¶û Á¦¸ñ »çÀÌ °£°İ ¸¸µé±â
-			
-			//¼¾ÅÍÆĞ³Î - Á¦¸ñ + ÀÛ¼ºÀÚ
-			JLabel title_label = new JLabel("MBTI Á¦¸ñ Å×½ºÆ®ÀÔ´Ï´Ù.");
-			JLabel writer_label = new JLabel("ÀÛ¼ºÀÚ: ¾îÇÇÄ¡");
-			title_label.setFont(Commons.getFont(15));
-			writer_label.setFont(Commons.getFont(15));
-			title_panel.add(BorderLayout.WEST, title_label);
-			title_panel.add(BorderLayout.EAST, writer_label);
-			
-			//¼¾ÅÍÆĞ³Î - ³»¿ë
-			JTextArea rcontent_ta = new JTextArea(15, 45);
-			rcontent_ta.setEditable(false);
-			rcontent_ta.setFont(Commons.getFont(15));
-			rcontent_ta.setText("ISTJ - °ø¹«¿ø, °¨µ¶°ü, ¿¹»êºĞ¼®°¡, ¼¼°üÁ¶»ç°ü, ½Å¿ëºĞ¼®°¡, È¸°è»ç\r\n" + 
-					"ISFJ - Ä¡°úÀÇ»ç, ÃÊµîÇĞ±³ ±³»ç, »ç¼­, °í°´ ¼­ºñ½º »ó´ã¿ø\r\n" + 
-					"ISTP - ÆÄÀÏ·µ, Åä¸ñ±â»ç, °æÁ¦ÇĞÀÚ, µ¥ÀÌÅÍºĞ¼®°¡\r\n" + 
-					"ISFP - ÆĞ¼ÇµğÀÚÀÌ³Ê, º¸¼®¼¼°ø»ç, È­°¡, ¹«¿ë°¡, Á¶°æ»ç\r\n" + 
-					"INTJ - ÅõÀÚÀºÇà¿ø, °³ÀÎÅõÀÚ ÀÚ¹®°¡, ¼ÒÇÁÆ®¿ş¾î °³¹ßÀÚ\r\n" + 
-					"INFJ - Á÷¾÷»ó´ãÀÚ, ±³À°ÄÁ¼³ÅÏÆ®, Æ¯¼ö±³»ç, »çÈ¸º¹Áö»ç\r\n" + 
-					"INTP - °æÁ¦ÇĞÀÚ, º¥Ã³ÅõÀÚÀÚ, ºñÆò°¡, »ç¾÷ÄÁ¼³, ¸¶ÄÉÆÃ ºĞ¼®°¡\r\n" + 
-					"INFP - ¼Ò¼³°¡, ½ÃÀÎ, ÇÁ·Îµà¼­, »çÈ¸º¹Áö»ç, ¿µ¾ç»ç, ÇìµåÇåÅÍ\r\n" + 
-					"ESTJ - º¸Çè¼³°è»ç, ¾à»ç, º¯È£»ç, ÆÇ»ç, ÇÁ·ÎÁ§Æ® ¸Å´ÏÀú\r\n" + 
-					"ESFJ - ¿µ¾÷ÀÌ»ç, °£È£»ç, »çÈ¸º¹Áö»ç, ±¤°í±âÈ¹ÀÚ, ¿©½Å½É»ç¿ª\r\n" + 
-					"ESTP - °æÂû°ü, ÀºÇà¿ø, ÅõÀÚÀÚ, ±âÈ¹»ç ¿¡ÀÌÀüÆ®, ½ºÆ÷Ã÷ÆÀ ÄÚÄ¡\r\n" + 
-					"ESFP - ¾Æµ¿»ó´ã°¡, ÀÇ»ç, ¹è¿ì, ÀÎÅ×¸®¾î µğÀÚÀÌ³Ê, È¯°æÇĞÀÚ\r\n" + 
-					"ENTJ - º¯È£»ç, ½ÃÀåÁ¶»ç ºĞ¼®°¡, °æ¿µ ÄÁ¼³ÅÏÆ®, º¥Ã³ ÅõÀÚÀÚ\r\n" + 
-					"ENFJ - ±¤°íÀÌ»ç, È«º¸Àü¹®°¡, ±â¾÷±³À°Àü¹®°¡, ÀÎ»ç´ã´çÀÚ\r\n" + 
-					"ENTP - °æ¿µÀÚ, ±¤°íÈ«º¸ µğ·ºÅÍ, ¸¶ÄÉÆÃ µğ·ºÅÍ, Á¤Ä¡ÀÎ\r\n" + 
-					"ENFP - Àú³Î¸®½ºÆ®, ÄÁ¼³ÅÏÆ®, ½Ä´ç°æ¿µÀÚ, ÀÌº¥Æ® ÇÃ·¹³Ê\r\n" + 
-					"");
-			JScrollPane ta_pane = new JScrollPane(rcontent_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			rcontent_ta.setCaretPosition(0);  //½ºÅ©·Ñ ¸Ç À§·Î
-			
-			//¼¾ÅÍÆĞ³Î - ÃßÃµ¼ö
-			ImageIcon up = new ImageIcon("images/up.png");
-			up_label = new JLabel(up);
-			JLabel up_count = new JLabel("1");
-			
-			ImageIcon down = new ImageIcon("images/down.png");
-			down_label = new JLabel(down);
-			JLabel down_count = new JLabel("1");
-			
-			recommend_panel.add(up_label);
-			recommend_panel.add(up_count);
-			recommend_panel.add(down_label);
-			recommend_panel.add(down_count);
+      content_ta.addMouseListener(this);
+      btn_insert.addActionListener(this);
+      btn_cancel.addActionListener(this);
+   }
+   
+   
+   /** ê¸€ ì½ê¸° í™”ë©´ **/
+   public void readUI() {
+         main.board_panel.removeAll();
+         main.switch_panel(MbtiMainUI.BOARD);
+         main.board_panel.setLayout(new BorderLayout());
+         Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+         Panel center_panel = new Panel(new BorderLayout());
+         Panel bottom_panel = new Panel(new BorderLayout());
+         Panel title_panel = new Panel(new BorderLayout());
+         Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+         Panel recommend_panel = new Panel();
+         
+         //íƒ‘íŒ¨ë„
+         JLabel board_label = new JLabel("ììœ ê²Œì‹œíŒ");
+         board_label.setFont(Commons.getFont(20));
+         top_panel.add(board_label);
+         top_panel.setLayout(new GridLayout(2,1));  //ììœ ê²Œì‹œíŒì´ë‘ ì œëª© ì‚¬ì´ ê°„ê²© ë§Œë“¤ê¸°
+         
+         //ì„¼í„°íŒ¨ë„ - ì œëª© + ì‘ì„±ì
+         JLabel title_label = new JLabel("MBTI ì œëª© í…ŒìŠ¤íŠ¸ì…ë‹ˆë‹¤.");
+         JLabel writer_label = new JLabel("ì‘ì„±ì: ì–´í”¼ì¹˜");
+         title_label.setFont(Commons.getFont(15));
+         writer_label.setFont(Commons.getFont(15));
+         title_panel.add(BorderLayout.WEST, title_label);
+         title_panel.add(BorderLayout.EAST, writer_label);
+         
+         //ì„¼í„°íŒ¨ë„ - ë‚´ìš©
+         JTextArea rcontent_ta = new JTextArea(15, 45);
+         rcontent_ta.setEditable(false);
+         rcontent_ta.setFont(Commons.getFont(15));
+         rcontent_ta.setText("ISTJ - ê³µë¬´ì›, ê°ë…ê´€, ì˜ˆì‚°ë¶„ì„ê°€, ì„¸ê´€ì¡°ì‚¬ê´€, ì‹ ìš©ë¶„ì„ê°€, íšŒê³„ì‚¬\r\n" + 
+               "ISFJ - ì¹˜ê³¼ì˜ì‚¬, ì´ˆë“±í•™êµ êµì‚¬, ì‚¬ì„œ, ê³ ê° ì„œë¹„ìŠ¤ ìƒë‹´ì›\r\n" + 
+               "ISTP - íŒŒì¼ëŸ¿, í† ëª©ê¸°ì‚¬, ê²½ì œí•™ì, ë°ì´í„°ë¶„ì„ê°€\r\n" + 
+               "ISFP - íŒ¨ì…˜ë””ìì´ë„ˆ, ë³´ì„ì„¸ê³µì‚¬, í™”ê°€, ë¬´ìš©ê°€, ì¡°ê²½ì‚¬\r\n" + 
+               "INTJ - íˆ¬ìì€í–‰ì›, ê°œì¸íˆ¬ì ìë¬¸ê°€, ì†Œí”„íŠ¸ì›¨ì–´ ê°œë°œì\r\n" + 
+               "INFJ - ì§ì—…ìƒë‹´ì, êµìœ¡ì»¨ì„¤í„´íŠ¸, íŠ¹ìˆ˜êµì‚¬, ì‚¬íšŒë³µì§€ì‚¬\r\n" + 
+               "INTP - ê²½ì œí•™ì, ë²¤ì²˜íˆ¬ìì, ë¹„í‰ê°€, ì‚¬ì—…ì»¨ì„¤, ë§ˆì¼€íŒ… ë¶„ì„ê°€\r\n" + 
+               "INFP - ì†Œì„¤ê°€, ì‹œì¸, í”„ë¡œë“€ì„œ, ì‚¬íšŒë³µì§€ì‚¬, ì˜ì–‘ì‚¬, í—¤ë“œí—Œí„°\r\n" + 
+               "ESTJ - ë³´í—˜ì„¤ê³„ì‚¬, ì•½ì‚¬, ë³€í˜¸ì‚¬, íŒì‚¬, í”„ë¡œì íŠ¸ ë§¤ë‹ˆì €\r\n" + 
+               "ESFJ - ì˜ì—…ì´ì‚¬, ê°„í˜¸ì‚¬, ì‚¬íšŒë³µì§€ì‚¬, ê´‘ê³ ê¸°íšì, ì—¬ì‹ ì‹¬ì‚¬ì—­\r\n" + 
+               "ESTP - ê²½ì°°ê´€, ì€í–‰ì›, íˆ¬ìì, ê¸°íšì‚¬ ì—ì´ì „íŠ¸, ìŠ¤í¬ì¸ íŒ€ ì½”ì¹˜\r\n" + 
+               "ESFP - ì•„ë™ìƒë‹´ê°€, ì˜ì‚¬, ë°°ìš°, ì¸í…Œë¦¬ì–´ ë””ìì´ë„ˆ, í™˜ê²½í•™ì\r\n" + 
+               "ENTJ - ë³€í˜¸ì‚¬, ì‹œì¥ì¡°ì‚¬ ë¶„ì„ê°€, ê²½ì˜ ì»¨ì„¤í„´íŠ¸, ë²¤ì²˜ íˆ¬ìì\r\n" + 
+               "ENFJ - ê´‘ê³ ì´ì‚¬, í™ë³´ì „ë¬¸ê°€, ê¸°ì—…êµìœ¡ì „ë¬¸ê°€, ì¸ì‚¬ë‹´ë‹¹ì\r\n" + 
+               "ENTP - ê²½ì˜ì, ê´‘ê³ í™ë³´ ë””ë ‰í„°, ë§ˆì¼€íŒ… ë””ë ‰í„°, ì •ì¹˜ì¸\r\n" + 
+               "ENFP - ì €ë„ë¦¬ìŠ¤íŠ¸, ì»¨ì„¤í„´íŠ¸, ì‹ë‹¹ê²½ì˜ì, ì´ë²¤íŠ¸ í”Œë ˆë„ˆ\r\n" + 
+               "");
+         JScrollPane ta_pane = new JScrollPane(rcontent_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+         rcontent_ta.setCaretPosition(0);  //ìŠ¤í¬ë¡¤ ë§¨ ìœ„ë¡œ
+         
+         //ì„¼í„°íŒ¨ë„ - ì¶”ì²œìˆ˜
+         ImageIcon up = new ImageIcon("images/up.png");
+         up_label = new JLabel(up);
+         JLabel up_count = new JLabel("1");
+         
+         ImageIcon down = new ImageIcon("images/down.png");
+         down_label = new JLabel(down);
+         JLabel down_count = new JLabel("1");
+         
+         recommend_panel.add(up_label);
+         recommend_panel.add(up_count);
+         recommend_panel.add(down_label);
+         recommend_panel.add(down_count);
+         
+         ImageIcon writer = new ImageIcon("images/character.png");  //0413: ê²Œì‹œê¸€ì— ìºë¦­í„° ì¶”ê°€
+         JLabel character_label = new JLabel(writer);
 
-			content_panel.add(ta_pane);
-			center_panel.add(BorderLayout.NORTH, title_panel);
-			center_panel.add(BorderLayout.CENTER, content_panel);
-			center_panel.add(BorderLayout.SOUTH, recommend_panel);
-			
-			//¹ÙÅÒÆĞ³Î
-			btn_list = new JButton("¸ñ·ÏÀ¸·Î");
-			btn_update = new JButton("¼öÁ¤");
-			btn_delete = new JButton("»èÁ¦");
-			btn_list.setFont(Commons.getFont());
-			btn_update.setFont(Commons.getFont());
-			btn_delete.setFont(Commons.getFont());
-			Panel right_panel = new Panel();
-			Panel left_panel = new Panel();
-			right_panel.add(btn_update);
-			right_panel.add(btn_delete);
-			left_panel.add(btn_list);
-			bottom_panel.add(BorderLayout.WEST, left_panel);
-			bottom_panel.add(BorderLayout.EAST, right_panel);
-			
-			//ºÙÀÌ±â
-			main.board_panel.add(BorderLayout.NORTH, top_panel);
-			main.board_panel.add(BorderLayout.CENTER, center_panel);
-			main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
-			main.content_panel.add(main.board_panel);
-			main.secondFrame.setVisible(true);
+         content_panel.add(ta_pane);
+         center_panel.add(BorderLayout.NORTH, title_panel);
+         center_panel.add(BorderLayout.CENTER, content_panel);
+         center_panel.add(BorderLayout.EAST, character_label);  //0413: ê²Œì‹œê¸€ì— ìºë¦­í„° ì¶”ê°€
+         center_panel.add(BorderLayout.SOUTH, recommend_panel);
+         
+         //ë°”í…€íŒ¨ë„
+         btn_list = new JButton("ëª©ë¡ìœ¼ë¡œ");
+         btn_update = new JButton("ìˆ˜ì •");
+         btn_delete = new JButton("ì‚­ì œ");
+         btn_list.setFont(Commons.getFont());
+         btn_update.setFont(Commons.getFont());
+         btn_delete.setFont(Commons.getFont());
+         Panel right_panel = new Panel();
+         Panel left_panel = new Panel();
+         right_panel.add(btn_update);
+         right_panel.add(btn_delete);
+         left_panel.add(btn_list);
+         bottom_panel.add(BorderLayout.WEST, left_panel);
+         bottom_panel.add(BorderLayout.EAST, right_panel);
+         
+         //ë¶™ì´ê¸°
+         main.board_panel.add(BorderLayout.NORTH, top_panel);
+         main.board_panel.add(BorderLayout.CENTER, center_panel);
+         main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
+         main.content_panel.add(main.board_panel);
+         main.secondFrame.setVisible(true);
 
-			btn_list.addActionListener(this);
-			btn_update.addActionListener(this);
-			btn_delete.addActionListener(this);
-			up_label.addMouseListener(this);
-			down_label.addMouseListener(this);
-	}
-	
-	
-	public void resizeColumnWidth(JTable table) {  //¿­ ³Êºñ Á¶Á¤
-	    TableColumnModel columnModel = table.getColumnModel();
-	    for (int column = 0; column < table.getColumnCount(); column++) {
-	        int width = 20; // Min width
-	        for (int row = 0; row < table.getRowCount(); row++) {
-	            TableCellRenderer renderer = table.getCellRenderer(row, column);
-	            Component comp = table.prepareRenderer(renderer, row, column);
-	            width = Math.max(comp.getPreferredSize().width +1 , width);
-	        }
-	        if(width > 100)
-	            width = 200;
-	        columnModel.getColumn(column).setPreferredWidth(width);
-	    }
-	}
+         btn_list.addActionListener(this);
+         btn_update.addActionListener(this);
+         btn_delete.addActionListener(this);
+         up_label.addMouseListener(this);
+         down_label.addMouseListener(this);
+   }
+   
+   
+   public void resizeColumnWidth(JTable table) {  //ì—´ ë„ˆë¹„ ì¡°ì •
+       TableColumnModel columnModel = table.getColumnModel();
+       for (int column = 0; column < table.getColumnCount(); column++) {
+           int width = 20; // Min width
+           for (int row = 0; row < table.getRowCount(); row++) {
+               TableCellRenderer renderer = table.getCellRenderer(row, column);
+               Component comp = table.prepareRenderer(renderer, row, column);
+               width = Math.max(comp.getPreferredSize().width +1 , width);
+           }
+           if(width > 100)
+               width = 200;
+           columnModel.getColumn(column).setPreferredWidth(width);
+       }
+   }
 
 
-	/** ¾×¼Ç ¸®½º³Ê **/
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if(obj == btn_search || obj == search_tf) {
-			if(search_tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("°Ë»ö¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."));
-			} else {
-				//°Ë»öÇÑ ³»¿ë ÀÖÀ¸¸é ÇØ´ç ±Û Á¦¸ñÀ» È­¸é¿¡ Ãâ·Â, ¾øÀ¸¸é ¾ø´Ù°í Ãâ·Â 
-			}
-			System.out.println("------------------------->> °Ë»ö");
-		} else if (obj == btn_write) {
-			writeUI();
-		} else if (obj == btn_insert) {
-			if(writeCheck()) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù."));
-				//createJtableData(title_tf);
-				init();
-			} else {
-				if(title_tf.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä."));
-				} else if(content_ta.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä."));
-				}
-			}
-		} else if (obj == btn_cancel) {
-			int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("°Ô½Ã¹° ÀÛ¼ºÀ» Ãë¼ÒÇÏ½Ã°Ú½À´Ï±î?"));
-			if(result == 0) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("°Ô½Ã¹° ÀÛ¼ºÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù."));
-				init();
-			}
-			
-		} else if (obj == btn_list) {
-			init();
-		} else if (obj == btn_update) {
-			System.out.println("------------------------->> ¼öÁ¤");
-		} else if (obj == btn_delete) {
-			System.out.println("------------------------->> »èÁ¦");
-		}
-	}
-	
-	
-	/** ±Û ÀÛ¼º À¯È¿¼º °Ë»ç **/
-	public boolean writeCheck() {
-		boolean result = false;
-		if(title_tf.getText().equals("") || content_ta.getText().equals("")) {
-			result = false;
-		} else result = true;
-		return result;
-	}
-	
-	
-	/** ±Û¸ñ·Ï ¸¶¿ì½º ¸®½º³Ê **/
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Object obj = e.getSource();
-		
-		if(obj == list_table) {
-			System.out.println("Å¬¸¯!!");
-			readUI();
-			//int row = list_table.getSelectedRow();
-			//int column = list_table.getSelectedColumn();
-		} else if (obj == up_label) {
-			System.out.println("ÃßÃµ");
-		} else if (obj == down_label) {
-			System.out.println("ºñÃßÃµ");
-		}
-	}
+   /** ì•¡ì…˜ ë¦¬ìŠ¤ë„ˆ **/
+   public void actionPerformed(ActionEvent e) {
+      Object obj = e.getSource();
+      if(obj == btn_search || obj == search_tf) {
+         if(search_tf.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, Commons.getMsg("ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”."));
+         } else {
+            //ê²€ìƒ‰í•œ ë‚´ìš© ìˆìœ¼ë©´ í•´ë‹¹ ê¸€ ì œëª©ì„ í™”ë©´ì— ì¶œë ¥, ì—†ìœ¼ë©´ ì—†ë‹¤ê³  ì¶œë ¥ 
+         }
+         System.out.println("------------------------->> ê²€ìƒ‰");
+      } else if (obj == btn_write) {
+         writeUI();
+      } else if (obj == btn_insert) {
+         if(writeCheck()) {
+            JOptionPane.showMessageDialog(null, Commons.getMsg("ë“±ë¡ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤."));
+            //createJtableData(title_tf);
+            init();
+         } else {
+            if(title_tf.getText().equals("")) {
+               JOptionPane.showMessageDialog(null, Commons.getMsg("ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”."));
+            } else if(content_ta.getText().equals("")) {
+               JOptionPane.showMessageDialog(null, Commons.getMsg("ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”."));
+            }
+         }
+      } else if (obj == btn_cancel) {
+         int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("ê²Œì‹œë¬¼ ì‘ì„±ì„ ì·¨ì†Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"));
+         if(result == 0) {
+            JOptionPane.showMessageDialog(null, Commons.getMsg("ê²Œì‹œë¬¼ ì‘ì„±ì´ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤."));
+            init();
+         }
+         
+      } else if (obj == btn_list) {
+         init();
+      } else if (obj == btn_update) {
+         System.out.println("------------------------->> ìˆ˜ì •");
+      } else if (obj == btn_delete) {
+         System.out.println("------------------------->> ì‚­ì œ");
+      }
+   }
+   
+   
+   /** ê¸€ ì‘ì„± ìœ íš¨ì„± ê²€ì‚¬ **/
+   public boolean writeCheck() {
+      boolean result = false;
+      if(title_tf.getText().equals("") || content_ta.getText().equals("")) {
+         result = false;
+      } else result = true;
+      return result;
+   }
+   
+   
+   /** ê¸€ëª©ë¡ ë§ˆìš°ìŠ¤ ë¦¬ìŠ¤ë„ˆ **/
+   @Override
+   public void mouseClicked(MouseEvent e) {
+      Object obj = e.getSource();
+      
+      if(obj == list_table) {
+         System.out.println("í´ë¦­!!");
+         readUI();
+         //int row = list_table.getSelectedRow();
+         //int column = list_table.getSelectedColumn();
+      } else if (obj == up_label) {
+         System.out.println("ì¶”ì²œ");
+      } else if (obj == down_label) {
+         System.out.println("ë¹„ì¶”ì²œ");
+      }
+   }
 
-	public void mousePressed(MouseEvent e) {
-		
-	}
+   public void mousePressed(MouseEvent e) {
+      
+   }
 
-	public void mouseReleased(MouseEvent e) {
-		
-	}
+   public void mouseReleased(MouseEvent e) {
+      
+   }
 
-	public void mouseEntered(MouseEvent e) {
-		
-	}
+   public void mouseEntered(MouseEvent e) {
+      
+   }
 
-	public void mouseExited(MouseEvent e) {
-		
-	}
-	
+   public void mouseExited(MouseEvent e) {
+      
+   }
+   
 }

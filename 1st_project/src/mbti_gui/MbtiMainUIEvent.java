@@ -32,33 +32,33 @@ public class MbtiMainUIEvent implements ActionListener{
 		}else if(obj == main.buttonlist.get(3)) {
 			new BoardUI(main);
 		}else if(obj == main.buttonlist.get(4)) {
-			System.out.println("¸¶ÀÌÆäÀÌÁö");
+			new MypageUI(main);
 		}else if(obj == main.buttonlist.get(5)) {
-			int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("Á¾·áÇÏ½Ã°Ú½À´Ï±î?"));
+			int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("ì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"));
 			if(confirm == 0) System.exit(0);
 		}
 		
 	}
 	
-	/** ·Î±×ÀÎ ÀÌº¥Æ® **/
+	/** ë¡œê·¸ì¸ ì´ë²¤íŠ¸ **/
 	public void loginUI_proc() {
 		if(main.id_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä"));
+			JOptionPane.showMessageDialog(null, Commons.getMsg("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”"));
 			main.id_tf.requestFocus();
 		}else if(main.pw_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä"));
+			JOptionPane.showMessageDialog(null, Commons.getMsg("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”"));
 			main.pw_tf.requestFocus();
 		}
 //		else {
-//			//·Î±×ÀÎ Ã¼Å© : system.loginCheck(¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£)
+//			//ë¡œê·¸ì¸ ì²´í¬ : system.loginCheck(ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸)
 //			boolean result = main.system.loginCheck(id_tf.getText(),pw_tf.getText());
 //			if(result == true) {
-//				JOptionPane.showMessageDialog(null, Commons.getMsg("·Î±×ÀÎ µÇ¾ú½À´Ï´Ù."));
+//				JOptionPane.showMessageDialog(null, Commons.getMsg("ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤."));
 //				new FirstMainPageUI(main);
 //				main.btn_login.setText("LOGOUT");
 //				MbtiMgmSystem.LOGIN_RESULT = true;
 //			}else {
-//				JOptionPane.showMessageDialog(null, Commons.getMsg("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù."));
+//				JOptionPane.showMessageDialog(null, Commons.getMsg("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."));
 //			}
 		}
 	

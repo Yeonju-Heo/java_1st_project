@@ -19,7 +19,7 @@ public class ChatClient {
 				s = new Socket("localhost", 5000);
 				dos = new DataOutputStream(s.getOutputStream());
 				dis = new DataInputStream(s.getInputStream());
-				new ChatUI();//UIÈ£Ãâ
+				new ChatUI();//UIí˜¸ì¶œ
 				new ClientThread(s).start();
 			}
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class ChatClient {
 	//Method
 	class ClientThread extends Thread{
 		public ClientThread(Socket s) {
-			//µ¥ÀÌÅÍ ¼ö½ÅÀÛ¾÷
+			//ë°ì´í„° ìˆ˜ì‹ ì‘ì—…
 			try {
 				while(true) {
 					cu.chat_content.append(dis.readUTF() + "\n");

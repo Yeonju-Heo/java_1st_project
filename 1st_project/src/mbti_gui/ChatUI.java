@@ -25,16 +25,16 @@ import javax.swing.ScrollPaneConstants;
 
 public class ChatUI implements ActionListener{
 	//Field
-	JFrame chat_frame;//ÀüÃ¼
+	JFrame chat_frame;//ì „ì²´
 	
 	JPanel left_panel;
 	JPanel right_panel;
 	JPanel center_panel;
 	
 	JTextArea chat_content;
-	JTextField chat_tf;//textÀû´Â °÷
+	JTextField chat_tf;//textì ëŠ” ê³³
 	JButton btn_send;
-	JList user_list;//Ã¤ÆÃ Âü¿©ÀÚ ¸ñ·Ï
+	JList user_list;//ì±„íŒ… ì°¸ì—¬ìž ëª©ë¡
 	
 	JPanel list_panel;
 	JPanel botton_panel;
@@ -48,30 +48,30 @@ public class ChatUI implements ActionListener{
 	
 	//Constructor
 	public ChatUI(){
-		chat_frame = new JFrame("MBTI WORLD");//ÇÁ·¹ÀÓ
-		left_panel = new JPanel(new GridLayout());//¿ÞÂÊ Ã¤ÆÃÈ­¸é
-		right_panel = new JPanel(new GridLayout());//¿À¸¥ÂÊ Ã¤ÆÃ Âü¿©ÀÚ ¸ñ·Ï
-		center_panel = new JPanel();//¿ÞÂÊ ¿À¸¥ÂÊÀ» ÇÕÇÒÈ­¸é
-		botton_panel = new JPanel(new FlowLayout());//ÇÏ´Ü Ã¤ÆÃ ÆÐ³Î
+		chat_frame = new JFrame("MBTI WORLD");//í”„ë ˆìž„
+		left_panel = new JPanel(new GridLayout());//ì™¼ìª½ ì±„íŒ…í™”ë©´
+		right_panel = new JPanel(new GridLayout());//ì˜¤ë¥¸ìª½ ì±„íŒ… ì°¸ì—¬ìž ëª©ë¡
+		center_panel = new JPanel();//ì™¼ìª½ ì˜¤ë¥¸ìª½ì„ í•©í• í™”ë©´
+		botton_panel = new JPanel(new FlowLayout());//í•˜ë‹¨ ì±„íŒ… íŒ¨ë„
 		ImageIcon chattitle = new ImageIcon("images/chattitle.png");
 		JLabel title_Label = new JLabel(chattitle);
 		
-		chat_content = new JTextArea(30,30);//textº¸¿©Áö´Â °÷
-		chat_tf = new JTextField(52);//±Û¾²´Â °÷
-		btn_send = new JButton("º¸³»±â");//Àü¼Û ¹öÆ°
-		user_list = new JList();//À¯Àú¸®½ºÆ®
+		chat_content = new JTextArea(30,30);//textë³´ì—¬ì§€ëŠ” ê³³
+		chat_tf = new JTextField(52);//ê¸€ì“°ëŠ” ê³³
+		btn_send = new JButton("ë³´ë‚´ê¸°");//ì „ì†¡ ë²„íŠ¼
+		user_list = new JList();//ìœ ì €ë¦¬ìŠ¤íŠ¸
 		
-		//Ã¤ÆÃÈ­¸é(Áß½É, ¿ÞÂÊ) --½ºÅ©·Ñ ¸¸µé±â, ÀÌ¸§À» Å¬¸¯ÇÏ¸é »õÃ¢¿¡¼­ ¾Æ¹ÙÅ¸°¡ º¸ÀÌ±â
+		//ì±„íŒ…í™”ë©´(ì¤‘ì‹¬, ì™¼ìª½) --ìŠ¤í¬ë¡¤ ë§Œë“¤ê¸°, ì´ë¦„ì„ í´ë¦­í•˜ë©´ ìƒˆì°½ì—ì„œ ì•„ë°”íƒ€ê°€ ë³´ì´ê¸°
 		JScrollPane jp = new JScrollPane(chat_content);
 		jp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		chat_content.setFont(Commons.getFont());
 		left_panel.add(jp);
 		
-		//»ç¿ëÀÚ ¸ñ·Ï È­¸é(¿À¸¥ÂÊ) --ÇöÀç Ã¤ÆÃÇÏ°í ÀÖ´Â »ç¶÷ ¸ñ·ÏÀ» º¸¿©ÁÖ±â(½ºÅ©·Ñ), ¾ÆÀÌµð¿Í mbti
+		//ì‚¬ìš©ìž ëª©ë¡ í™”ë©´(ì˜¤ë¥¸ìª½) --í˜„ìž¬ ì±„íŒ…í•˜ê³  ìžˆëŠ” ì‚¬ëžŒ ëª©ë¡ì„ ë³´ì—¬ì£¼ê¸°(ìŠ¤í¬ë¡¤), ì•„ì´ë””ì™€ mbti
 		user_panel = new JPanel(new GridLayout());
-		la_user = new JLabel("»ç¿ëÀÚ ¸ñ·Ï");
+		la_user = new JLabel("ì‚¬ìš©ìž ëª©ë¡");
 		la_user.setHorizontalAlignment(JLabel.CENTER);
-		la_count = new JLabel("0¸í Á¢¼ÓÁß");
+		la_count = new JLabel("0ëª… ì ‘ì†ì¤‘");
 		la_count.setHorizontalAlignment(JLabel.CENTER);
 		la_user.setFont(Commons.getFont());
 		user_list.setFont(Commons.getFont());
@@ -85,7 +85,7 @@ public class ChatUI implements ActionListener{
 		right_panel.add("Center",user_panel);
 		right_panel.add("South", la_count);
 		
-		//Ã¤ÆÃ º¸³»´Â °÷(ÇÏ´Ü) --ÇÏ´Ü ÅØ½ºÆ® ÇÊµå, ¹öÆ° ÀÌº¥Æ® Ã³¸®
+		//ì±„íŒ… ë³´ë‚´ëŠ” ê³³(í•˜ë‹¨) --í•˜ë‹¨ í…ìŠ¤íŠ¸ í•„ë“œ, ë²„íŠ¼ ì´ë²¤íŠ¸ ì²˜ë¦¬
 		chat_tf.setFont(Commons.getFont());
 		btn_send.setFont(Commons.getFont());
 //		JPanel setbotton_panel = new JPanel(new FlowLayout());
@@ -94,7 +94,7 @@ public class ChatUI implements ActionListener{
 		
 //		botton_panel.add(setbotton_panel);
 		
-		//center_panel¿¡ ³Ö±â
+		//center_panelì— ë„£ê¸°
 		center_panel.setLayout(new BorderLayout());
 		center_panel.add("Center", left_panel);
 		center_panel.add("East", right_panel);
@@ -105,13 +105,13 @@ public class ChatUI implements ActionListener{
 		chat_frame.add(BorderLayout.NORTH, title_Label);
 		
 		chat_frame.setSize(700,600);
-		chat_frame.setResizable(false);//Ã¤ÆÃÃ¢ Å©±â °íÁ¤
+		chat_frame.setResizable(false);//ì±„íŒ…ì°½ í¬ê¸° ê³ ì •
 		chat_frame.setVisible(true);
 		
 		chat_tf.addActionListener(this);
 		btn_send.addActionListener(this);
 		
-		/** window event Ã³¸® **/
+		/** window event ì²˜ë¦¬ **/
 		chat_frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e) {
 				chat_frame.setVisible(false);
@@ -122,21 +122,21 @@ public class ChatUI implements ActionListener{
 	}
 	
 	//Method
-	/** Button event Ã³¸® **/
+	/** Button event ì²˜ë¦¬ **/
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == chat_tf || obj == btn_send) {
 			if(!chat_tf.getText().equals("")) {
 				try {
-					cc.dos.writeUTF("È«±æµ¿" + ">" + chat_tf.getText());
+					cc.dos.writeUTF("í™ê¸¸ë™" + ">" + chat_tf.getText());
 					chat_tf.setText("");
 					
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
 			}else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("¸Þ½ÃÁö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("ë©”ì‹œì§€ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”."));
 				chat_tf.requestFocus();
 			}
 		}

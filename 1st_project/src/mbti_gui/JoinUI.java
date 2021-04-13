@@ -21,8 +21,8 @@ public class JoinUI {
 	Panel label_panel, tf_panel, btn_panel;
 	JButton join, cancel;
 	Label textlabel, fieldlabel;
-	String namelist[] = {"¾ÆÀÌµğ","ºñ¹Ğ¹øÈ£","ºñ¹Ğ¹øÈ£È®ÀÎ","MBTI"};
-	String namelistCheck[] = {"¾ÆÀÌµğ","ºñ¹Ğ¹øÈ£","ºñ¹Ğ¹øÈ£È®ÀÎ","MBTI"};
+	String namelist[] = {"ì•„ì´ë””","ë¹„ë°€ë²ˆí˜¸","ë¹„ë°€ë²ˆí˜¸í™•ì¸","MBTI"};
+	String namelistCheck[] = {"ì•„ì´ë””","ë¹„ë°€ë²ˆí˜¸","ë¹„ë°€ë²ˆí˜¸í™•ì¸","MBTI"};
 	ArrayList<Object> list = new ArrayList<Object>();
 	
 	//Constructor
@@ -36,13 +36,13 @@ public class JoinUI {
 	}
 	//Method
 	public void init() {
-		f = new JFrame("È¸¿ø°¡ÀÔ");
+		f = new JFrame("íšŒì›ê°€ì…");
 		label_panel = new Panel(new GridLayout(4,1));
 		tf_panel = new Panel(new GridLayout(4,1));
 		btn_panel = new Panel();
-		join = new JButton("È¸¿ø°¡ÀÔ");
+		join = new JButton("íšŒì›ê°€ì…");
 		join.setFont(Commons.getFont());
-		cancel = new JButton("ÀÔ·ÂÃë¼Ò");
+		cancel = new JButton("ì…ë ¥ì·¨ì†Œ");
 		cancel.setFont(Commons.getFont());
 		btn_panel.add(join);	btn_panel.add(cancel);
 		
@@ -54,7 +54,7 @@ public class JoinUI {
 			
 			Panel t_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 
-			if(name.equals("ºñ¹Ğ¹øÈ£") || name.equals("ºñ¹Ğ¹øÈ£È®ÀÎ")) {
+			if(name.equals("ë¹„ë°€ë²ˆí˜¸") || name.equals("ë¹„ë°€ë²ˆí˜¸í™•ì¸")) {
 				JPasswordField tf = new JPasswordField(15);
 				t_panel.add(tf);
 				tf_panel.add(t_panel);
