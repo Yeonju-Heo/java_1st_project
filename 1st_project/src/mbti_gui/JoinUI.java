@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 
 public class JoinUI {
-	//Field
+	//Field//
 	MbtiMainUI main;
 	JFrame f;
 	Panel label_panel, tf_panel, btn_panel;

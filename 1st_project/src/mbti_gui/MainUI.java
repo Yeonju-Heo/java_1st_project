@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class MainUI {
-	//Field
+	//Field//
 	MbtiMainUI main;
 	
 	//Constructor

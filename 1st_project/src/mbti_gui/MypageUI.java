@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import mbti_system.MbtiMgmSystem;
 
 public class MypageUI implements ActionListener{
-	//Field
+	//Field//
 	MbtiMainUI main;
 //	MbtiMgmSystem system;
 //	JFrame mypageFrame;

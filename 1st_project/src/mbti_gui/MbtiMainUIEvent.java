@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 
 public class MbtiMainUIEvent implements ActionListener{
-	//Field
+	//Field//
 	MbtiMainUI main;
 	
 	//Constructor

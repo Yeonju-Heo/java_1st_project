@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ChatServer {
-	//Field
+	//Field//
 	ServerSocket server;
 	ArrayList<DataOutputStream> msg_list = new ArrayList<DataOutputStream>();
 	

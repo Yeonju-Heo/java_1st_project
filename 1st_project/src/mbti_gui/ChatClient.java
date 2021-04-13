@@ -6,7 +6,7 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 
 public class ChatClient {
-	//Field
+	//Field//
 	ChatUI cu = new ChatUI();
 	Socket s;
 	DataOutputStream dos;

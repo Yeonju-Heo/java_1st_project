@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CreateUI implements ActionListener{
-	//Field
+	//Field//
 	MbtiMainUI main;
 	JPanel point_panel, center_panel, hair_panel, top_panel, bottom_panel, 
 		   text_panel, h_text_panel, t_text_panel, b_text_panel;
