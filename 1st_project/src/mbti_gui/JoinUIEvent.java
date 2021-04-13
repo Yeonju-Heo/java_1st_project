@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class JoinUIEvent extends WindowAdapter implements ActionListener {
-	//Field//
+	//Field
 	JoinUI ui;
 	MbtiMainUI main;
 	

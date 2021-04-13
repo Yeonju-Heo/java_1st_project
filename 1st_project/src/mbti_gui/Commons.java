@@ -6,7 +6,7 @@ import java.awt.Label;
 import javax.swing.JButton;
 
 public class Commons {
-	//
+	
 	public static Font getFont() {
 		Font font = new Font("¸¼Àº °íµñ", Font.BOLD, 12);
 		return font;

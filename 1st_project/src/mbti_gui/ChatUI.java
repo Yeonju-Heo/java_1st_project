@@ -24,7 +24,7 @@ import javax.swing.ScrollPaneConstants;
 
 
 public class ChatUI implements ActionListener{
-	//Field//
+	//Field
 	JFrame chat_frame;//ÀüÃ¼
 	
 	JPanel left_panel;

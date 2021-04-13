@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import mbti_system.MbtiMgmSystem;
 
 public class MbtiMainUI {
-	//Field //
+	//Field
 	MbtiMgmSystem system;
 	JFrame firstFrame, secondFrame;
 	JPanel menu_panel, content_panel, bottom_panel;
@@ -142,7 +142,7 @@ public class MbtiMainUI {
 			btn_menu.addActionListener(eventObj);
 		}
 		
-		ImageIcon icon = new ImageIcon("images/main2.png");
+		ImageIcon icon = new ImageIcon("images/welcome.png");
 		JLabel main_label = new JLabel(icon);
 		content_panel.add(main_label);
 		

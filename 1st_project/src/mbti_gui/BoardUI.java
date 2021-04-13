@@ -28,7 +28,7 @@ import javax.swing.table.TableColumnModel;
 
 
 public class BoardUI implements MouseListener, ActionListener{
-  //Field//
+  //Field
 	
 	String[] colNames = {"번호","제목","작성자","작성일","추천"};
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {

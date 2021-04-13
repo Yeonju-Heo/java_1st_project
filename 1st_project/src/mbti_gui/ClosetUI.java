@@ -8,7 +8,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 public class ClosetUI {
-	//Field//
+	//Field
 //	MbtiMgmSystem system;
 	//¼öÁ¤
 //	JFrame closetFrame;
