@@ -29,6 +29,7 @@ public class MainUIEvent implements ActionListener{
 			new CreateUI(main);
 		}else if(obj == main.buttonlist.get(2)) {
 			System.out.println("채팅");
+			new ChatUI();
 		}else if(obj == main.buttonlist.get(3)) {
 			new BoardUI(main);
 			System.out.println("게시판");
