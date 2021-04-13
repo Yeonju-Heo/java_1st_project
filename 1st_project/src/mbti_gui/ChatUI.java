@@ -111,7 +111,8 @@ public class ChatUI implements ActionListener{
 		/** window event Ã³¸® **/
 		chat_frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				chat_frame.setVisible(false);
+				chat_frame.dispose();
 			}
 		});
 		
