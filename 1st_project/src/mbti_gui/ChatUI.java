@@ -112,7 +112,7 @@ public class ChatUI implements ActionListener{
 		chat_frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e) {
 				chat_frame.setVisible(false);
-//				chat_frame.dispose();
+				chat_frame.dispose();
 			}
 		});
 		
