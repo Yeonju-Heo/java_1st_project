@@ -30,6 +30,7 @@ public class MainUIEvent implements ActionListener{
 		}else if(obj == main.buttonlist.get(2)) {
 			System.out.println("채팅");
 		}else if(obj == main.buttonlist.get(3)) {
+			new BoardUI(main);
 			System.out.println("게시판");
 		}else if(obj == main.buttonlist.get(4)) {
 			System.out.println("마이페이지");
