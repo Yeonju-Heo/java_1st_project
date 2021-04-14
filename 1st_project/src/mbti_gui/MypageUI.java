@@ -31,7 +31,6 @@ public class MypageUI implements ActionListener{
 	JPanel closet_panel,char_closet_panel, char_panel, inform_panel,info_mbti_panel, info_text_panel,info_panel, mbti_panel, mbti_label_panel, id_panel, pass_panel,
 			point_panel, date_panel,btn_panel,update_panel, cancel_account_panel,content_panel;
 	String[] infolist = {"mbti","mbti설명","아이디","비밀번호","포인트","가입일"};
-	ArrayList<Object> list = new ArrayList<Object>();
 	JLabel char_img;
 	JButton btn_update_info, btn_cancel_account, btn_closet;
 	JPasswordField pwd;
@@ -51,8 +50,9 @@ public class MypageUI implements ActionListener{
 		main.switch_panel(MbtiMainUI.MYPAGE);
 		
 		char_closet_panel = new JPanel(new GridLayout(1,2,0,50));
-		closet_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		closet_panel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
 		btn_closet = new JButton("내 옷장");
+		btn_closet.setFont(Commons.getFont());
 		closet_panel.add(btn_closet);
 		char_panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,50));
 		character = new ImageIcon("images/character.png");
@@ -102,7 +102,9 @@ public class MypageUI implements ActionListener{
 		update_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		cancel_account_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		btn_update_info = new JButton("정보수정");
+		btn_update_info.setFont(Commons.getFont());
 		btn_cancel_account = new JButton("회원탈퇴");
+		btn_cancel_account.setFont(Commons.getFont());
 		update_panel.add(btn_update_info);
 		cancel_account_panel.add(btn_cancel_account);
 		btn_panel.add(update_panel);
@@ -134,6 +136,15 @@ public class MypageUI implements ActionListener{
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if(obj == btn_closet) {
+			main.content_panel.removeAll();
+			main.login_panel.setVisible(false);
+			main.main_panel.setVisible(false);
+			main.create_panel.setVisible(false);
+			main.chat_panel.setVisible(false);
+			main.board_panel.setVisible(false);
+			main.mypage_panel.setVisible(false);
+			main.mypage_panel.removeAll();
+			main.mypage_panel.setVisible(true);
 			new ClosetUI(main);
 		}else if(obj == btn_update_info) {
 			System.out.println("정보수정");
