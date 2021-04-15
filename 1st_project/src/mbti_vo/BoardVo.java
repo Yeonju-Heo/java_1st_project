@@ -2,7 +2,15 @@ package mbti_vo;
 
 public class BoardVo {
 	int b_rno, b_good, b_bad;
-	String b_title, b_content;
+	String b_title, b_content, b_id;
+	
+	
+	public String getB_id() {
+		return b_id;
+	}
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
 	public int getB_rno() {
 		return b_rno;
 	}

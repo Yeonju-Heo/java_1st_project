@@ -3,6 +3,8 @@ package mbti_vo;
 public class ItemVO {
 	String i_type;
 	int i_point;
+	
+	
 	public String getI_type() {
 		return i_type;
 	}
