@@ -142,9 +142,9 @@ public class MypageUI implements ActionListener{
 			main.create_panel.setVisible(false);
 			main.chat_panel.setVisible(false);
 			main.board_panel.setVisible(false);
-			main.mypage_panel.setVisible(false);
+//			main.mypage_panel.setVisible(false);
 			main.mypage_panel.removeAll();
-			main.mypage_panel.setVisible(true);
+//			main.mypage_panel.setVisible(true);
 			new ClosetUI(main);
 		}else if(obj == btn_update_info) {
 			System.out.println("정보수정");

@@ -25,14 +25,18 @@ public class MbtiMainUIEvent implements ActionListener{
 			new JoinUI(main);
 		}else if(obj == main.buttonlist.get(0)) {
 			new MainUI(main);
+			main.secondFrame.setTitle("MBTI WORLD");
 		}else if(obj == main.buttonlist.get(1)) {
 			new CreateUI(main);
+			main.secondFrame.setTitle("캐릭터 생성");
 		}else if(obj == main.buttonlist.get(2)) {
 //			new ChatUI(main);
 		}else if(obj == main.buttonlist.get(3)) {
 			new BoardUI(main);
+			main.secondFrame.setTitle("게시판");
 		}else if(obj == main.buttonlist.get(4)) {
 			new MypageUI(main);
+			main.secondFrame.setTitle("마이페이지");
 		}else if(obj == main.buttonlist.get(5)) {
 			int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("종료하시겠습니까?"));
 			if(confirm == 0) System.exit(0);
