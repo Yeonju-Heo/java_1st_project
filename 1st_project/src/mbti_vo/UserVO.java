@@ -3,8 +3,9 @@ package mbti_vo;
 import java.util.Date;
 
 public class UserVO {
-	String u_id,u_pass,u_date,u_mbti,u_item;
+	String u_id,u_pass,u_mbti,u_item;
 	int u_point;
+	Date u_date;
 	
 	public String getU_item() {
 		return u_item;
@@ -36,12 +37,13 @@ public class UserVO {
 	public void setU_pass(String u_pass) {
 		this.u_pass = u_pass;
 	}
-	public String getU_date() {
+	public Date getU_date() {
 		return u_date;
 	}
-	public void setU_date(String u_date) {
+	public void setU_date(Date u_date) {
 		this.u_date = u_date;
 	}
+	
 	
 	
 }

@@ -1,10 +1,19 @@
 package mbti_vo;
 
-public class BoardVo {
+import java.util.Date;
+
+public class BoardVO {
 	int b_rno, b_good, b_bad;
 	String b_title, b_content, b_id;
+	Date b_date;
 	
 	
+	public Date getB_date() {
+		return b_date;
+	}
+	public void setB_date(Date b_date) {
+		this.b_date = b_date;
+	}
 	public String getB_id() {
 		return b_id;
 	}
