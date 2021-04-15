@@ -28,7 +28,7 @@ public class MbtiMainUIEvent implements ActionListener{
 		}else if(obj == main.buttonlist.get(1)) {
 			new CreateUI(main);
 		}else if(obj == main.buttonlist.get(2)) {
-//			new ChatUI(main);
+			new ChatUI();
 		}else if(obj == main.buttonlist.get(3)) {
 			new BoardUI(main);
 		}else if(obj == main.buttonlist.get(4)) {
