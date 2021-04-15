@@ -1,17 +1,20 @@
 package mbti_gui;
 
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
+
+import mbti_vo.MessageVO;
 
 public class ChatServer {
 	//Field
 	ServerSocket server;
-	ArrayList<DataOutputStream> msg_list = new ArrayList<DataOutputStream>();
-	
+	static ArrayList<ObjectOutputStream> list = new ArrayList<ObjectOutputStream>();
+	static Vector<String> user_list = new Vector<String>();
 	
 	//Constructor
 	public ChatServer() {
@@ -24,11 +27,9 @@ public class ChatServer {
 				ServerThread st = new ServerThread(s);
 				st.start();
 				
-				msg_list.add(st.dos);
-				new ChatClient();
+				list.add(st.oos);
 				System.out.println("클라이언트 접속");
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,42 +37,44 @@ public class ChatServer {
 	}
 	
 	//Method
-	public void broadcasting(String message) {
+	synchronized static public void broadcasting(MessageVO vo) {
 		try {
-			for(DataOutputStream data : msg_list) {
-				data.writeUTF(message);
+			if(vo.getStatus() == MessageVO.CONNECT) {
+				user_list.add(vo.getName());
+				Vector<String> copy_list = (Vector<String>)user_list.clone();
+				vo.setUser_list(copy_list);
+				vo.setMsg(vo.getName() + "님이 입장하셨습니다.");
+				
+			}else if(vo.getStatus() == MessageVO.TALK) {
+				Vector<String> copy_list = (Vector<String>)user_list.clone();
+				vo.setUser_list(copy_list);
+				vo.setMsg(vo.getName() + " : " + vo.getMsg());
+				
+			}else if(vo.getStatus() == MessageVO.EXIT) {
+				int index = user_list.indexOf(vo.getName());
+				ObjectOutputStream remove = (ObjectOutputStream)list.get(index);
+				Iterator<ObjectOutputStream> ie = list.iterator();
+				while(ie.hasNext()) {
+					if(ie.next() == remove) ie.remove();
+				}
+				
+				user_list.remove(vo.getName());
+				Vector<String> copy_list = (Vector<String>)user_list.clone();
+				vo.setUser_list(copy_list);
+				vo.setMsg(vo.getName() + "님이 나가셨습니다.");
+				
 			}
+			
+			for(ObjectOutputStream oos : list) {
+				oos.writeObject(vo);
+			}
+			
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	
-	class ServerThread extends Thread{
-		DataInputStream dis;
-		DataOutputStream dos;
-		
-		public ServerThread(Socket s) {
-			try {
-				dis = new DataInputStream(s.getInputStream());
-				dos = new DataOutputStream(s.getOutputStream());
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		
-		}
-		
-		@Override
-		public void run() {
-			try {
-				while(true) {
-					broadcasting(dis.readUTF());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+
 }
