@@ -14,7 +14,7 @@ public class ChatClient {
 	ObjectInputStream ois;
 	ArrayList<ObjectOutputStream> user_list = new ArrayList<ObjectOutputStream>();
 	ChatUI cc;
-	String name = "mbti";
+	String name = "user_name";
 	
 	//Constructor
 	public ChatClient() {
@@ -25,7 +25,8 @@ public class ChatClient {
 			
 			//connect 
 			MessageVO vo = new MessageVO();
-			vo.setName(name); //이름을 vo에 저장
+			vo.setName(name); //DB에서 정보를 받아와서 이름을 vo에 저장(입장)
+			vo.setMbti("mbti");//DB에서 정보를 받아와서 mbti를 vo에 저장(입장)
 			vo.setStatus(MessageVO.CONNECT); //상태 저장
 			oos.writeObject(vo); //vo를 전송
 			
@@ -34,6 +35,7 @@ public class ChatClient {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
 		
 	}

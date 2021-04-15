@@ -36,8 +36,10 @@ public class ClientThread extends Thread{
 				//데이터 수신작업
 				while(true) {
 					MessageVO vo = (MessageVO)ois.readObject();
-					content.append(vo.getMsg() + "\n");//messagevo로부터 받아온 내용을 ui의 content에 입력
-					user_list.setListData(vo.getUser_list());//접속자 리스트
+					//messagevo로부터 받아온 내용을 ui의 content에 입력
+					content.append(vo.getMsg() + "\n");
+					//접속자 리스트
+					user_list.setListData(vo.getUser_list());
 					user_count.setText(String.valueOf(vo.getUser_list().size()) + "명 접속중");//몇명 접속했는지
 					
 				}

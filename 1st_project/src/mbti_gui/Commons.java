@@ -1,5 +1,6 @@
 package mbti_gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Label;
 
@@ -28,6 +29,7 @@ public class Commons {
 		button.setFont(font);
 		return button;
 	}
+	
 
 	/** 메시지 출력 **/
 	public static Label getMsg(String msg) {

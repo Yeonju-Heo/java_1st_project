@@ -40,15 +40,16 @@ public class ChatServer {
 	synchronized static public void broadcasting(MessageVO vo) {
 		try {
 			if(vo.getStatus() == MessageVO.CONNECT) {
-				user_list.add(vo.getName());
+				user_list.add(vo.getName() + "(" + vo.getMbti() + ")" );
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
-				vo.setMsg(vo.getName() + "님이 입장하셨습니다.");
+				vo.setMsg("---------------->>" + 
+						vo.getName() + "(" + vo.getMbti() + ")" + "님이 입장하셨습니다.");
 				
 			}else if(vo.getStatus() == MessageVO.TALK) {
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
-				vo.setMsg(vo.getName() + " : " + vo.getMsg());
+				vo.setMsg(vo.getName() + "(" + vo.getMbti() + ")" + " ▶ " + vo.getMsg());
 				
 			}else if(vo.getStatus() == MessageVO.EXIT) {
 				int index = user_list.indexOf(vo.getName());
@@ -61,7 +62,8 @@ public class ChatServer {
 				user_list.remove(vo.getName());
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
-				vo.setMsg(vo.getName() + "님이 나가셨습니다.");
+				vo.setMsg("---------------->>" + 
+						vo.getName() + "(" + vo.getMbti() + ")" + "님이 나가셨습니다.");
 				
 			}
 			

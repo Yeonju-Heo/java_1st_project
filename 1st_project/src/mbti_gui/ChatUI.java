@@ -2,9 +2,13 @@ package mbti_gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -19,6 +23,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+
+import com.sun.tools.javac.Main;
 
 import mbti_vo.MessageVO;
 
@@ -43,13 +49,13 @@ public class ChatUI implements ActionListener{
 	JLabel la_count;
 	JLabel title_label;
 	
-	ChatClient client;
+	ChatClient client = new ChatClient();
 	ClientThread ct;
 	
 	//Constructor
 	public ChatUI(){
 		init();
-		client = new ChatClient();
+//		client = new ChatClient();
 		ct = new ClientThread(client.ois, chat_content, user_list, la_count);
 		ct.start();
 			
@@ -120,11 +126,55 @@ public class ChatUI implements ActionListener{
 		chat_tf.addActionListener(this);
 		btn_send.addActionListener(this);
 		
+		//유저 리스트를 클릭해서 프로필 보기
+		user_list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				JList list = (JList)evt.getSource();
+				if(evt.getClickCount() == 2) {
+					//더블 클릭시 이벤트 실행
+					int index = list.locationToIndex(evt.getPoint());
+					Frame image = new Frame("유저 캐릭터");
+					//DB에서 전송받은 이미지를 넣는 Label, panel
+					ImageIcon img_char = new ImageIcon("images/character.png");
+					JLabel image_Label = new JLabel(img_char);
+					JPanel image_Panel = new JPanel();
+					image_Panel.add(image_Label);
+					
+					image.add(image_Panel);
+					image.setSize(300,500);
+					image.setVisible(true);
+					
+					/** window event **/
+					image.addWindowListener(new WindowAdapter(){
+						public void windowClosing(WindowEvent e) {
+							image.setVisible(false);
+							image.dispose();
+						}
+					});
+					
+				}
+			}
+		});
+		
+		
 		/** window event **/
 		chat_frame.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e) {
-				chat_frame.setVisible(false);
-				chat_frame.dispose();
+				try {
+					//Exit
+					System.out.println("끝내기");
+					MessageVO vo = new MessageVO();
+					vo.setName("user_name"); //나갈때 이름
+					vo.setStatus(MessageVO.EXIT);			
+					client.oos.writeObject(vo);
+					
+//					chat_frame.setVisible(false);
+//					chat_frame.dispose();
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				
 			}
 		});
 	}	
@@ -139,7 +189,8 @@ public class ChatUI implements ActionListener{
 				try {
 					//talk
 					MessageVO vo = new MessageVO();
-					vo.setName("mbtiuser");
+					vo.setName("user_name"); //채팅중 이름 
+					vo.setMbti("mbti");
 					vo.setMsg(chat_tf.getText());
 					vo.setStatus(MessageVO.TALK);
 					

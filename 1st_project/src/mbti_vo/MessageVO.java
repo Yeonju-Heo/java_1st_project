@@ -10,10 +10,16 @@ public class MessageVO implements Serializable{
 	public static final int TALK = 2;
 	public static final int EXIT = 3;
 	
-	String name, msg;
+	String name, msg, mbti;
 	Vector<String> user_list;
 	int status;
 	
+	public String getMbti() {
+		return mbti;
+	}
+	public void setMbti(String mbti) {
+		this.mbti = mbti;
+	}
 	
 	public String getName() {
 		return name;
