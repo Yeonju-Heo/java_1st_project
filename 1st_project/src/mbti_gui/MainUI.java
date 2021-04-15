@@ -20,11 +20,11 @@ public class MainUI {
 		init();
 	}
 	
-	//Method
+	//Method//
 	public void init() {
 		main.switch_panel(MbtiMainUI.MAIN);
 		
-		ImageIcon icon = new ImageIcon("images/main2.png");
+		ImageIcon icon = new ImageIcon("images/main3.png");
 		JLabel main_label = new JLabel(icon);
 		main.content_panel.add(main_label);
 		
