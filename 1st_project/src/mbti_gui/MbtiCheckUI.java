@@ -43,7 +43,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 	
 	//Method
 	public void mbti_check() {
-		f = new JFrame("MBTI °£´Ü °Ë»ç");
+		f = new JFrame("MBTI ê°„ë‹¨ ê²€ì‚¬");
 		
 		JPanel title_p = new JPanel();
 		JPanel center_p = new JPanel(new GridLayout(1,4));
@@ -52,16 +52,16 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		JPanel btn_p = new JPanel();
 		
 		/** title **/
-		JLabel title_l = new JLabel("´ç½ÅÀÇ MBTI¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+		JLabel title_l = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½ MBTIï¿½ï¿½ ï¿½Ë¾Æºï¿½ï¿½ï¿½ï¿½ï¿½!");
 		title_l.setFont(Commons.getFont2());
 		title_p.add(title_l);
 		
 		/** center, text **/
 		JLabel text0_l = new JLabel("");
-		JLabel text1_l = new JLabel("  1. ³ª´Â ¿©·¯ »ç¶÷°ú ´ëÈ­ÇÏ´Â °ÍÀÌ ÁÁ´Ù.");
-		JLabel text2_l = new JLabel("  2. ³ª´Â Ç×»ó ¾ÆÀÌµğ¾î°¡ ³ÑÃÄ³­´Ù.");
-		JLabel text3_l = new JLabel("  3. ³ª´Â Åä·ĞÀ» ÇÒ ¶§ »ó´ë¹æÀÇ ±âºĞÀ» »ìÇÉ´Ù.");
-		JLabel text4_l = new JLabel("  4. ³ª´Â ¹«¾ğ°¡¸¦ ÇÒ ¶§ °èÈ¹À» ¼¼¿ì´Â ÆíÀÌ´Ù.");
+		JLabel text1_l = new JLabel("  1. ë‚˜ëŠ” ì—¬ëŸ¬ ì‚¬ëŒê³¼ ëŒ€í™”í•˜ëŠ” ê²ƒì´ ì¢‹ë‹¤.");
+		JLabel text2_l = new JLabel("  2. ë‚˜ëŠ” í•­ìƒ ì•„ì´ë””ì–´ê°€ ë„˜ì³ë‚œë‹¤.");
+		JLabel text3_l = new JLabel("  3. ë‚˜ëŠ” í† ë¡ ì„ í•  ë•Œ ìƒëŒ€ë°©ì˜ ê¸°ë¶„ì„ ì‚´í•€ë‹¤.");
+		JLabel text4_l = new JLabel("  4. ë‚˜ëŠ” ë¬´ì–¸ê°€ë¥¼ í•  ë•Œ ê³„íšì„ ì„¸ìš°ëŠ” í¸ì´ë‹¤.");
 		
 		text1_l.setFont(Commons.getFont());
 		text2_l.setFont(Commons.getFont());
@@ -117,11 +117,11 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		center_p.add(choice_p,BorderLayout.EAST);
 		
 		/** button **/
-		check_btn = new JButton("°Ë»çÇÏ±â");
+		check_btn = new JButton("ê²€ì‚¬í•˜ê¸°");
 		check_btn.setFont(Commons.getFont());
 		btn_p.add(check_btn);
 		
-		/** È­¸é½ÇÇà **/
+		/** È­ï¿½ï¿½ï¿½ï¿½ï¿½ **/
 		f.add(BorderLayout.NORTH,title_p);
 		f.add(BorderLayout.CENTER,center_p);
 		f.add(BorderLayout.SOUTH,btn_p);
@@ -193,7 +193,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		}else if(obj == check_btn) {
 //			if(obj == yes1 || obj == yes2 || obj == yes3 || obj == yes4) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg(
-						"´ç½ÅÀÇ MBTI´Â "+ yes1.getText()+yes2.getText()+yes3.getText()+yes4.getText() +" ÀÔ´Ï´Ù."));
+						"ë‹¹ì‹ ì˜ MBTIëŠ” "+ yes1.getText()+yes2.getText()+yes3.getText()+yes4.getText() +" ì…ë‹ˆë‹¤."));
 //			}
 		}
 	}
