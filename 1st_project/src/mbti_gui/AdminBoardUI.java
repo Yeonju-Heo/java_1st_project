@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -23,42 +24,46 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-public class BoardUI implements MouseListener, ActionListener {
-	// Field
+import mbti_gui.AdminUserUI.TableCell;
 
-	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
+public class AdminBoardUI implements ActionListener, MouseListener {
+
+	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대", "삭제" };
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
 		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
-			return false;
+			boolean result = false;
+			if(c==5) result = true;
+			return result;
 		}
 	};
-	Object[] row = new Object[5];
+	Object[] row = new Object[6];
 	JTable list_table = new JTable(model);
 
-	MbtiMainUI main;
+	AdminMainUI main;
 	JTextField search_tf, title_tf;
 	JTextArea content_ta;
-	JButton btn_search, btn_write, btn_insert, btn_cancel, btn_list, btn_delete, btn_update;
+	JButton btn_search, btn_list, btn_delete;
 	int count = 1;
 	JLabel up_label;
 	JLabel down_label;
 
 	// Constructor
-	public BoardUI(MbtiMainUI main) {
+	public AdminBoardUI(AdminMainUI main) {
 		this.main = main;
-		main.board_panel.setBackground(Color.white);
-		main.content_panel.setBackground(Color.white);
 		init();
 	}
 
 	// Method
 	/** 글 목록 **/
 	public void init() {
-		main.switch_panel(MbtiMainUI.BOARD);
+		main.switch_panel(AdminMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
+		//main.board_panel.setBackground(Color.white);
+		//main.content_panel.setBackground(Color.white);
 
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		Panel center_panel = new Panel(new BorderLayout());
@@ -67,7 +72,7 @@ public class BoardUI implements MouseListener, ActionListener {
 		Panel list_panel = new Panel();
 
 		// 탑패널
-		JLabel board_label = new JLabel("자유게시판");
+		JLabel board_label = new JLabel("게시판 관리");
 		board_label.setFont(Commons.getFont(20));
 		top_panel.add(board_label);
 
@@ -80,7 +85,7 @@ public class BoardUI implements MouseListener, ActionListener {
 
 		// 센터패널 - 글목록
 		createJtableData();
-		model.setColumnIdentifiers(colNames);
+		//model.setColumnIdentifiers(colNames);
 
 		list_table.setModel(model);
 		list_table.setRowHeight(35);
@@ -92,47 +97,36 @@ public class BoardUI implements MouseListener, ActionListener {
 		list_table.getTableHeader().setResizingAllowed(false); // 마우스로 컬럼 크기 조절 불가
 		list_table.setBackground(Color.white);
 		list_table.setShowVerticalLines(false); // 컬럼 구분선 안 보이게
-
+		
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 목록 리스트 내용 가운데 정렬
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = list_table.getColumnModel();
 
-		for (int i = 0; i < tcm.getColumnCount(); i++) {
+		for (int i = 0; i < tcm.getColumnCount()-1; i++) {
 			tcm.getColumn(i).setCellRenderer(dtcr);
 		}
-
-//      list_table.getColumn("번호").setPreferredWidth(5); 
-//      list_table.getColumn("제목").setWidth(125);
-//      list_table.getColumn("작성자").setPreferredWidth(5);
-//      list_table.getColumn("작성일").setPreferredWidth(5);
-//      list_table.getColumn("추천").setPreferredWidth(5);
 
 		resizeColumnWidth(list_table); // 컬럼 크기 조정
 		JScrollPane pane = new JScrollPane(list_table);
 		pane.setPreferredSize(new Dimension(700, 400));
 		list_panel.add(pane);
-
 		center_panel.add(BorderLayout.NORTH, search_panel);
 		center_panel.add(BorderLayout.CENTER, list_panel);
 
-		// 바텀패널
-		btn_write = new JButton("글쓰기");
-		btn_write.setFont(Commons.getFont());
-		bottom_panel.add(btn_write);
 
 		// 붙이기
 		main.board_panel.add(BorderLayout.NORTH, top_panel);
 		main.board_panel.add(BorderLayout.CENTER, center_panel);
 		main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
 		main.content_panel.add(main.board_panel);
-		main.secondFrame.setVisible(true);
+		main.adminFrame.setVisible(true);
 
 		list_table.addMouseListener(this);
-		btn_write.addActionListener(this);
 		btn_search.addActionListener(this);
 		search_tf.addActionListener(this);
 	}
 
+	
 	/** 글목록 생성 **/
 	public void createJtableData() {
 
@@ -145,6 +139,9 @@ public class BoardUI implements MouseListener, ActionListener {
 		row[4] = "1/1";
 
 		model.addRow(row);
+
+		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
 
 //      for(ScoreVO score : main.system.getScoreList()) {
 //         row[0] = score.getRno();
@@ -161,87 +158,10 @@ public class BoardUI implements MouseListener, ActionListener {
 		model.fireTableDataChanged();
 	}
 
-//   public void createJtableData(JTextField tf) {
-//      
-//      model.setNumRows(count);
-//      
-//      row[0] = count;
-//      row[1] = tf.getText();
-//      row[2] = "어피치";
-//      row[3] = "2021.01.01";
-//      row[4] = "추천/반대";
-//      
-//      model.addRow(row);         
-//   
-//      count++;
-//      
-//      model.fireTableDataChanged();
-//   }
-
-	/** 글 작성 화면 **/
-	public void writeUI() {
-		main.board_panel.removeAll();
-		main.switch_panel(MbtiMainUI.BOARD);
-		main.board_panel.setLayout(new BorderLayout());
-
-		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-		Panel center_panel = new Panel(new BorderLayout());
-		Panel bottom_panel = new Panel();
-		Panel title_panel = new Panel();
-		Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-
-		// 탑패널
-		JLabel board_label = new JLabel("자유게시판");
-		board_label.setFont(Commons.getFont(20));
-		top_panel.add(board_label);
-
-		// 센터패널 - 제목
-		JLabel title_label = new JLabel("제목  ");
-		title_tf = new JTextField(45);
-		title_label.setFont(Commons.getFont(15));
-		title_tf.setFont(Commons.getFont(15));
-		title_panel.add(title_label);
-		title_panel.add(title_tf);
-
-		// 센터패널 - 내용작성
-		JLabel content_label = new JLabel("내용  ");
-		content_label.setFont(Commons.getFont(15));
-		content_ta = new JTextArea(15, 45);
-		content_ta.setFont(Commons.getFont(15));
-		content_ta.setLineWrap(true);
-
-		JScrollPane ta_pane = new JScrollPane(content_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-		content_panel.add(content_label);
-		content_panel.add(ta_pane);
-		center_panel.add(BorderLayout.NORTH, title_panel);
-		center_panel.add(BorderLayout.CENTER, content_panel);
-
-		// 바텀패널
-		btn_insert = new JButton("등록");
-		btn_cancel = new JButton("취소");
-		btn_insert.setFont(Commons.getFont());
-		btn_cancel.setFont(Commons.getFont());
-		bottom_panel.add(btn_insert);
-		bottom_panel.add(btn_cancel);
-
-		// 붙이기
-		main.board_panel.add(BorderLayout.NORTH, top_panel);
-		main.board_panel.add(BorderLayout.CENTER, center_panel);
-		main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
-		main.content_panel.add(main.board_panel);
-		main.secondFrame.setVisible(true);
-
-		content_ta.addMouseListener(this);
-		btn_insert.addActionListener(this);
-		btn_cancel.addActionListener(this);
-	}
-
 	/** 글 읽기 화면 **/
 	public void readUI() {
 		main.board_panel.removeAll();
-		main.switch_panel(MbtiMainUI.BOARD);
+		main.switch_panel(AdminMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		Panel center_panel = new Panel(new BorderLayout());
@@ -294,25 +214,22 @@ public class BoardUI implements MouseListener, ActionListener {
 		recommend_panel.add(down_label);
 		recommend_panel.add(down_count);
 
-		ImageIcon writer = new ImageIcon("images/character.png"); // 0413: 게시글에 캐릭터 추가
-		JLabel character_label = new JLabel(writer);
+//		ImageIcon writer = new ImageIcon("images/character.png"); // 0413: 게시글에 캐릭터 추가
+//		JLabel character_label = new JLabel(writer);
 
 		content_panel.add(ta_pane);
 		center_panel.add(BorderLayout.NORTH, title_panel);
 		center_panel.add(BorderLayout.CENTER, content_panel);
-		center_panel.add(BorderLayout.EAST, character_label); // 0413: 게시글에 캐릭터 추가
+//		center_panel.add(BorderLayout.EAST, character_label); // 0413: 게시글에 캐릭터 추가
 		center_panel.add(BorderLayout.SOUTH, recommend_panel);
 
 		// 바텀패널
 		btn_list = new JButton("목록으로");
-		btn_update = new JButton("수정");
 		btn_delete = new JButton("삭제");
 		btn_list.setFont(Commons.getFont());
-		btn_update.setFont(Commons.getFont());
 		btn_delete.setFont(Commons.getFont());
 		Panel right_panel = new Panel();
 		Panel left_panel = new Panel();
-		right_panel.add(btn_update);
 		right_panel.add(btn_delete);
 		left_panel.add(btn_list);
 		bottom_panel.add(BorderLayout.WEST, left_panel);
@@ -323,16 +240,12 @@ public class BoardUI implements MouseListener, ActionListener {
 		main.board_panel.add(BorderLayout.CENTER, center_panel);
 		main.board_panel.add(BorderLayout.SOUTH, bottom_panel);
 		main.content_panel.add(main.board_panel);
-		main.secondFrame.setVisible(true);
+		main.adminFrame.setVisible(true);
 
 		btn_list.addActionListener(this);
-		btn_update.addActionListener(this);
 		btn_delete.addActionListener(this);
-		up_label.addMouseListener(this);
-		down_label.addMouseListener(this);
 	}
 
-	
 	public void resizeColumnWidth(JTable table) { // 열 너비 조정
 		TableColumnModel columnModel = table.getColumnModel();
 		for (int column = 0; column < table.getColumnCount(); column++) {
@@ -356,46 +269,14 @@ public class BoardUI implements MouseListener, ActionListener {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
 			} else {
 				// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
-				System.out.println("------------------------->> 검색");
+				System.out.println("검색");
 			}
-		} else if (obj == btn_write) {
-			writeUI();
-		} else if (obj == btn_insert) {
-			if (writeCheck()) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("등록이 완료되었습니다."));
-				// createJtableData(title_tf);
-				init();
-			} else {
-				if (title_tf.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("제목을 입력하세요."));
-				} else if (content_ta.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력하세요."));
-				}
-			}
-		} else if (obj == btn_cancel) {
-			int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("게시물 작성을 취소하시겠습니까?"));
-			if (result == 0) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물 작성이 취소되었습니다."));
-				init();
-			}
-
 		} else if (obj == btn_list) {
 			init();
-		} else if (obj == btn_update) {
-			System.out.println("------------------------->> 수정");
 		} else if (obj == btn_delete) {
-			System.out.println("------------------------->> 삭제");
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+			if(con==0) System.out.println("삭제 완료");
 		}
-	}
-
-	/** 글 작성 유효성 검사 **/
-	public boolean writeCheck() {
-		boolean result = false;
-		if (title_tf.getText().equals("") || content_ta.getText().equals("")) {
-			result = false;
-		} else
-			result = true;
-		return result;
 	}
 
 	/** 글목록 마우스 리스너 **/
@@ -408,10 +289,6 @@ public class BoardUI implements MouseListener, ActionListener {
 			readUI();
 			// int row = list_table.getSelectedRow();
 			// int column = list_table.getSelectedColumn();
-		} else if (obj == up_label) {
-			System.out.println("추천");
-		} else if (obj == down_label) {
-			System.out.println("비추천");
 		}
 	}
 
@@ -428,4 +305,38 @@ public class BoardUI implements MouseListener, ActionListener {
 	public void mouseExited(MouseEvent e) {
 	}
 
+	
+	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+
+		JButton jb;
+
+		public TableCell() {
+			jb = new JButton("삭제");
+			jb.addActionListener(e -> {
+//				String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
+				int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+				if(con == 0) System.out.println("삭제되었습니다.");
+			});
+		}
+
+		@Override
+		public Object getCellEditorValue() {
+			return null;
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			return jb;
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+			return jb;
+		}
+
+	}
+	
+	
 }
