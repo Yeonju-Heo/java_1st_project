@@ -1,9 +1,24 @@
 package mbti_system;
 
+import java.util.ArrayList;
+
+import mbti_dao.BoardDAO;
+import mbti_dao.ItemDAO;
+import mbti_dao.MbtiDAO;
+import mbti_dao.UserDAO;
+import mbti_vo.BoardVO;
+import mbti_vo.ItemVO;
+import mbti_vo.MbtiVO;
+import mbti_vo.UserVO;
+
 public class MbtiMgmSystem {
 	//Field
+	UserDAO udao = new UserDAO();
+	BoardDAO bdao = new BoardDAO();
+	MbtiDAO mdao = new MbtiDAO();
+	ItemDAO idao = new ItemDAO();
 	
-	//·Î±×ÀÎ °á°ú
+	//login ê²°ê³¼
 	public static boolean LOGIN_RESULT = false;
 	
 	//Constructor
@@ -12,18 +27,66 @@ public class MbtiMgmSystem {
 	}
 	
 	//Method
-	/** ·Î±×ÀÎ **/
+	/**  ë¡œê·¸ì¸ **/
+	public boolean loginCheck(String id, String pass) {
+		return udao.getLoginResult(id, pass);
+	}
 	
-	/** È¸¿ø°¡ÀÔ **/
+	/** íšŒì›ê°€ì… **/
+	public boolean join(UserVO user,MbtiVO mbti) {
+		return udao.getJoinResult(user, mbti);
+	}
 	
-	/** Ä³¸¯ÅÍ»ı¼º **/
+	/** íšŒì› ì •ë³´ ì¡°íšŒ **/
+	public UserVO searchUser(String id) {
+		return udao.getUserDateResult(id);
+	}
 	
-	/** Ã¤ÆÃ **/
+	/** íšŒì› ì•„ì´í…œ ì¡°íšŒ **/
+	public UserVO searchItem() {
+		return udao.getUserItemResult();
+	}
 	
-	/** °Ô½ÃÆÇ **/
+	/** íšŒì› ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì • **/
+	public int updateUser(UserVO user,String pass) {
+		return udao.getUpdateUserResult(user, pass);
+	}
 	
-	/** ¸¶ÀÌÆäÀÌÁö **/
 	
-	/** Á¾·á **/
+	/** ì¢…ë£Œ **/
+	public void close() {
+		udao.close();
+		System.out.println("--- ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¢…ë£Œ ---");
+	}
+	
+	/** ê²Œì‹œíŒ ë“±ë¡ **/
+	public boolean insertBoard(BoardVO board,UserVO user) {
+		return bdao.getInsertResult(board, user);
+	}
+	
+	/** ê²Œì‹œíŒ ì¡°íšŒ **/
+	public ArrayList<BoardVO> getBoardList(){
+		return bdao.getSelectResult();
+	}
+	
+	/** ê²Œì‹œíŒ ê²€ìƒ‰ **/
+	public BoardVO searchBoard(String title) {
+		return bdao.getSelectResult(title);
+	}
+	
+	/** ê²Œì‹œíŒ ìˆ˜ì • **/
+	public int updateBoard(BoardVO board, String content) {
+		return bdao.getUpdateResult(board, content);
+	}
+	
+	/** ë‚´ mbti ì¡°íšŒ **/
+	public MbtiVO getMbti(UserVO user) {
+		return mdao.getMbtiSelectResult(user);
+	}
+	
+	/** ë½‘ì€ ì•„ì´í…œ ì¶”ê°€ **/
+	public int updateUserItem(UserVO user, ItemVO item) {
+		return idao.getPickItemResult(user, item);
+	}
 	
 }
