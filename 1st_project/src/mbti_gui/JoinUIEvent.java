@@ -26,14 +26,14 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		this.main = main;
 	}
 	
-	//¾×¼Ç ÀÌº¥Æ® Ã³¸®
+	
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
 		if(obj == ui.join_btn) {
-			System.out.println("È¸¿ø°¡ÀÔ");
+			System.out.println("íšŒì›ê°€ì…");
 //			if(form_check()) {
-//				//JTextField Çüº¯È¯
+//				//JTextField 
 //				ArrayList<JTextField> jlist = new ArrayList<JTextField>();
 //				for(Object tf : ui.list) {
 //					JTextField jtf = (JTextField)tf;
@@ -49,34 +49,34 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 ////				boolean result = main.system.getMemberlist().add(member);
 //				boolean result = main.system.join(member);
 //				if(result == true) {
-//					JOptionPane.showMessageDialog(null, Commons.getMsg("È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù."));
+//					JOptionPane.showMessageDialog(null, Commons.getMsg("íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤."));
 //					for(Object obj2 : ui.list) {
 //						JTextField tf = (JTextField)obj2;
 //						tf.setText("");
 //					}	
 //					ui.f.setVisible(false);
 //				}else {
-//					JOptionPane.showMessageDialog(null, Commons.getMsg("È¸¿ø°¡ÀÔÀ» ´Ù½Ã ÁøÇàÇØÁÖ¼¼¿ä."));
+//					JOptionPane.showMessageDialog(null, Commons.getMsg("íšŒì›ê°€ì…ì´ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤."));
 //				}
 //			}
 		}else if(obj == ui.cancel_btn){
-			System.out.println("ÀÔ·ÂÃë¼Ò");
+			System.out.println("ì…ë ¥ì·¨ì†Œ");
 //			for(Object obj2 : ui.list) {
 //				JTextField tf = (JTextField)obj2;
 //				tf.setText("");
 //			}	
 		}else if(obj == ui.id_check_btn) {
-			System.out.println("·Î±×ÀÎ Áßº¹ Ã¼Å©");
+			System.out.println("ì•„ì´ë”” ì¤‘ë³µí™•ì¸");
 		}
 	}
-	/**Æû Ã¼Å©**/
+	/** í¼ ì²´í¬ **/
 	public boolean form_check() {
 		boolean result = false;
 		
 		for(int i=0;i<ui.list.size();i++) {
 			JTextField tf = (JTextField)ui.list.get(i);
 			if(tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg(ui.namelistCheck[i]+"(À»)¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä."));
+				JOptionPane.showMessageDialog(null, Commons.getMsg(ui.namelistCheck[i]+" ì„(ë¥¼) ì…ë ¥í•´ì£¼ì„¸ìš”."));
 				tf.requestFocus();
 				i = ui.list.size();
 			}else if(i == ui.list.size()-1) {

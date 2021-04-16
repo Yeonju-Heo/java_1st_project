@@ -30,8 +30,8 @@ public class JoinUI {
 	Panel label_panel, tf_panel, check_panel,id_check_panel, btn_panel;
 	JButton id_check_btn, mbti_check_btn, join_btn, cancel_btn;
 	Label textlabel, fieldlabel;
-	String namelist[] = {"¾ÆÀÌµğ","ºñ¹Ğ¹øÈ£","ºñ¹Ğ¹øÈ£È®ÀÎ","MBTI"};
-	String namelistCheck[] = {"¾ÆÀÌµğ","ºñ¹Ğ¹øÈ£","ºñ¹Ğ¹øÈ£È®ÀÎ","MBTI"};
+	String namelist[] = {"ì•„ì´ë””","ë¹„ë°€ë²ˆí˜¸","ë¹„ë°€ë²ˆí˜¸í™•ì¸","MBTI"};
+	String namelistCheck[] = {"ì•„ì´ë””","ë¹„ë°€ë²ˆí˜¸","ë¹„ë°€ë²ˆí˜¸í™•ì¸","MBTI"};
 	ArrayList<Object> list = new ArrayList<Object>();
 	
 	//Constructor
@@ -45,7 +45,7 @@ public class JoinUI {
 	}
 	//Method
 	public void init() {
-		f = new JFrame("È¸¿ø°¡ÀÔ");
+		f = new JFrame("íšŒì›ê°€ì…");
 		
 		label_panel = new Panel(new GridLayout(4,1));
 		tf_panel = new Panel(new GridLayout(4,1));
@@ -53,10 +53,10 @@ public class JoinUI {
 		id_check_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		btn_panel = new Panel();
 		
-		id_check_btn = new JButton("Áßº¹ È®ÀÎ");
-		mbti_check_btn = new JButton("°£´Ü °Ë»ç");
-		join_btn = new JButton("È¸¿ø°¡ÀÔ");
-		cancel_btn = new JButton("ÀÔ·ÂÃë¼Ò");
+		id_check_btn = new JButton("ì¤‘ë³µ í™•ì¸");
+		mbti_check_btn = new JButton("ê°„ë‹¨ ê²€ì‚¬");
+		join_btn = new JButton("íšŒì›ê°€ì…");
+		cancel_btn = new JButton("ì…ë ¥ì·¨ì†Œ");
 		
 		id_check_btn.setFont(Commons.getFont());
 		mbti_check_btn.setFont(Commons.getFont());
@@ -75,7 +75,7 @@ public class JoinUI {
 			
 			Panel t_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 
-			if(name.equals("ºñ¹Ğ¹øÈ£") || name.equals("ºñ¹Ğ¹øÈ£È®ÀÎ")) {
+			if(name.equals("ë¹„ë°€ë²ˆí˜¸") || name.equals("ë¹„ë°€ë²ˆí˜¸í™•ì¸")) {
 				JPasswordField pf = new JPasswordField(15);
 				t_panel.add(pf);
 				tf_panel.add(t_panel);
