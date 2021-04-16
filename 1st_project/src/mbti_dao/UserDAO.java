@@ -114,7 +114,7 @@ public class UserDAO extends DBConn{
 	
 	
 	/** 유저 비밀번호 수정 **/
-	public int getUpdateResult(String pass, UserVO user) {
+	public int getUpdateUserResult(UserVO user,String pass) {
 		int result = 0;
 		
 		try {
