@@ -5,29 +5,29 @@ import mbti_vo.UserVO;
 
 public class ItemDAO extends DBConn{
 	
-	/** 뽑은 아이템 user_table에 추가 **/
-	public int getPickItemResult(UserVO user, ItemVO item) {
-		int result = 0;
+	/** 유저 아이템 조회 **/
+	public ItemVO getUserItemResult(String item_name) {
+		ItemVO item = new ItemVO();
 		
 		try {
-			String sql = " UPDATE USER_TABLE"
-					+ " SET U_ITEM = ITEM_LIST(U_ITEM(?)) "
-					+ " WHERE U_ID = ?";
-					
+			String sql = " SELECT I_TYPE FROM ITEM_TABLE "
+					+ " WHERE I_TYPE = ?";
 			getPreparedStatement(sql);
+			pstmt.setString(1, item_name);
 			
-			pstmt.setString(1, item.getI_type());
-			pstmt.setString(2, user.getU_id());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				item.setI_type(rs.getString(1));
+			}
 			
-			result = pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		return item;
 		
-		return result;
 	}
-	
 	
 	
 }
