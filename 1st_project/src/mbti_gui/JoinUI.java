@@ -2,15 +2,24 @@ package mbti_gui;
 
 import java.awt.BorderLayout;
 import java.awt.Choice;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 
@@ -18,11 +27,11 @@ public class JoinUI {
 	//Field
 	MbtiMainUI main;
 	JFrame f;
-	Panel label_panel, tf_panel, btn_panel;
-	JButton join, cancel;
+	Panel label_panel, tf_panel, check_panel,id_check_panel, btn_panel;
+	JButton id_check_btn, mbti_check_btn, join_btn, cancel_btn;
 	Label textlabel, fieldlabel;
-	String namelist[] = {"ì•„ì´ë””","ë¹„ë°€ë²ˆí˜¸","ë¹„ë°€ë²ˆí˜¸í™•ì¸","MBTI"};
-	String namelistCheck[] = {"ì•„ì´ë””","ë¹„ë°€ë²ˆí˜¸","ë¹„ë°€ë²ˆí˜¸í™•ì¸","MBTI"};
+	String namelist[] = {"¾ÆÀÌµğ","ºñ¹Ğ¹øÈ£","ºñ¹Ğ¹øÈ£È®ÀÎ","MBTI"};
+	String namelistCheck[] = {"¾ÆÀÌµğ","ºñ¹Ğ¹øÈ£","ºñ¹Ğ¹øÈ£È®ÀÎ","MBTI"};
 	ArrayList<Object> list = new ArrayList<Object>();
 	
 	//Constructor
@@ -36,15 +45,27 @@ public class JoinUI {
 	}
 	//Method
 	public void init() {
-		f = new JFrame("íšŒì›ê°€ì…");
+		f = new JFrame("È¸¿ø°¡ÀÔ");
+		
 		label_panel = new Panel(new GridLayout(4,1));
 		tf_panel = new Panel(new GridLayout(4,1));
+		check_panel = new Panel(new BorderLayout());
+		id_check_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		btn_panel = new Panel();
-		join = new JButton("íšŒì›ê°€ì…");
-		join.setFont(Commons.getFont());
-		cancel = new JButton("ì…ë ¥ì·¨ì†Œ");
-		cancel.setFont(Commons.getFont());
-		btn_panel.add(join);	btn_panel.add(cancel);
+		
+		id_check_btn = new JButton("Áßº¹ È®ÀÎ");
+		mbti_check_btn = new JButton("°£´Ü °Ë»ç");
+		join_btn = new JButton("È¸¿ø°¡ÀÔ");
+		cancel_btn = new JButton("ÀÔ·ÂÃë¼Ò");
+		
+		id_check_btn.setFont(Commons.getFont());
+		mbti_check_btn.setFont(Commons.getFont());
+		join_btn.setFont(Commons.getFont());
+		cancel_btn.setFont(Commons.getFont());
+		
+		id_check_panel.add(id_check_btn);	
+		check_panel.add(id_check_panel,BorderLayout.NORTH);	
+		btn_panel.add(mbti_check_btn);	btn_panel.add(join_btn);	btn_panel.add(cancel_btn);
 		
 		for(String name : namelist) {
 			Panel l_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
@@ -54,11 +75,11 @@ public class JoinUI {
 			
 			Panel t_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 
-			if(name.equals("ë¹„ë°€ë²ˆí˜¸") || name.equals("ë¹„ë°€ë²ˆí˜¸í™•ì¸")) {
-				JPasswordField tf = new JPasswordField(15);
-				t_panel.add(tf);
+			if(name.equals("ºñ¹Ğ¹øÈ£") || name.equals("ºñ¹Ğ¹øÈ£È®ÀÎ")) {
+				JPasswordField pf = new JPasswordField(15);
+				t_panel.add(pf);
 				tf_panel.add(t_panel);
-				list.add(tf);
+				list.add(pf);
 				
 			}else if(name.equals("MBTI")) {
 				Choice mbtilist = new Choice();
@@ -79,7 +100,7 @@ public class JoinUI {
 				mbtilist.add("ESFP");
 				mbtilist.add("ESTJ");
 			 	mbtilist.add("ESFJ");
-				
+				//INTJ, INTP, ENTJ, ENTP
 				t_panel.add(mbtilist);
 				tf_panel.add(t_panel);
 				list.add(mbtilist);
@@ -94,15 +115,29 @@ public class JoinUI {
 		
 		f.add(BorderLayout.WEST,label_panel);
 		f.add(BorderLayout.CENTER,tf_panel);
+		f.add(BorderLayout.EAST,check_panel);
 		f.add(BorderLayout.SOUTH,btn_panel);
 		
-		f.setSize(300, 300);
-		f.setLocation(800, 400);
+		label_panel.setBackground(Color.white);
+		tf_panel.setBackground(Color.white);
+		check_panel.setBackground(Color.white);
+		btn_panel.setBackground(Color.white);
+		
+		f.setSize(400, 300);
+		
+		Dimension fsize = f.getSize();
+		Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
+		int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
+		f.setLocation(width, height);
+		
 		f.setVisible(true);
 		
 		f.addWindowListener(new JoinUIEvent());
-		join.addActionListener(new JoinUIEvent(this,main));
-		cancel.addActionListener(new JoinUIEvent(this));
+		id_check_btn.addActionListener(new JoinUIEvent(this));
+		mbti_check_btn.addActionListener(new MbtiCheckUI(this));
+		join_btn.addActionListener(new JoinUIEvent(this,main));
+		cancel_btn.addActionListener(new JoinUIEvent(this));
 	}
 	
 }
