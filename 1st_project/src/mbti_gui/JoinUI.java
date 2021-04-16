@@ -9,17 +9,12 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 
@@ -33,6 +28,8 @@ public class JoinUI {
 	String namelist[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	String namelistCheck[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	ArrayList<Object> list = new ArrayList<Object>();
+	JComboBox mbtilist;
+	String mbtitype[] = {"INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
 	
 	//Constructor
 	public JoinUI() {
@@ -82,25 +79,8 @@ public class JoinUI {
 				list.add(pf);
 				
 			}else if(name.equals("MBTI")) {
-				Choice mbtilist = new Choice();
+				mbtilist = new JComboBox(mbtitype);
 				
-				mbtilist.add("INFJ"); 
-				mbtilist.add("INTJ"); 	
-				mbtilist.add("INFP"); 
-				mbtilist.add("INTP"); 	
-				mbtilist.add("ISTJ"); 	
-				mbtilist.add("ISFJ"); 	
-				mbtilist.add("ISTP"); 
-				mbtilist.add("ISFP"); 	
-				mbtilist.add("ENFP");
-				mbtilist.add("ENTP");
-				mbtilist.add("ENFJ");
-				mbtilist.add("ENTJ");
-			 	mbtilist.add("ESTP");
-				mbtilist.add("ESFP");
-				mbtilist.add("ESTJ");
-			 	mbtilist.add("ESFJ");
-				//INTJ, INTP, ENTJ, ENTP
 				t_panel.add(mbtilist);
 				tf_panel.add(t_panel);
 				list.add(mbtilist);
@@ -138,6 +118,7 @@ public class JoinUI {
 		mbti_check_btn.addActionListener(new MbtiCheckUI(this));
 		join_btn.addActionListener(new JoinUIEvent(this,main));
 		cancel_btn.addActionListener(new JoinUIEvent(this));
+		mbtilist.addActionListener(new JoinUIEvent(this));
 	}
 	
 }

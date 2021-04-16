@@ -1,13 +1,10 @@
 package mbti_gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -67,8 +64,16 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 //			}	
 		}else if(obj == ui.id_check_btn) {
 			System.out.println("아이디 중복확인");
+		}else {
+			JComboBox jcb = (JComboBox)e.getSource();
+			if(jcb == ui.mbtilist) {
+				System.out.println(jcb.getSelectedItem());
+				jcb.getSelectedItem();
+			}
 		}
 	}
+	
+	
 	/** 폼 체크 **/
 	public boolean form_check() {
 		boolean result = false;
@@ -86,5 +91,7 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		}
 		return result;
 	}
+	
+	
 	
 }
