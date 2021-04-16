@@ -1,6 +1,7 @@
 package mbti_gui;
 
 
+
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
+import mbti_dao.MbtiDAO;
 import mbti_vo.MessageVO;
 
 public class ChatServer {
@@ -16,11 +18,12 @@ public class ChatServer {
 	static ArrayList<ObjectOutputStream> list = new ArrayList<ObjectOutputStream>();
 	static Vector<String> user_list = new Vector<String>();
 	
+	
 	//Constructor
 	public ChatServer() {
 		try {
 			server = new ServerSocket(9000);
-			System.out.println("서버실행");
+			System.out.println("서버연결");
 			
 			while(true) {
 				Socket s = server.accept();
@@ -28,7 +31,7 @@ public class ChatServer {
 				st.start();
 				
 				list.add(st.oos);
-				System.out.println("클라이언트 접속");
+				System.out.println("클라이언트 연결");
 			}
 			
 		} catch (Exception e) {
@@ -40,11 +43,11 @@ public class ChatServer {
 	synchronized static public void broadcasting(MessageVO vo) {
 		try {
 			if(vo.getStatus() == MessageVO.CONNECT) {
-				user_list.add(vo.getName() + "(" + vo.getMbti() + ")" );
+				user_list.add( vo.getName() + "(" + vo.getMbti() + ")" );
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
 				vo.setMsg("---------------->>" + 
-						vo.getName() + "(" + vo.getMbti() + ")" + "님이 입장하셨습니다.");
+						vo.getName() + "(" + vo.getMbti() + ")" + "님이 입장하셧습니다.");
 				
 			}else if(vo.getStatus() == MessageVO.TALK) {
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
@@ -76,7 +79,5 @@ public class ChatServer {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 }

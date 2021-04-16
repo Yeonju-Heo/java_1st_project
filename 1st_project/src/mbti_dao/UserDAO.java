@@ -1,7 +1,8 @@
 package mbti_dao;
 
-import mbti_vo.ItemVO;
+import mbti_vo.BoardVO;
 import mbti_vo.MbtiVO;
+import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
 public class UserDAO extends DBConn{
@@ -66,6 +67,8 @@ public class UserDAO extends DBConn{
 	/** 유저 정보 조회 **/
 	public UserVO getUserDateResult(String id) {
 		UserVO user = new UserVO();
+		UserItemVO uitem = new UserItemVO();
+		BoardVO board = new BoardVO();
 		
 		try {
 			String sql = " SELECT U_ID,U_MBTI,U_POINT,U_DATE"
@@ -75,6 +78,8 @@ public class UserDAO extends DBConn{
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				user.setU_id(rs.getString(1));
+				uitem.setU_id(rs.getString(1));
+				board.setB_id(rs.getString(1));
 				user.setU_mbti(rs.getString(2));
 				user.setU_point(rs.getInt(3));
 				user.setU_date(rs.getDate(4));
@@ -88,28 +93,6 @@ public class UserDAO extends DBConn{
 		
 		return user;
 		
-	}
-	
-	/** 유저 아이템 조회 **/
-	public UserVO getUserItemResult() {//userVO-u_item도 어레이리스트로 만들어야할까??ㅜㅜㅜ
-		UserVO user = new UserVO();
-		
-		try {
-			String sql = " SELECT U_ITEM FROM USER_TABLE";
-			getPreparedStatement(sql);
-			
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				user.setU_item(rs.getString(1));
-			}
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-		return user;
 	}
 	
 	

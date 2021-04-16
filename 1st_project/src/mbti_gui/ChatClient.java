@@ -1,12 +1,15 @@
 package mbti_gui;
 
 
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import mbti_vo.MbtiVO;
 import mbti_vo.MessageVO;
+import mbti_vo.UserVO;
 
 public class ChatClient {
 	//Field
@@ -14,7 +17,6 @@ public class ChatClient {
 	ObjectInputStream ois;
 	ArrayList<ObjectOutputStream> user_list = new ArrayList<ObjectOutputStream>();
 	ChatUI cc;
-	String name = "user_name";
 	
 	//Constructor
 	public ChatClient() {
@@ -25,12 +27,14 @@ public class ChatClient {
 			
 			//connect 
 			MessageVO vo = new MessageVO();
-			vo.setName(name); //DB에서 정보를 받아와서 이름을 vo에 저장(입장)
-			vo.setMbti("mbti");//DB에서 정보를 받아와서 mbti를 vo에 저장(입장)
-			vo.setStatus(MessageVO.CONNECT); //상태 저장
-			oos.writeObject(vo); //vo를 전송
+			MbtiVO mvo = new MbtiVO();
+			UserVO uvo = new UserVO();
+			vo.setName(uvo.getU_id()); //uvo에서 id불러오기 그걸 메시지 vo에 저장(입장)
+			vo.setMbti(mvo.getMbti_type());;//mvo에서 mbti불러오기 그걸 메시지 vo에 저장
+			vo.setStatus(MessageVO.CONNECT); //연결상태전송
+			oos.writeObject(vo); //전송
 			
-			System.out.println("연결!");
+			System.out.println("?���?!");
 			
 			
 		} catch (Exception e) {

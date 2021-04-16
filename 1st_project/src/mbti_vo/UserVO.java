@@ -3,16 +3,10 @@ package mbti_vo;
 import java.util.Date;
 
 public class UserVO {
-	String u_id,u_pass,u_mbti,u_item;
+	String u_id,u_pass,u_mbti;
 	int u_point;
 	Date u_date;
 	
-	public String getU_item() {
-		return u_item;
-	}
-	public void setU_item(String u_item) {
-		this.u_item = u_item;
-	}
 	public String getU_mbti() {
 		return u_mbti;
 	}

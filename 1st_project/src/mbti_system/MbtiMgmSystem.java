@@ -6,9 +6,11 @@ import mbti_dao.BoardDAO;
 import mbti_dao.ItemDAO;
 import mbti_dao.MbtiDAO;
 import mbti_dao.UserDAO;
+import mbti_dao.UserItemDAO;
 import mbti_vo.BoardVO;
 import mbti_vo.ItemVO;
 import mbti_vo.MbtiVO;
+import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
 public class MbtiMgmSystem {
@@ -17,6 +19,7 @@ public class MbtiMgmSystem {
 	BoardDAO bdao = new BoardDAO();
 	MbtiDAO mdao = new MbtiDAO();
 	ItemDAO idao = new ItemDAO();
+	UserItemDAO u_idao = new UserItemDAO();
 	
 	//login 결과
 	public static boolean LOGIN_RESULT = false;
@@ -43,8 +46,8 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 회원 아이템 조회 **/
-	public UserVO searchItem() {
-		return udao.getUserItemResult();
+	public UserItemVO searchItem(UserVO user) {
+		return u_idao.getUserItemResult(user);
 	}
 	
 	/** 회원 비밀번호 수정 **/
@@ -85,8 +88,8 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 뽑은 아이템 추가 **/
-	public int updateUserItem(UserVO user, ItemVO item) {
-		return idao.getPickItemResult(user, item);
+	public boolean updateUserItem(UserVO user, ItemVO item) {
+		return u_idao.getUserItemResult(user, item);
 	}
 	
 }
