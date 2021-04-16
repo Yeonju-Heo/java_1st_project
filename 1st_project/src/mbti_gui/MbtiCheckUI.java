@@ -28,7 +28,15 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 	JFrame f;
 	JPanel title_p, center_p, text_p,choice_p, btn_p;
 	JButton check_btn;
-	JRadioButton yes1, yes2, yes3, yes4, no1, no2, no3, no4;
+//	JRadioButton yes1, yes2, yes3, yes4, no1, no2, no3, no4;
+	
+	JRadioButton yes[] = new JRadioButton[4];
+    JRadioButton no[] = new JRadioButton[4];
+    
+    String yes_type[] = {"E", "S", "F", "J"}; 
+    String no_type[] = {"I", "N", "T", "P"}; 
+    String[] mlist = new String[4];
+	
 	
 	//Constructor
 	public MbtiCheckUI() {}
@@ -81,39 +89,41 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		yes_l.setFont(Commons.getFont());
 		no_l.setFont(Commons.getFont());
 		
-		yes1 = new JRadioButton();
-		yes2 = new JRadioButton();
-		yes3 = new JRadioButton();
-		yes4 = new JRadioButton();
-		no1 = new JRadioButton();
-		no2 = new JRadioButton();
-		no3 = new JRadioButton();
-		no4 = new JRadioButton();
-		
 		ButtonGroup choice1 = new ButtonGroup();
 		ButtonGroup choice2 = new ButtonGroup();
 		ButtonGroup choice3 = new ButtonGroup();
 		ButtonGroup choice4 = new ButtonGroup();
 		
-		choice1.add(yes1);
-		choice2.add(yes2);
-		choice3.add(yes3);
-		choice4.add(yes4);
-		choice1.add(no1);
-		choice2.add(no2);
-		choice3.add(no3);
-		choice4.add(no4);
 		
-		choice_p.add(yes_l);
-		choice_p.add(no_l);
-		choice_p.add(yes1);
-		choice_p.add(no1);
-		choice_p.add(yes2);
-		choice_p.add(no2);
-		choice_p.add(yes3);
-		choice_p.add(no3);
-		choice_p.add(yes4);
-		choice_p.add(no4);
+//		ButtonGroup[][] choice = new ButtonGroup[4][2];
+//		
+		
+		choice_p.add(new JLabel(""));
+		choice_p.add(new JLabel(""));
+		for(int i=0;i<yes.length;i++) {
+        	yes[i] = new JRadioButton(yes_type[i]);
+        	choice_p.add(yes[i]);
+        	yes[i].setBackground(Color.white);
+        	yes[i].addActionListener(this);
+        	no[i] = new JRadioButton(no_type[i]);
+        	choice_p.add(no[i]);
+        	no[i].setBackground(Color.white);
+        	no[i].addActionListener(this);
+        	if(i==0) {
+        		choice1.add(yes[i]);
+        		choice1.add(no[i]);
+        	}else if(i==1) {
+        		choice2.add(yes[i]);
+        		choice2.add(no[i]);
+        	}else if(i==2) {
+        		choice3.add(yes[i]);
+        		choice3.add(no[i]);
+        	}else if(i==3) {
+        		choice4.add(yes[i]);
+        		choice4.add(no[i]);
+        	}
+        }
+		
 		center_p.add(choice_p,BorderLayout.EAST);
 		
 		/** button **/
@@ -130,14 +140,6 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		center_p.setBackground(Color.white);
 		text_p.setBackground(Color.white);
 		choice_p.setBackground(Color.white);
-		yes1.setBackground(Color.white);
-		yes2.setBackground(Color.white);
-		yes3.setBackground(Color.white);
-		yes4.setBackground(Color.white);
-		no1.setBackground(Color.white);
-		no2.setBackground(Color.white);
-		no3.setBackground(Color.white);
-		no4.setBackground(Color.white);
 		btn_p.setBackground(Color.white);
 		
 		f.setSize(550,400);
@@ -159,14 +161,6 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		
 		check_btn.addActionListener(this);
 //		yes1.addItemListener(this);
-		yes1.addActionListener(this);
-		yes2.addActionListener(this);
-		yes3.addActionListener(this);
-		yes4.addActionListener(this);
-		no1.addActionListener(this);
-		no2.addActionListener(this);
-		no3.addActionListener(this);
-		no4.addActionListener(this);
 	}
 
 	@Override
@@ -174,28 +168,25 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		Object obj = e.getSource();
 		if(obj == ui.mbti_check_btn) {
 			mbti_check();
-		}else if(obj == yes1) {
-			yes1.setText("E");
-		}else if(obj == no1) {
-			no1.setText("I");
-		}else if(obj == yes2) {
-			yes2.setText("S");
-		}else if(obj == no2) {
-			no2.setText("N");
-		}else if(obj == yes3) {
-			yes3.setText("F");
-		}else if(obj == no3) {
-			no3.setText("T");
-		}else if(obj == yes4) {
-			yes4.setText("J");
-		}else if(obj == no4) {
-			no4.setText("P");
 		}else if(obj == check_btn) {
-//			if(obj == yes1 || obj == yes2 || obj == yes3 || obj == yes4) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg(
-						"당신의 MBTI는 "+ yes1.getText()+yes2.getText()+yes3.getText()+yes4.getText() +" 입니다."));
-//			}
+			if(!mlist[0].equals("")&&!mlist[1].equals("")&&!mlist[2].equals("")&&!mlist[3].equals("")) {
+		          
+		        JOptionPane.showMessageDialog(null,"당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다");
+	      
+	      }
 		}
+		
+		String s = e.getActionCommand();
+			for(int i=0;i<mlist.length;i++) {
+	      	if(s.equals(yes[i].getText())) {
+	      		mlist[i] = yes[i].getText();
+	      	}else if(s.equals(no[i].getText())) {
+	      		mlist[i] = no[i].getText();
+	      	}
+		}
+      
+      
+		
 	}
 	@Override
 	public void itemStateChanged(ItemEvent e) {
