@@ -52,7 +52,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		JPanel btn_p = new JPanel();
 		
 		/** title **/
-		JLabel title_l = new JLabel("����� MBTI�� �˾ƺ�����!");
+		JLabel title_l = new JLabel("당신의 MBTI를 알아보세요!");
 		title_l.setFont(Commons.getFont2());
 		title_p.add(title_l);
 		
