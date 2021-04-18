@@ -76,18 +76,17 @@ public class UserDAO extends DBConn{
 	public UserVO getUserDataResult(String id) {
 		UserVO user = new UserVO();
 		try {
-			String sql = "SELECT U_ID, U_PASS, U_MBTI,U_DATE,U_POINT " + 
+			String sql = "SELECT U_ID, U_PASS, U_MBTI, U_DATE ,U_POINT " + 
 					" FROM USER_TABLE " + 
 					" WEHRE U_ID = ? ";
 			getPreparedStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-<<<<<<< HEAD
 				user.setU_id(rs.getString(1));
 				user.setU_pass(rs.getString(2));
 				user.setU_mbti(rs.getString(3));
-				user.setU_date(rs.getDate(4));
+				user.setU_date(rs.getString(4));;
 				user.setU_point(rs.getInt(5));
 			}
 			
@@ -113,9 +112,6 @@ public class UserDAO extends DBConn{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				user.setU_id(rs.getString(1));
-=======
-				
->>>>>>> refs/remotes/origin/master
 				user.setU_mbti(rs.getString(2));
 				user.setU_point(rs.getInt(3));
 				user.setU_date(rs.getString(4));
@@ -132,12 +128,7 @@ public class UserDAO extends DBConn{
 	}
 	
 	/** 유저 정보 조회(admin)**/
-<<<<<<< HEAD
-	public ArrayList<UserVO> getUserDateResult() {
-=======
 	public ArrayList<UserVO> getUserDataResult() {
-		System.out.println("다오");
->>>>>>> refs/remotes/origin/master
 		ArrayList<UserVO> list = new ArrayList<UserVO>();
 		try {
 			String sql = "SELECT U_ID, U_PASS, U_MBTI,U_DATE,U_POINT " + 
