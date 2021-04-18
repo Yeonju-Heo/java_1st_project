@@ -35,7 +35,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
     
     String yes_type[] = {"E", "S", "F", "J"}; 
     String no_type[] = {"I", "N", "T", "P"}; 
-    String[] mlist;
+    String[] mlist = new String[4];
 	
 	
 	//Constructor
@@ -51,7 +51,6 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 	
 	//Method
 	public void mbti_check() {
-		
 		f = new JFrame("MBTI 간단 검사");
 		
 		JPanel title_p = new JPanel();
@@ -102,9 +101,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		choice_p.add(new JLabel("예"));
 		choice_p.add(new JLabel("아니오"));
 		for(int i=0;i<yes.length;i++) {
-			mlist = new String[4];
         	yes[i] = new JRadioButton();
-        	yes[i].getHideActionText();
         	choice_p.add(yes[i]);
         	yes[i].setBackground(Color.white);
         	yes[i].addActionListener(this);
@@ -134,7 +131,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		check_btn.setFont(Commons.getFont());
 		btn_p.add(check_btn);
 		
-		
+		/** ȭ����� **/
 		f.add(BorderLayout.NORTH,title_p);
 		f.add(BorderLayout.CENTER,center_p);
 		f.add(BorderLayout.SOUTH,btn_p);
@@ -175,17 +172,22 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 			if(!mlist[0].equals("")&&!mlist[1].equals("")&&!mlist[2].equals("")&&!mlist[3].equals("")) {
 		          
 		        JOptionPane.showMessageDialog(null,"당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다");
-//		        mbti_check();
+	      
 	      }
 		}
 		
-		String s = e.getActionCommand();
+//		String s = e.getActionCommand();
 			for(int i=0;i<mlist.length;i++) {
-	      	if(s.equals(yes[i].getText())) {
-	      		mlist[i] = yes_type[i];
-	      	}else if(s.equals(no[i].getText())) {
-	      		mlist[i] = no_type[i];
-	      	}
+				if(obj==yes[i]) {
+					mlist[i] = yes_type[i];
+				}else if(obj==no[i]) {
+					mlist[i] = no_type[i];
+				}
+//	      	if(s.equals(yes[i].getText())) {
+//	      		mlist[i] = yes_type[i];
+//	      	}else if(s.equals(no[i].getText())) {
+//	      		mlist[i] = no[i].getText();
+//	      	}
 		}
       
       
