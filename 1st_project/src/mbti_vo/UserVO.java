@@ -3,17 +3,16 @@ package mbti_vo;
 import java.util.Date;
 
 public class UserVO {
-	String u_id,u_pass,cpass,u_mbti;
+	String u_id,u_pass,u_cpass,u_mbti;
 	int u_point;
 	String u_date;
 	
 	
-	
-	public String getCpass() {
-		return cpass;
+	public String getU_cpass() {
+		return u_cpass;
 	}
-	public void setCpass(String cpass) {
-		this.cpass = cpass;
+	public void setU_cpass(String u_cpass) {
+		this.u_cpass = u_cpass;
 	}
 	public String getU_mbti() {
 		return u_mbti;
