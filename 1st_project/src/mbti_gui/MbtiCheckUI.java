@@ -183,11 +183,6 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 				}else if(obj==no[i]) {
 					mlist[i] = no_type[i];
 				}
-//	      	if(s.equals(yes[i].getText())) {
-//	      		mlist[i] = yes_type[i];
-//	      	}else if(s.equals(no[i].getText())) {
-//	      		mlist[i] = no[i].getText();
-//	      	}
 		}
       
       
