@@ -36,13 +36,13 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 회원가입 **/
-	public boolean join(UserVO user,MbtiVO mbti) {
-		return udao.getJoinResult(user, mbti);
+	public boolean join(UserVO user) {
+		return udao.getJoinResult(user);
 	}
 	
 	/** 회원 정보 조회 **/
 	public UserVO searchUser(String id) {
-		return udao.getUserDateResult(id);
+		return udao.getUserDataResult(id);
 	}
 	
 	/** 회원 아이템 조회 **/
@@ -98,26 +98,26 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 유저 검색 **/
-	public UserVO getUserDateSelect(String id){
+	public UserVO getUserDataSelect(String id){
 		System.out.println("메인시스템");
-		return udao.getUserDateResult(id);
+		return udao.getUserDataResult(id);
 	}
 	
 	/** 유저 조회 **/
-	public ArrayList<UserVO> getUserDateSelect(){
+	public ArrayList<UserVO> getUserDataSelect(){
 		System.out.println("메인시스템");
-		return udao.getUserDateResult();
+		return udao.getUserDataResult();
 	}
 	
-	/** 유저 삭제 **/
-	public  UserVO getUserDateSelect(String id){
-		System.out.println("메인시스템");
-		return udao.getUserDateResult();
-	}
+//	/** 유저 삭제 **/
+//	public  UserVO getUserDatSelect(String id){
+//		System.out.println("메인시스템");
+//		return udao.getUserDataResult();
+//	}
 	
-	/** 관리자 유저 삭제 **/
-	public int deleteAdminBoard(BoardVO) {
-		
-	}
+//	/** 관리자 유저 삭제 **/
+//	public int deleteAdminBoard(BoardVO) {
+//		
+//	}
 	
 }
