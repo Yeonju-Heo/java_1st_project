@@ -3,10 +3,13 @@ package mbti_gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import mbti_vo.UserVO;
+
 
 public class JoinUIEvent extends WindowAdapter implements ActionListener {
 	//Field
@@ -28,49 +31,49 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == ui.join_btn) {
-			System.out.println("회원가입");
-//			if(form_check()) {
-//				//JTextField 
-//				ArrayList<JTextField> jlist = new ArrayList<JTextField>();
-//				for(Object tf : ui.list) {
-//					JTextField jtf = (JTextField)tf;
-//					jlist.add(jtf);
-//				}
-//				MemberVO member = new MemberVO();
-//				member.setId(jlist.get(0).getText());
-//				member.setPw(jlist.get(1).getText());
-//				member.setCpw(jlist.get(2).getText());
-//				member.setName(jlist.get(3).getText());
-//				member.setEmail(jlist.get(4).getText());
-//				
-////				boolean result = main.system.getMemberlist().add(member);
-//				boolean result = main.system.join(member);
-//				if(result == true) {
-//					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 완료되었습니다."));
-//					for(Object obj2 : ui.list) {
-//						JTextField tf = (JTextField)obj2;
-//						tf.setText("");
-//					}	
-//					ui.f.setVisible(false);
-//				}else {
-//					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 실패했습니다."));
-//				}
-//			}
-		}else if(obj == ui.cancel_btn){
-			System.out.println("입력취소");
-//			for(Object obj2 : ui.list) {
-//				JTextField tf = (JTextField)obj2;
-//				tf.setText("");
-//			}	
-		}else if(obj == ui.id_check_btn) {
-			System.out.println("아이디 중복확인");
-		}else {
-			JComboBox jcb = (JComboBox)e.getSource();
-			if(jcb == ui.mbtilist) {
-				System.out.println(jcb.getSelectedItem());
-				jcb.getSelectedItem();
+			if(form_check()) {
+				ArrayList<JTextField> jlist = new ArrayList<JTextField>();
+				for(Object tf : ui.list) {
+					JTextField jtf = (JTextField)tf;
+					jlist.add(jtf);
+				}
+				UserVO user = new UserVO();
+//				MbtiVO mbti = new MbtiVO();
+				user.setU_id(jlist.get(0).getText());
+				user.setU_pass(jlist.get(1).getText());
+				user.setU_cpass(jlist.get(2).getText());
+				user.setU_mbti(jlist.get(3).getText());
+//				mbti.setMbti_type(jlist.get(3).getText());
+				
+				System.out.println("join formcheck");
+				boolean result = main.system.join(user);
+				if(result == true) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 완료되었습니다."));
+					for(Object obj2 : ui.list) {
+						JTextField tf = (JTextField)obj2;
+						tf.setText("");
+					}	
+					ui.f.setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 다시 진행해주세요."));
+				}
 			}
+		}else if(obj == ui.cancel_btn){
+			System.out.println("cancel");
+			for(Object obj2 : ui.list) {
+				JTextField tf = (JTextField)obj2;
+				tf.setText("");
+			}	
+		}else if(obj == ui.id_check_btn) {
+			System.out.println("id check");
 		}
+//		else {
+//			JComboBox jcb = (JComboBox)e.getSource();
+//			if(jcb == ui.mbtilist) {
+//				System.out.println(jcb.getSelectedItem());
+//				jcb.getSelectedItem();
+//			}
+//		}
 	}
 	
 	
@@ -80,10 +83,17 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		
 		for(int i=0;i<ui.list.size();i++) {
 			JTextField tf = (JTextField)ui.list.get(i);
+//			System.out.println(ui.mbtilist.getSelectedItem());
+//			JComboBox mbtilist = (JComboBox)ui.list.get(i);
+			//&& ui.mbtilist.getSelectedItem().equals("== CHOICE ==")
 			if(tf.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg(ui.namelistCheck[i]+" 을(를) 입력해주세요."));
 				tf.requestFocus();
 				i = ui.list.size();
+//			}else if(ui.mbtilist.getSelectedItem().equals("== CHOICE ==")) {
+//				JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
+//				ui.mbtilist.requestFocus();
+				
 			}else if(i == ui.list.size()-1) {
 				result = true;
 			}

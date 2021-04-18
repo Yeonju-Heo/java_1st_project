@@ -16,7 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
+ 
 
 public class JoinUI {
 	//Field
@@ -28,8 +28,8 @@ public class JoinUI {
 	String namelist[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	String namelistCheck[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	ArrayList<Object> list = new ArrayList<Object>();
-	JComboBox mbtilist;
-	String mbtitype[] = {"INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
+//	String[] mbtitype = {"== CHOICE ==","INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
+//	JComboBox<String> mbtilist; 
 	
 	//Constructor
 	public JoinUI() {
@@ -78,12 +78,13 @@ public class JoinUI {
 				tf_panel.add(t_panel);
 				list.add(pf);
 				
-			}else if(name.equals("MBTI")) {
-				mbtilist = new JComboBox(mbtitype);
-				
-				t_panel.add(mbtilist);
-				tf_panel.add(t_panel);
-				list.add(mbtilist);
+//			}else if(name.equals("MBTI")) {
+//				list.add(mbtitype);
+//				mbtilist = new JComboBox<>(mbtitype);
+//				mbtilist.setPreferredSize(new Dimension(170,20));
+//				t_panel.add(mbtilist);
+//				tf_panel.add(t_panel);
+//				list.add(mbtilist);
 				
 			}else {
 				JTextField tf = new JTextField(15);
@@ -118,7 +119,7 @@ public class JoinUI {
 		mbti_check_btn.addActionListener(new MbtiCheckUI(this));
 		join_btn.addActionListener(new JoinUIEvent(this,main));
 		cancel_btn.addActionListener(new JoinUIEvent(this));
-		mbtilist.addActionListener(new JoinUIEvent(this));
+//		mbtilist.addActionListener(new JoinUIEvent(this));
 	}
 	
 }
