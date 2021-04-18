@@ -133,4 +133,26 @@ public class BoardDAO extends DBConn {
 		return result;
 	}
 	
+	/** board삭제 (admin)**/
+	public boolean getDeleteResult(int bno) {
+		boolean result = false;
+		
+		try {
+			String sql = " DELETE FROM BOARD_TABLE WHERE B_RNO = ?";
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, bno);
+			int val = pstmt.executeUpdate();
+			if(val != 0) {
+				result = true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 }

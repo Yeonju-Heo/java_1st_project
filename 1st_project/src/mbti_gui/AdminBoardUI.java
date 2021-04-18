@@ -28,6 +28,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import mbti_dao.BoardDAO;
 import mbti_vo.BoardVO;
 
 public class AdminBoardUI implements ActionListener, MouseListener {
@@ -53,6 +54,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 //	int count = 1;
 	JLabel up_label;
 	JLabel down_label;
+	int bno = 0;
 
 	// Constructor
 	public AdminBoardUI(AdminMainUI main) {
@@ -101,6 +103,9 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		list_table.setBackground(Color.white);
 		list_table.setShowVerticalLines(false); // 컬럼 구분선 안 보이게
 		
+		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+		
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 목록 리스트 내용 가운데 정렬
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = list_table.getColumnModel();
@@ -128,11 +133,19 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		btn_search.addActionListener(this);
 		search_tf.addActionListener(this);
 	}
-
-	//선생님께 물어보기!! 
 	
+	
+	
+
 	/** 글목록 생성 **/
 	public void createJtableData() {
+//		BoardDAO bdao = new BoardDAO();
+//		data = bdao.selectTable();
+//		model.setDataVector(data, colName);
+		
+//		model.setNumRows(0);
+//		model.setDataVector(dataVector, columnIdentifiers);
+		
 		model.setNumRows(0);
 		for(BoardVO board : main.system.getBoardList()) {
 			row = new Object[6];
@@ -141,14 +154,33 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			row[2] = board.getB_id();
 			row[3] = board.getB_date();
 			row[4] = board.getB_good() +"/" + board.getB_bad();  
-//			row[5] = board.getB_bad();
 			
 			model.addRow(row);
+			
+//			list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+//			list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+			
+			model.fireTableDataChanged();
 		}
-		
-		list_table.getColumnModel().getColumn(6).setCellRenderer(new TableCell());
-		list_table.getColumnModel().getColumn(6).setCellEditor(new TableCell());
 
+	}
+	
+	/** 검색 UI 보여주기 **/
+	public void createJtableData(BoardVO board) {
+		model.setNumRows(0);
+		
+		row = new Object[6];
+		row[0] = board.getB_rno();
+		row[1] = board.getB_title();
+		row[2] = board.getB_id();
+		row[3] = board.getB_date();
+		row[4] = board.getB_good() +"/" + board.getB_bad();  
+		
+		model.addRow(row);
+		
+		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+		
 		model.fireTableDataChanged();
 	}
 
@@ -171,42 +203,46 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		top_panel.setLayout(new GridLayout(2, 1)); // 자유게시판이랑 제목 사이 간격 만들기
 
 		// 센터패널 - 제목 + 작성자
-		JLabel title_label = new JLabel("MBTI 제목 테스트입니다.");
-		JLabel writer_label = new JLabel("작성자: 어피치");
+		JLabel title_label = new JLabel();
+		JLabel writer_label = new JLabel();
 		title_label.setFont(Commons.getFont(15));
 		writer_label.setFont(Commons.getFont(15));
 		title_panel.add(BorderLayout.WEST, title_label);
 		title_panel.add(BorderLayout.EAST, writer_label);
 
 		// 센터패널 - 내용
+		
 		JTextArea rcontent_ta = new JTextArea(15, 45);
 		rcontent_ta.setEditable(false);
 		rcontent_ta.setFont(Commons.getFont(15));
-		rcontent_ta.setText("ISTJ - 공무원, 감독관, 예산분석가, 세관조사관, 신용분석가, 회계사\r\n" + "ISFJ - 치과의사, 초등학교 교사, 사서, 고객 서비스 상담원\r\n"
-				+ "ISTP - 파일럿, 토목기사, 경제학자, 데이터분석가\r\n" + "ISFP - 패션디자이너, 보석세공사, 화가, 무용가, 조경사\r\n"
-				+ "INTJ - 투자은행원, 개인투자 자문가, 소프트웨어 개발자\r\n" + "INFJ - 직업상담자, 교육컨설턴트, 특수교사, 사회복지사\r\n"
-				+ "INTP - 경제학자, 벤처투자자, 비평가, 사업컨설, 마케팅 분석가\r\n" + "INFP - 소설가, 시인, 프로듀서, 사회복지사, 영양사, 헤드헌터\r\n"
-				+ "ESTJ - 보험설계사, 약사, 변호사, 판사, 프로젝트 매니저\r\n" + "ESFJ - 영업이사, 간호사, 사회복지사, 광고기획자, 여신심사역\r\n"
-				+ "ESTP - 경찰관, 은행원, 투자자, 기획사 에이전트, 스포츠팀 코치\r\n" + "ESFP - 아동상담가, 의사, 배우, 인테리어 디자이너, 환경학자\r\n"
-				+ "ENTJ - 변호사, 시장조사 분석가, 경영 컨설턴트, 벤처 투자자\r\n" + "ENFJ - 광고이사, 홍보전문가, 기업교육전문가, 인사담당자\r\n"
-				+ "ENTP - 경영자, 광고홍보 디렉터, 마케팅 디렉터, 정치인\r\n" + "ENFP - 저널리스트, 컨설턴트, 식당경영자, 이벤트 플레너\r\n" + "");
 		JScrollPane ta_pane = new JScrollPane(rcontent_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		rcontent_ta.setCaretPosition(0); // 스크롤 맨 위로
+		
 
 		// 센터패널 - 추천수
 		ImageIcon up = new ImageIcon("images/up.png");
 		up_label = new JLabel(up);
-		JLabel up_count = new JLabel("1");
+		JLabel up_count = new JLabel();
 
 		ImageIcon down = new ImageIcon("images/down.png");
 		down_label = new JLabel(down);
-		JLabel down_count = new JLabel("1");
+		JLabel down_count = new JLabel();
 
 		recommend_panel.add(up_label);
 		recommend_panel.add(up_count);
 		recommend_panel.add(down_label);
 		recommend_panel.add(down_count);
+		
+		for(BoardVO bvo : main.system.getBoardList()) {
+			rcontent_ta.setText(bvo.getB_content());
+			title_label.setText(bvo.getB_title());
+			writer_label.setText(bvo.getB_id());
+			up_count.setText(String.valueOf(bvo.getB_good()));
+			down_count.setText(String.valueOf(bvo.getB_bad()));
+			
+			bno = bvo.getB_rno();
+		}
 
 //		ImageIcon writer = new ImageIcon("images/character.png"); // 0413: 게시글에 캐릭터 추가
 //		JLabel character_label = new JLabel(writer);
@@ -238,6 +274,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 		btn_list.addActionListener(this);
 		btn_delete.addActionListener(this);
+		
 	}
 
 	public void resizeColumnWidth(JTable table) { // 열 너비 조정
@@ -259,23 +296,43 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btn_search || obj == search_tf) {
-			if (search_tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
-			} else if(search_tf.getText().equals("")){
-				// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
-				System.out.println("검색");
-				
-			}else {
-				
-			}
+			search_Proc();
 		} else if (obj == btn_list) {
 			init();
 		} else if (obj == btn_delete) {
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
-			if(con==0) System.out.println("삭제 완료");
+			if(con==0) {
+				//delete process
+				//어떤거를 삭제할지 어떻게 알려주지... 
+				if(main.system.deleteAdminBoard(bno)) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제가 완료되었습니다."));
+					new AdminBoardUI(main);
+				}else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제를 실패했습니다."));
+				}
+			}
 			//해당 버튼을 누르면 게시글 삭제
-			main.system.deleteAdminBoard(bvo);
 		}
+	}
+	
+	/** 검색 Proc **/
+	public void search_Proc() {
+		if(search_tf.getText().equals("")) {
+			//메소드로 갖고 와서 그 값이 비어있다면
+			JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 이름을 입력해주세요."));
+			search_tf.requestFocus();
+		}else {
+			//아니라면 검색
+			BoardVO board = main.system.searchBoard(search_tf.getText());
+			if(board.getB_rno() != 0) {
+				
+			createJtableData(board);
+			
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
+			}
+		}
+		
 	}
 
 	/** 글목록 마우스 리스너 **/
@@ -306,14 +363,18 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 	
 	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+		
 		JButton jb;
 		public TableCell() {
 			jb = new JButton("삭제");
 			jb.addActionListener(e -> {
-//				String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
+				String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
 				int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
 				if(con == 0) {
-					System.out.println("삭제되었습니다.");
+					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제되었습니다."));
+					main.system.deleteAdminBoard(Integer.parseInt(bno));
+					new AdminBoardUI(main);
+					
 				}
 			});
 		}
@@ -326,6 +387,10 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 				int row, int column) {
+			Component comp = null;
+			if(column == 5) {
+				comp = jb;
+			}
 			return jb;
 		}
 

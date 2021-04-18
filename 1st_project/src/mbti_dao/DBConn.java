@@ -26,7 +26,7 @@ public class DBConn {
 			}
 		}
 		
-		/** PreparedStatement ���� **/
+		/** PreparedStatement 생성 **/
 		public void getPreparedStatement(String sql) {
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -36,7 +36,7 @@ public class DBConn {
 		}
 		
 		
-		/** ���� **/
+		/** 종료 **/
 		public void close() {
 			try {
 				if(rs != null) rs.close();

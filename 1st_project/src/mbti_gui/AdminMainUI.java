@@ -38,7 +38,6 @@ import javax.swing.table.TableColumnModel;
 import mbti_system.MbtiMgmSystem;
 
 public class AdminMainUI implements ActionListener{
-
 	// Field
 	MbtiMgmSystem system;
 	JFrame adminFrame = new JFrame("MBTI WORLD - 관리자");
@@ -57,6 +56,7 @@ public class AdminMainUI implements ActionListener{
 
 	// Constructor
 	public AdminMainUI() {
+		system = new MbtiMgmSystem();
 		init();
 	}
 

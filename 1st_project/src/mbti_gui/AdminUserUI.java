@@ -84,6 +84,9 @@ public class AdminUserUI implements ActionListener {
 		list_table.getTableHeader().setReorderingAllowed(false); // 마우스로 컬럼 이동 불가
 		list_table.getTableHeader().setResizingAllowed(false); // 마우스로 컬럼 크기 조절 불가
 		list_table.setBackground(Color.white);
+		
+		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+        list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
 
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 목록 리스트 내용 가운데 정렬
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,34 +111,17 @@ public class AdminUserUI implements ActionListener {
 
 		btn_search.addActionListener(this);
 		search_tf.addActionListener(this);
+		
 	}
 
-	
+	/** 전체 데이터 출력 **/
 	public void createJtableData() {
-//		model.setNumRows(0);
-//		row[0] = "1";
-//		row[1] = "a_peach";
-//		row[2] = "infj";
-//		row[3] = "2021.01.01";
-//		row[4] = "200";
-//		model.addRow(row);
-//		
-//		model.setNumRows(1);
-//		row[0] = "2";
-//		row[1] = "lion";
-//		row[2] = "enfp";
-//		row[3] = "2021.01.01";
-//		row[4] = "500";
-//		model.addRow(row);
-//		
-//		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
-//		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-		
 		model.setNumRows(0);
+		
 		for(UserVO user : main.system.getUserDateSelect()) {
 	    	 System.out.println(user);
 	    	 row = new Object[5];
-	    	 int count = 0;
+	    	 int count = 1;
 	    	 row[0] = count; //DB에 추가하기
 	         row[1] = user.getU_id();
 	         row[2] = user.getU_mbti();
@@ -144,10 +130,34 @@ public class AdminUserUI implements ActionListener {
 	         
 	         model.addRow(row); 
 	         count++;
+	         
+	         model.fireTableDataChanged();
+//	         list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+//	         list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
 	      }  
 		
-		model.fireTableDataChanged();
+		
 	}
+
+	/** 일부 데이터 출력 **/
+	public void createJtableData(UserVO user) {
+		model.setNumRows(0);
+		row = new Object[5];
+		int count = 1;
+		row[0] = count; //DB에 추가하기
+		row[1] = user.getU_id();
+		row[2] = user.getU_mbti();
+		row[3] = user.getU_date();
+		row[4] = user.getU_point();
+		
+		model.addRow(row); 
+		
+		count++;
+		
+		model.fireTableDataChanged();
+		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+	}  
 
 
 	@Override
@@ -165,7 +175,9 @@ public class AdminUserUI implements ActionListener {
 		}else {
 			// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
 			UserVO user = main.system.getUserDateSelect(search_tf.getText());
-			
+			if(user.getU_id().equals(search_tf.getText())) {
+				createJtableData(user);
+			}
 		}
 	}
 
@@ -181,6 +193,8 @@ public class AdminUserUI implements ActionListener {
 				if(con == 0) {
 					//DB연동해서 삭제 진행
 					JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
+					main.system.deleteAdminUser(user_name);
+					new AdminUserUI(main);
 				}
 			});
 		}
