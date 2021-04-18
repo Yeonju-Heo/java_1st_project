@@ -62,14 +62,40 @@ public class MbtiMgmSystem {
 		System.out.println("--- 데이터베이스 연결 종료 ---");
 	}
 	
+//	/** 게시판 등록 **/
+//	public boolean insertBoard(BoardVO board,UserVO user) {
+//		return bdao.getInsertResult(board, user);
+//	}
+//	
+//	/** 게시판 조회 **/
+//	public ArrayList<BoardVO> getBoardList(){
+//		return bdao.getSelectResult();
+//	}
+//	
+//	/** 게시판 검색 **/
+//	public BoardVO searchBoard(String title) {
+//		return bdao.getSelectResult(title);
+//	}
+//	
+//	/** 게시판 수정 **/
+//	public int updateBoard(BoardVO board, String content) {
+//		return bdao.getUpdateResult(board, content);
+//	}
+	
+	
 	/** 게시판 등록 **/
-	public boolean insertBoard(BoardVO board,UserVO user) {
-		return bdao.getInsertResult(board, user);
+	public boolean insertBoard(BoardVO board) {
+		return bdao.getInsertResult(board);
 	}
 	
 	/** 게시판 조회 **/
 	public ArrayList<BoardVO> getBoardList(){
 		return bdao.getSelectResult();
+	}
+	
+	/** 게시판 글 읽기 **/
+	public BoardVO readBoard(int no) {
+		return bdao.getReadResult(no);
 	}
 	
 	/** 게시판 검색 **/
@@ -81,6 +107,17 @@ public class MbtiMgmSystem {
 	public int updateBoard(BoardVO board, String content) {
 		return bdao.getUpdateResult(board, content);
 	}
+	
+	/** 게시판 추천 **/
+	public int updateRecommend(int recommend, int no) {
+		return bdao.getUpdateRecommendResult(recommend, no);
+	}
+	
+	/** 게시판 삭제 **/
+	public boolean deleteBoard(int no) {
+		return bdao.getDeleteResult(no);
+	}
+	
 	
 	/** 내 mbti 조회 **/
 	public MbtiVO getMbti(UserVO user) {
