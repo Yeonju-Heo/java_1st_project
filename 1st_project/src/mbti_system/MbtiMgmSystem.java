@@ -92,4 +92,32 @@ public class MbtiMgmSystem {
 		return u_idao.getUserItemResult(user, item);
 	}
 	
+	/** 관리자 보드 삭제 **/
+	public boolean deleteAdminBoard(BoardVO board) {
+		return bdao.getDeleteResult(board);
+	}
+	
+	/** 유저 검색 **/
+	public UserVO getUserDateSelect(String id){
+		System.out.println("메인시스템");
+		return udao.getUserDateResult(id);
+	}
+	
+	/** 유저 조회 **/
+	public ArrayList<UserVO> getUserDateSelect(){
+		System.out.println("메인시스템");
+		return udao.getUserDateResult();
+	}
+	
+	/** 유저 삭제 **/
+	public  UserVO getUserDateSelect(String id){
+		System.out.println("메인시스템");
+		return udao.getUserDateResult();
+	}
+	
+	/** 관리자 유저 삭제 **/
+	public int deleteAdminBoard(BoardVO) {
+		
+	}
+	
 }

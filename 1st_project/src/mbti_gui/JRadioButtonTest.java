@@ -3,7 +3,8 @@ package mbti_gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- 
+import java.util.ArrayList;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,38 +12,56 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 public class JRadioButtonTest extends JFrame implements ActionListener{
-JPanel panel = new JPanel(new GridLayout(2,1));
+	JPanel panel = new JPanel(new GridLayout(2,1));
+	
+	ArrayList<JRadioButton> mbti_list = new ArrayList<JRadioButton>();
+	String mbti = new String();
     
-    JRadioButton yes[] = new JRadioButton[4];
-    JRadioButton no[] = new JRadioButton[4];
+    JRadioButton first[] = new JRadioButton[2];
+    JRadioButton second[] = new JRadioButton[2];
     
-    String yes_type[] = {"E", "S", "F", "J"}; 
-    String no_type[] = {"I", "N", "T", "P"}; 
+    String first_type[] = {"E","I"}; 
+    String second_type[] = {"S","N"};
+    String  third_type[] = {"F","T"};
+    String fourth_type[] = {"J","P"};
+    
     
     public JRadioButtonTest(){
         ButtonGroup groupyes = new ButtonGroup();
         ButtonGroup groupno = new ButtonGroup();
         
-        for(int i=0; i<yes.length; i++){
-    		yes[i] = new JRadioButton(yes_type[i]);
-    		groupyes.add(yes[i]);
-    		panel.add(yes[i]);
-    		yes[i].addActionListener(this);
-        }
-        for(int j=0;j<no.length;j++) {
-        	no[j] = new JRadioButton(no_type[j]);
-        	groupno.add(no[j]);
-        	panel.add(no[j]);
-        	no[j].addActionListener(this);
+        for(int i=0; i<first.length; i++){
+    		first[i] = new JRadioButton(first_type[i]);
+    		groupyes.add(first[i]);
+    		panel.add(first[i]);
+    		mbti_list.add(first[i]);
+    		
+    		
+    		for(int j=0; j<first.length; j++) {
+        		second[j] = new JRadioButton(second_type[j]);
+        		groupyes.add(second[j]);
+        		panel.add(second[j]);
+        		mbti_list.add(second[j]);
+    		
+    		
+    		}
         }
         
-        for(int i=0; i<yes.length; i++) {
-        	for(int j=0;j<no.length;j++) {
-        		if()
+//    		yes[i].addActionListener(this);
+//        }
+//        for(int j=0;j<no.length;j++) {
+//        	no[j] = new JRadioButton(no_type[j]);
+//        	groupno.add(no[j]);
+//        	panel.add(no[j]);
+//        	no[j].addActionListener(this);
+        
+//        for(int i=0; i<yes.length; i++) {
+//        	for(int j=0;j<no.length;j++) {
+//        		if()
         		
         		
-        	}
-        }
+//        	}
+//        }
         
         
         this.add(panel);

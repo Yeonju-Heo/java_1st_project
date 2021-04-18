@@ -1,5 +1,7 @@
 package mbti_dao;
 
+import java.util.ArrayList;
+
 import mbti_vo.BoardVO;
 import mbti_vo.MbtiVO;
 import mbti_vo.UserItemVO;
@@ -95,6 +97,35 @@ public class UserDAO extends DBConn{
 		
 	}
 	
+	/** 유저 정보 조회(admin)**/
+	public ArrayList<UserVO> getUserDateResult() {
+		System.out.println("다오");
+		ArrayList<UserVO> list = new ArrayList<UserVO>();
+		try {
+			String sql = "SELECT U_ID, U_PASS, U_MBTI,U_DATE,U_POINT " + 
+					" FROM USER_TABLE ";
+			getPreparedStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				UserVO user = new UserVO();
+				user.setU_id(rs.getString(1));
+				user.setU_pass(rs.getString(2));
+				user.setU_mbti(rs.getString(3));
+				user.setU_date(rs.getDate(4));
+				user.setU_point(rs.getInt(5));
+				
+				list.add(user);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
 	
 	/** 유저 비밀번호 수정 **/
 	public int getUpdateUserResult(UserVO user,String pass) {
@@ -119,7 +150,15 @@ public class UserDAO extends DBConn{
 		
 	}
 			
-			
+	/** 유저검색(admin) **/		
+	public void getSerarchUserAdmin() {
+		
+	}
+	
+	/** 유저삭제(admin) **/
+	public void getDeleteUserAdmin() {
+		
+	}
 	
 	
 	

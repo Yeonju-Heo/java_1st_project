@@ -23,6 +23,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import mbti_vo.UserVO;
+
 public class AdminUserUI implements ActionListener {
 	// Field
 	AdminMainUI main;
@@ -71,7 +73,7 @@ public class AdminUserUI implements ActionListener {
 
 		// 센터패널 - 글목록
 		createJtableData();
-//		model.setColumnIdentifiers(colNames);
+		model.setColumnIdentifiers(colNames);
 
 		list_table.setModel(model);
 		list_table.setRowHeight(30);
@@ -110,39 +112,40 @@ public class AdminUserUI implements ActionListener {
 
 	
 	public void createJtableData() {
-
-
+//		model.setNumRows(0);
+//		row[0] = "1";
+//		row[1] = "a_peach";
+//		row[2] = "infj";
+//		row[3] = "2021.01.01";
+//		row[4] = "200";
+//		model.addRow(row);
+//		
+//		model.setNumRows(1);
+//		row[0] = "2";
+//		row[1] = "lion";
+//		row[2] = "enfp";
+//		row[3] = "2021.01.01";
+//		row[4] = "500";
+//		model.addRow(row);
+//		
+//		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+//		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+		
 		model.setNumRows(0);
-		row[0] = "1";
-		row[1] = "a_peach";
-		row[2] = "infj";
-		row[3] = "2021.01.01";
-		row[4] = "200";
-		model.addRow(row);
+		for(UserVO user : main.system.getUserDateSelect()) {
+	    	 System.out.println(user);
+	    	 row = new Object[5];
+	    	 int count = 0;
+	    	 row[0] = count; //DB에 추가하기
+	         row[1] = user.getU_id();
+	         row[2] = user.getU_mbti();
+	         row[3] = user.getU_date();
+	         row[4] = user.getU_point();
+	         
+	         model.addRow(row); 
+	         count++;
+	      }  
 		
-		model.setNumRows(1);
-		row[0] = "2";
-		row[1] = "lion";
-		row[2] = "enfp";
-		row[3] = "2021.01.01";
-		row[4] = "500";
-		model.addRow(row);
-		
-		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
-		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-
-//      for(ScoreVO score : main.system.getScoreList()) {
-//         row[0] = score.getRno();
-//         row[1] = score.getName();
-//         row[2] = score.getKor();
-//         row[3] = score.getEng();
-//         row[4] = score.getMath();
-//         row[5] = score.getTot();
-//         row[6] = score.getAvg();
-//         
-//         model.addRow(row);         
-//      }      
-
 		model.fireTableDataChanged();
 	}
 
@@ -151,12 +154,18 @@ public class AdminUserUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btn_search || obj == search_tf) {
-			if (search_tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 아이디를 입력해주세요."));
-			} else {
-				// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
-				System.out.println("검색");
-			}
+				UserSearchProc();
+		}
+	}
+		
+	public void UserSearchProc() {
+		if (search_tf.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 아이디를 입력해주세요."));
+			search_tf.requestFocus();
+		}else {
+			// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
+			UserVO user = main.system.getUserDateSelect(search_tf.getText());
+			
 		}
 	}
 
@@ -169,7 +178,10 @@ public class AdminUserUI implements ActionListener {
 			jb.addActionListener(e -> {
 				String user_name = list_table.getValueAt(list_table.getSelectedRow(), 1).toString();
 				int con = JOptionPane.showConfirmDialog(null, Commons.getMsg(user_name + "님을 정말 삭제하시겠습니까?"));
-				if(con == 0) System.out.println(user_name + "님이 삭제되었습니다.");
+				if(con == 0) {
+					//DB연동해서 삭제 진행
+					JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
+				}
 			});
 		}
 

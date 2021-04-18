@@ -34,7 +34,6 @@ public class BoardDAO extends DBConn {
 	/** 조회 **/
 	public ArrayList<BoardVO> getSelectResult(){
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
-		
 		try {
 			String sql = " SELECT * FROM BOARD_TABLE ";
 			getPreparedStatement(sql);

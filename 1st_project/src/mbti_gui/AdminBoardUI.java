@@ -28,10 +28,10 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import mbti_gui.AdminUserUI.TableCell;
+import mbti_vo.BoardVO;
 
 public class AdminBoardUI implements ActionListener, MouseListener {
-
+	//Field
 	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대", "삭제" };
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
 		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
@@ -39,15 +39,18 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			if(c==5) result = true;
 			return result;
 		}
+		
 	};
-	Object[] row = new Object[6];
+	
+	Object[] row;
 	JTable list_table = new JTable(model);
 
 	AdminMainUI main;
+	BoardVO bvo = new BoardVO();
 	JTextField search_tf, title_tf;
 	JTextArea content_ta;
 	JButton btn_search, btn_list, btn_delete;
-	int count = 1;
+//	int count = 1;
 	JLabel up_label;
 	JLabel down_label;
 
@@ -85,7 +88,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 		// 센터패널 - 글목록
 		createJtableData();
-		//model.setColumnIdentifiers(colNames);
+		model.setColumnIdentifiers(colNames);
 
 		list_table.setModel(model);
 		list_table.setRowHeight(35);
@@ -126,34 +129,25 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		search_tf.addActionListener(this);
 	}
 
+	//선생님께 물어보기!! 
 	
 	/** 글목록 생성 **/
 	public void createJtableData() {
-
 		model.setNumRows(0);
-
-		row[0] = "1";
-		row[1] = "제목 테스트 제목 테스트 제목 테스트";
-		row[2] = "어피치";
-		row[3] = "2021.01.01";
-		row[4] = "1/1";
-
-		model.addRow(row);
-
-		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
-		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-
-//      for(ScoreVO score : main.system.getScoreList()) {
-//         row[0] = score.getRno();
-//         row[1] = score.getName();
-//         row[2] = score.getKor();
-//         row[3] = score.getEng();
-//         row[4] = score.getMath();
-//         row[5] = score.getTot();
-//         row[6] = score.getAvg();
-//         
-//         model.addRow(row);         
-//      }      
+		for(BoardVO board : main.system.getBoardList()) {
+			row = new Object[6];
+			row[0] = board.getB_rno();
+			row[1] = board.getB_title();
+			row[2] = board.getB_id();
+			row[3] = board.getB_date();
+			row[4] = board.getB_good() +"/" + board.getB_bad();  
+//			row[5] = board.getB_bad();
+			
+			model.addRow(row);
+		}
+		
+		list_table.getColumnModel().getColumn(6).setCellRenderer(new TableCell());
+		list_table.getColumnModel().getColumn(6).setCellEditor(new TableCell());
 
 		model.fireTableDataChanged();
 	}
@@ -267,15 +261,20 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		if (obj == btn_search || obj == search_tf) {
 			if (search_tf.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
-			} else {
+			} else if(search_tf.getText().equals("")){
 				// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
 				System.out.println("검색");
+				
+			}else {
+				
 			}
 		} else if (obj == btn_list) {
 			init();
 		} else if (obj == btn_delete) {
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
 			if(con==0) System.out.println("삭제 완료");
+			//해당 버튼을 누르면 게시글 삭제
+			main.system.deleteAdminBoard(bvo);
 		}
 	}
 
@@ -307,15 +306,15 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 	
 	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
-
 		JButton jb;
-
 		public TableCell() {
 			jb = new JButton("삭제");
 			jb.addActionListener(e -> {
 //				String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
 				int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
-				if(con == 0) System.out.println("삭제되었습니다.");
+				if(con == 0) {
+					System.out.println("삭제되었습니다.");
+				}
 			});
 		}
 
