@@ -31,7 +31,7 @@ public class BoardDAO extends DBConn {
 //		}
 //		return result;
 //	}
-	
+//
 	/** 등록 **/
 	public boolean getInsertResult(BoardVO board) {
 		boolean result = false;

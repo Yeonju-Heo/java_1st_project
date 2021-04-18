@@ -27,7 +27,7 @@ import javax.swing.table.TableColumnModel;
 import mbti_vo.BoardVO;
 
 public class BoardUI implements MouseListener, ActionListener {
-	// Field
+	// Field//
 
 	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {

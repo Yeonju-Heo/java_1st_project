@@ -14,7 +14,7 @@ import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
 public class MbtiMgmSystem {
-	//Field
+	//Field//
 	UserDAO udao = new UserDAO();
 	BoardDAO bdao = new BoardDAO();
 	MbtiDAO mdao = new MbtiDAO();

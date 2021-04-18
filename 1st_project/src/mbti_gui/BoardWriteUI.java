@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import mbti_vo.BoardVO;
 
 public class BoardWriteUI implements ActionListener {
-	// Field
+	// Field//
 
 	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
