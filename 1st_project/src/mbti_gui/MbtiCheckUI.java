@@ -98,14 +98,14 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 //		ButtonGroup[][] choice = new ButtonGroup[4][2];
 //		
 		
-		choice_p.add(new JLabel(""));
-		choice_p.add(new JLabel(""));
+		choice_p.add(new JLabel("예"));
+		choice_p.add(new JLabel("아니오"));
 		for(int i=0;i<yes.length;i++) {
-        	yes[i] = new JRadioButton(yes_type[i]);
+        	yes[i] = new JRadioButton();
         	choice_p.add(yes[i]);
         	yes[i].setBackground(Color.white);
         	yes[i].addActionListener(this);
-        	no[i] = new JRadioButton(no_type[i]);
+        	no[i] = new JRadioButton();
         	choice_p.add(no[i]);
         	no[i].setBackground(Color.white);
         	no[i].addActionListener(this);
@@ -176,13 +176,18 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 	      }
 		}
 		
-		String s = e.getActionCommand();
+//		String s = e.getActionCommand();
 			for(int i=0;i<mlist.length;i++) {
-	      	if(s.equals(yes[i].getText())) {
-	      		mlist[i] = yes[i].getText();
-	      	}else if(s.equals(no[i].getText())) {
-	      		mlist[i] = no[i].getText();
-	      	}
+				if(obj==yes[i]) {
+					mlist[i] = yes_type[i];
+				}else if(obj==no[i]) {
+					mlist[i] = no_type[i];
+				}
+//	      	if(s.equals(yes[i].getText())) {
+//	      		mlist[i] = yes_type[i];
+//	      	}else if(s.equals(no[i].getText())) {
+//	      		mlist[i] = no[i].getText();
+//	      	}
 		}
       
       

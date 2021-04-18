@@ -36,13 +36,19 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 회원가입 **/
+<<<<<<< HEAD
    public boolean join(UserVO user) {
       return udao.getJoinResult(user);
    }
+=======
+	public boolean join(UserVO user) {
+		return udao.getJoinResult(user);
+	}
+>>>>>>> refs/remotes/origin/master
 	
 	/** 회원 정보 조회 **/
 	public UserVO searchUser(String id) {
-		return udao.getUserDateResult(id);
+		return udao.getUserDataResult(id);
 	}
 	
 	/** 회원 아이템 조회 **/
@@ -93,28 +99,55 @@ public class MbtiMgmSystem {
 	}
 	
 	
+<<<<<<< HEAD
 	/** 관리자 유저 검색 **/
 	public UserVO getUserDateSelect(String id){
 		System.out.println("검색");
 		return udao.getUserSearchAdminResult(id);
+=======
+	/** 유저 검색 **/
+	public UserVO getUserDataSelect(String id){
+		System.out.println("메인시스템");
+		return udao.getUserDataResult(id);
+>>>>>>> refs/remotes/origin/master
 	}
 	
+<<<<<<< HEAD
 	/** 관리자 유저 조회 **/
 	public ArrayList<UserVO> getUserDateSelect(){
 		System.out.println("조회");
 		return udao.getUserDateResult();
+=======
+	/** 유저 조회 **/
+	public ArrayList<UserVO> getUserDataSelect(){
+		System.out.println("메인시스템");
+		return udao.getUserDataResult();
+>>>>>>> refs/remotes/origin/master
 	}
 	
 //	/** 유저 삭제 **/
+<<<<<<< HEAD
 //	public UserVO getUserDateDelete(String id){
 //		System.out.println("삭제");
 //		return udao.getUserDateResult(id);
+=======
+//	public  UserVO getUserDatSelect(String id){
+//		System.out.println("메인시스템");
+//		return udao.getUserDataResult();
+>>>>>>> refs/remotes/origin/master
 //	}
 	
+<<<<<<< HEAD
 	/** 관리자 유저 삭제 **/
 	public boolean deleteAdminUser(String name) {
 		return udao.getDeleteUserAdmin(name);
 	}
+=======
+//	/** 관리자 유저 삭제 **/
+//	public int deleteAdminBoard(BoardVO) {
+//		
+//	}
+>>>>>>> refs/remotes/origin/master
 	
 	/** 관리자 보드 삭제 **/
 	public boolean deleteAdminBoard(int bno) {

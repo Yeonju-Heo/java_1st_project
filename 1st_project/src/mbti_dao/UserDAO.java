@@ -11,11 +11,14 @@ public class UserDAO extends DBConn{
 	
 	/** 로그인 처리 **/
 	public boolean getLoginResult(String id, String pass) {
+		UserVO user = new UserVO();
+		UserItemVO uitem = new UserItemVO();
+		BoardVO board = new BoardVO();
 		boolean result = false;
 		
 		try {
-			String sql = " SELECT COUNT(*) FROM USER_TABLE "
-					+ " WHERE U_ID=? AND U_PASS=?";
+			String sql = " SELECT U_ID, COUNT(*) FROM USER_TABLE "
+					+ " WHERE U_ID=? AND U_PASS=? GROUP BY U_ID";
 			getPreparedStatement(sql);
 			
 			pstmt.setString(1,id);
@@ -23,7 +26,10 @@ public class UserDAO extends DBConn{
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				if(rs.getInt(1) == 1) {
+				uitem.setU_id(rs.getString(1));
+				board.setB_id(rs.getString(1));
+				user.setU_id(rs.getString(1));
+				if(rs.getInt(2) == 1) {
 					result = true;
 				}
 			}
@@ -39,7 +45,7 @@ public class UserDAO extends DBConn{
 
 	//U_ID,U_PASS,U_MBTI,U_POINT,U_DATE,U_ITEM
 
-	public boolean getJoinResult(UserVO user, MbtiVO mbti) {
+	public boolean getJoinResult(UserVO user) {
 		boolean result = false;
 		
 		try {
@@ -50,7 +56,7 @@ public class UserDAO extends DBConn{
 			
 			pstmt.setString(1, user.getU_id());
 			pstmt.setString(2, user.getU_pass());
-			pstmt.setString(3, mbti.getMbti_type());
+			pstmt.setString(3, user.getU_mbti());
 			
 			int val = pstmt.executeUpdate();
 			if(val != 0) {
@@ -67,7 +73,7 @@ public class UserDAO extends DBConn{
 	}
 	
 	/** 유저 정보 조회 **/
-	public UserVO getUserDateResult(String id) {
+	public UserVO getUserDataResult(String id) {
 		UserVO user = new UserVO();
 		try {
 			String sql = "SELECT U_ID, U_PASS, U_MBTI,U_DATE,U_POINT " + 
@@ -77,6 +83,7 @@ public class UserDAO extends DBConn{
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+<<<<<<< HEAD
 				user.setU_id(rs.getString(1));
 				user.setU_pass(rs.getString(2));
 				user.setU_mbti(rs.getString(3));
@@ -106,9 +113,12 @@ public class UserDAO extends DBConn{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				user.setU_id(rs.getString(1));
+=======
+				
+>>>>>>> refs/remotes/origin/master
 				user.setU_mbti(rs.getString(2));
 				user.setU_point(rs.getInt(3));
-				user.setU_date(rs.getDate(4));
+				user.setU_date(rs.getString(4));
 				
 			}
 			
@@ -122,7 +132,12 @@ public class UserDAO extends DBConn{
 	}
 	
 	/** 유저 정보 조회(admin)**/
+<<<<<<< HEAD
 	public ArrayList<UserVO> getUserDateResult() {
+=======
+	public ArrayList<UserVO> getUserDataResult() {
+		System.out.println("다오");
+>>>>>>> refs/remotes/origin/master
 		ArrayList<UserVO> list = new ArrayList<UserVO>();
 		try {
 			String sql = "SELECT U_ID, U_PASS, U_MBTI,U_DATE,U_POINT " + 
@@ -134,7 +149,7 @@ public class UserDAO extends DBConn{
 				user.setU_id(rs.getString(1));
 				user.setU_pass(rs.getString(2));
 				user.setU_mbti(rs.getString(3));
-				user.setU_date(rs.getDate(4));
+				user.setU_date(rs.getString(4));
 				user.setU_point(rs.getInt(5));
 				
 				list.add(user);
