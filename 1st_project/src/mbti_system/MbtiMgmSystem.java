@@ -133,6 +133,10 @@ public class MbtiMgmSystem {
 		return bdao.getDeleteResult(no);
 	}
 	
+	/** 게시판 포인트 추가 **/
+	public boolean addPoint(BoardVO board) {
+		return bdao.getAddPointResult(board);
+	}
 	
 	/** 뽑은 아이템 추가 **/
 	public boolean updateUserItem(UserVO user, ItemVO item) {

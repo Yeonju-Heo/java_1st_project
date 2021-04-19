@@ -171,27 +171,27 @@ public class BoardDAO extends DBConn {
 	
 	
 	/** 수정 **/
-	public int getUpdateResult(BoardVO board, String content) {
-		int result = 0;
-		
-		try {
-			String sql = " UPDATE BOARD_TABLE "
-					+ " SET B_CONTENT = ? WHERE B_RNO=?";
-			getPreparedStatement(sql);
-			
-			pstmt.setString(1, content);
-			pstmt.setInt(2, board.getB_rno());
-			
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
+//	public int getUpdateResult(BoardVO board, String content) {
+//		int result = 0;
+//		
+//		try {
+//			String sql = " UPDATE BOARD_TABLE "
+//					+ " SET B_CONTENT = ? WHERE B_RNO=?";
+//			getPreparedStatement(sql);
+//			
+//			pstmt.setString(1, content);
+//			pstmt.setInt(2, board.getB_rno());
+//			
+//			result = pstmt.executeUpdate();
+//			
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		
+//		return result;
+//	}
 	
 	
 	/** 수정 **/
@@ -306,6 +306,27 @@ public class BoardDAO extends DBConn {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	public boolean getAddPointResult(BoardVO board) {
+		boolean result = false;
+
+		try {
+			String sql = " UPDATE USER_TABLE SET U_POINT = U_POINT+10 WHERE U_ID = ? ";
+			getPreparedStatement(sql);
+			pstmt.setString(1, board.getB_id());
+
+			int val = pstmt.executeUpdate();
+
+			if (val != 0) {
+				result = true;
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

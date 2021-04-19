@@ -108,7 +108,7 @@ public class BoardWriteUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btn_insert) {
-			insert_proc();
+			insertProc();
 		} else if (obj == btn_cancel) {
 			int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("게시물 작성을 취소하시겠습니까?"));
 			if (result == 0) {
@@ -118,15 +118,16 @@ public class BoardWriteUI implements ActionListener {
 		}
 	}
 	
-	public void insert_proc() {
+	public void insertProc() {
 		if (writeCheck()) {
 			BoardVO board = new BoardVO();
 			board.setB_title(title_tf.getText());
 			board.setB_content(content_ta.getText());
 			board.setB_id(main.id_tf.getText());
 
-			if(main.system.insertBoard(board)) {
+			if(main.system.insertBoard(board) && main.system.addPoint(board)) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물이 등록되었습니다."));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("10 포인트가 적립되었습니다."));
 				new BoardUI(main);
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물 등록에 실패했습니다."));
