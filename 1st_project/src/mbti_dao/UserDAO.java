@@ -76,7 +76,7 @@ public class UserDAO extends DBConn{
 	public UserVO getUserDataResult(String id) {
 		UserVO user = new UserVO();
 		try {
-			String sql = "SELECT U_ID, U_MBTI, U_DATE, U_POINT " + 
+			String sql = "SELECT U_ID, U_MBTI, TO_CHAR(U_DATE,'YYYY-MM-DD'), U_POINT " + 
 					" FROM USER_TABLE " + 
 					" WHERE U_ID = ? ";
 			getPreparedStatement(sql);
