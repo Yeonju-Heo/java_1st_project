@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import mbti_vo.MbtiVO;
+
 
 public class MbtiCheckUI implements ActionListener, ItemListener{
 	//Field
@@ -33,8 +35,8 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 	JRadioButton yes[] = new JRadioButton[4];
     JRadioButton no[] = new JRadioButton[4];
     
-    String yes_type[] = {"E", "S", "F", "J"}; 
-    String no_type[] = {"I", "N", "T", "P"}; 
+    String yes_type[] = {"E", "N", "F", "J"}; 
+    String no_type[] = {"I", "S", "T", "P"}; 
     String[] mlist = new String[4];
 	
 	
@@ -66,8 +68,8 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		
 		/** center, text **/
 		JLabel text0_l = new JLabel("");
-		JLabel text1_l = new JLabel("  1. 나는 여러 사람과 대화하는 것이 좋다.");
-		JLabel text2_l = new JLabel("  2. 나는 항상 아이디어가 넘쳐난다.");
+		JLabel text1_l = new JLabel("  1. 나는 새로운 사람과 쉽게 친해진다.");
+		JLabel text2_l = new JLabel("  2. 나는 항상 새로운 아이디어가 넘쳐난다.");
 		JLabel text3_l = new JLabel("  3. 나는 토론을 할 때 상대방의 기분을 살핀다.");
 		JLabel text4_l = new JLabel("  4. 나는 무언가를 할 때 계획을 세우는 편이다.");
 		
@@ -172,7 +174,10 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 			if(!mlist[0].equals("")&&!mlist[1].equals("")&&!mlist[2].equals("")&&!mlist[3].equals("")) {
 		          
 		        JOptionPane.showMessageDialog(null,"당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다");
-	      
+		        MbtiVO mbti = new MbtiVO();
+		        mbti.setMbti_type(mlist[0]+mlist[1]+mlist[2]+mlist[3]);
+		        f.dispose();
+		        ui.mbtilist.setSelectedItem(mbti.getMbti_type());
 	      }
 		}
 		
