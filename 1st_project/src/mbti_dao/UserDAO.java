@@ -41,6 +41,26 @@ public class UserDAO extends DBConn{
 		return result;
 	}
 	
+	/** 회원가입 아이디 중복 처리 **/
+	public boolean getIdCheck(String id) {
+		boolean result = false;
+		try {
+			String sql = " select count(*) login_result from user_table "
+					+ " where u_id=?";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(rs.getInt(1) == 1) result = false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	/** 회원가입 처리 **/
 
 	//U_ID,U_PASS,U_MBTI,U_POINT,U_DATE,U_ITEM

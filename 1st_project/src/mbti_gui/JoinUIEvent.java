@@ -5,9 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import mbti_dao.UserDAO;
+import mbti_system.MbtiMgmSystem;
+import mbti_vo.MbtiVO;
 import mbti_vo.UserVO;
 
 
@@ -38,12 +42,12 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 					jlist.add(jtf);
 				}
 				UserVO user = new UserVO();
-//				MbtiVO mbti = new MbtiVO();
+				MbtiVO mbti = new MbtiVO();
 				user.setU_id(jlist.get(0).getText());
 				user.setU_pass(jlist.get(1).getText());
 				user.setU_cpass(jlist.get(2).getText());
 				user.setU_mbti(jlist.get(3).getText());
-//				mbti.setMbti_type(jlist.get(3).getText());
+				mbti.setMbti_type(jlist.get(3).getText());
 				
 				System.out.println("join formcheck");
 				boolean result = main.system.join(user);
@@ -65,15 +69,24 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 				tf.setText("");
 			}	
 		}else if(obj == ui.id_check_btn) {
-			System.out.println("id check");
+			System.out.println("id_check");
+//			UserDAO userdao = new UserDAO();
+			boolean result = main.system.idCheck(ui.tf.getText());
+			if(result == true) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다."));
+				ui.tf.setText("");
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("사용 가능한 아이디입니다."));
+			}
+			
 		}
-//		else {
-//			JComboBox jcb = (JComboBox)e.getSource();
-//			if(jcb == ui.mbtilist) {
-//				System.out.println(jcb.getSelectedItem());
-//				jcb.getSelectedItem();
-//			}
-//		}
+		else {
+			JComboBox jcb = (JComboBox)e.getSource();
+			if(jcb == ui.mbtilist) {
+				System.out.println(jcb.getSelectedItem());
+				jcb.getSelectedItem();
+			}
+		}
 	}
 	
 	
@@ -83,10 +96,9 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		
 		for(int i=0;i<ui.list.size();i++) {
 			JTextField tf = (JTextField)ui.list.get(i);
-//			System.out.println(ui.mbtilist.getSelectedItem());
-//			JComboBox mbtilist = (JComboBox)ui.list.get(i);
+			String str = (String)ui.mbtilist.getSelectedItem();
 			//&& ui.mbtilist.getSelectedItem().equals("== CHOICE ==")
-			if(tf.getText().equals("")) {
+			if(tf.getText().equals("") || str.equals("== CHOICE ==")) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg(ui.namelistCheck[i]+" 을(를) 입력해주세요."));
 				tf.requestFocus();
 				i = ui.list.size();
@@ -101,7 +113,6 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		}
 		return result;
 	}
-	
-	
+
 	
 }

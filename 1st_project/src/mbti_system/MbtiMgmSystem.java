@@ -39,7 +39,12 @@ public class MbtiMgmSystem {
    public boolean join(UserVO user) {
       return udao.getJoinResult(user);
    }
-	
+   
+   /** 회원가입 아이디 중복 **/
+   public boolean idCheck(String id) {
+	   return udao.getIdCheck(id);
+   }
+   
 	/** 회원 정보 조회 **/
 	public UserVO searchUser(String id) {
 		return udao.getUserDataResult(id);
