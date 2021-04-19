@@ -1,29 +1,20 @@
 package mbti_gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.Panel;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
-import mbti_system.MbtiMgmSystem;
+import mbti_vo.MbtiVO;
+import mbti_vo.UserVO;
 
 public class MypageUI implements ActionListener{
 	//Field
@@ -32,12 +23,14 @@ public class MypageUI implements ActionListener{
 			point_panel, date_panel,btn_panel,update_panel, cancel_account_panel,content_panel;
 	String[] infolist = {"mbti","mbti설명","아이디","비밀번호","포인트","가입일"};
 	JLabel char_img;
-	JButton btn_update_info, btn_cancel_account, btn_closet;
+	JButton btn_update_info, btn_delete_account, btn_closet;
 	JPasswordField pwd;
 	ImageIcon character;
 	JLabel mbti, mbti_label, id_label, id_detail_label, pwd_label, point_label, point_detail_label,
 			date_label, date_detail_label;
 	
+	UserVO user;
+	MbtiVO mbtivo;
 	
 	//Constructor
 	public MypageUI(MbtiMainUI main) {
@@ -48,6 +41,8 @@ public class MypageUI implements ActionListener{
 	//Method
 	public void init() {
 		main.switch_panel(MbtiMainUI.MYPAGE);
+		user = main.system.searchUser(main.id_tf.getText());
+		mbtivo = main.system.getMbti(user);
 		
 		char_closet_panel = new JPanel(new GridLayout(1,2,0,50));
 		closet_panel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
@@ -65,9 +60,9 @@ public class MypageUI implements ActionListener{
 		info_mbti_panel = new JPanel(new GridLayout(2,1));
 		mbti_panel = new JPanel(new FlowLayout(FlowLayout.CENTER,100,10));
 		mbti_label_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		mbti = new JLabel("mbti");
+		mbti = new JLabel(user.getU_mbti());
 		mbti_panel.add(mbti);
-		mbti_label = new JLabel("mbti설명");
+		mbti_label = new JLabel(mbtivo.getMbti_label());
 		mbti_label_panel.add(mbti_label);
 		info_mbti_panel.add(mbti_panel);
 		info_mbti_panel.add(mbti_label_panel);
@@ -75,7 +70,7 @@ public class MypageUI implements ActionListener{
 		info_text_panel = new JPanel(new GridLayout(4,1));
 		id_panel = new JPanel(new GridLayout(1,2));
 		id_label = new JLabel("아이디");
-		id_detail_label = new JLabel("apeach");
+		id_detail_label = new JLabel(user.getU_id());
 		id_panel.add(id_label);
 		id_panel.add(id_detail_label);
 		pass_panel = new JPanel(new GridLayout(1,2));
@@ -85,12 +80,12 @@ public class MypageUI implements ActionListener{
 		pass_panel.add(pwd);
 		point_panel = new JPanel(new GridLayout(1,2));
 		point_label = new JLabel("포인트");
-		point_detail_label = new JLabel("270 point");
+		point_detail_label = new JLabel(user.getU_point()+" point");
 		point_panel.add(point_label);
 		point_panel.add(point_detail_label);
 		date_panel = new JPanel(new GridLayout(1,2));
 		date_label = new JLabel("가입일");
-		date_detail_label = new JLabel("2021.04.11");
+		date_detail_label = new JLabel(user.getU_date());
 		date_panel.add(date_label);
 		date_panel.add(date_detail_label);
 		info_text_panel.add(id_panel);
@@ -103,10 +98,10 @@ public class MypageUI implements ActionListener{
 		cancel_account_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		btn_update_info = new JButton("정보수정");
 		btn_update_info.setFont(Commons.getFont());
-		btn_cancel_account = new JButton("회원탈퇴");
-		btn_cancel_account.setFont(Commons.getFont());
+		btn_delete_account = new JButton("회원탈퇴");
+		btn_delete_account.setFont(Commons.getFont());
 		update_panel.add(btn_update_info);
-		cancel_account_panel.add(btn_cancel_account);
+		cancel_account_panel.add(btn_delete_account);
 		btn_panel.add(update_panel);
 		btn_panel.add(cancel_account_panel);
 		
@@ -127,7 +122,7 @@ public class MypageUI implements ActionListener{
 		
 		btn_closet.addActionListener(this);
 		btn_update_info.addActionListener(this);
-		btn_cancel_account.addActionListener(this);
+		btn_delete_account.addActionListener(this);
 		
 	}
 	
@@ -148,10 +143,29 @@ public class MypageUI implements ActionListener{
 			new ClosetUI(main);
 		}else if(obj == btn_update_info) {
 			System.out.println("정보수정");
-		}else if(obj == btn_cancel_account) {
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("회원정보를 수정하시겠습니까?"));
+			if(con == 0) {
+				if(main.system.updateUser(user, pwd.getText())!=0) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("수정이 완료되었습니다"));
+				}else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("수정에 실패하였습니다"));
+				}
+			}
+		}else if(obj == btn_delete_account) {
 			System.out.println("회원탈퇴");
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("회원탈퇴를 진행하시겠습니까?"));
+			if(con == 0) {
+				if(main.system.deleteAdminUser(user.getU_id())) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("탈퇴가 완료되었습니다"));
+					main.secondFrame.dispose();
+					new MbtiMainUI().firstView();
+				}else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("탈퇴에 실패하였습니다"));
+				}
+			}
 		}
 	}
+	
 	
 	
 }
