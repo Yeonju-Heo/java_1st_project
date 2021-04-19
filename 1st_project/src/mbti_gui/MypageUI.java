@@ -127,21 +127,34 @@ public class MypageUI implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object obj = e.getSource();
-		if(obj == btn_closet) {
-			main.content_panel.removeAll();
-			main.login_panel.setVisible(false);
-			main.main_panel.setVisible(false);
-			main.create_panel.setVisible(false);
-			main.chat_panel.setVisible(false);
-			main.board_panel.setVisible(false);
-//			main.mypage_panel.setVisible(false);
-			main.mypage_panel.removeAll();
-//			main.mypage_panel.setVisible(true);
-			new ClosetUI(main);
-		}else if(obj == btn_update_info) {
+	   public void actionPerformed(ActionEvent e) {
+	      // TODO Auto-generated method stub
+	      Object obj = e.getSource();
+	      if(obj == btn_closet) {
+//	         main.content_panel.removeAll();
+//	         main.login_panel.setVisible(false);
+//	         main.main_panel.setVisible(false);
+//	         main.create_panel.setVisible(false);
+//	         main.chat_panel.setVisible(false);
+//	         main.board_panel.setVisible(false);
+////	         main.mypage_panel.setVisible(false);
+//	         main.mypage_panel.removeAll();   
+	         
+//	         main.mypage_panel.add(new ClosetUI());
+//	         main.mypage_panel.setVisible(true);
+	         
+	         
+	         main.switch_panel(MbtiMainUI.MYPAGE);
+	         main.mypage_panel.setLayout(new BorderLayout());
+	         main.mypage_panel.setSize(900, 700);
+	         main.mypage_panel.add(BorderLayout.CENTER,new MyClosetUI());
+	         
+	         main.content_panel.add(main.mypage_panel);
+	         main.secondFrame.setVisible(true);
+	         
+	         
+	         
+	      }else if(obj == btn_update_info) {
 			System.out.println("정보수정");
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("회원정보를 수정하시겠습니까?"));
 			if(con == 0) {
