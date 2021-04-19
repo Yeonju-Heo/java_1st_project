@@ -29,8 +29,8 @@ public class JoinUI {
 	String namelistCheck[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	JTextField tf;
 	ArrayList<Object> list = new ArrayList<Object>();
-	String[] mbtitype = {"== CHOICE ==","INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
-	JComboBox<String> mbtilist; 
+//	String[] mbtitype = {"== CHOICE ==","INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
+//	JComboBox<String> mbtilist; 
 	
 	//Constructor
 	public JoinUI() {
@@ -79,14 +79,19 @@ public class JoinUI {
 				tf_panel.add(t_panel);
 				list.add(pf);
 				
+//			}else if(name.equals("MBTI")) {
+//				list.add(mbtitype);
+//				mbtilist = new JComboBox<>(mbtitype);
+//				mbtilist.setPreferredSize(new Dimension(170,20));
+//				t_panel.add(mbtilist);
+//				tf_panel.add(t_panel);
+//				String mbtilist_str = mbtilist.getSelectedItem().toString();
+//				list.add(mbtilist_str);
 			}else if(name.equals("MBTI")) {
-				list.add(mbtitype);
-				mbtilist = new JComboBox<>(mbtitype);
-				mbtilist.setPreferredSize(new Dimension(170,20));
-				t_panel.add(mbtilist);
+				JTextField mbtitf = new JTextField(15);
+				t_panel.add(mbtitf);
 				tf_panel.add(t_panel);
-				list.add(mbtilist);
-				
+				list.add(mbtitf);
 			}else {
 				tf = new JTextField(15);
 				t_panel.add(tf);
@@ -116,11 +121,11 @@ public class JoinUI {
 		f.setVisible(true);
 		
 		f.addWindowListener(new JoinUIEvent());
-		id_check_btn.addActionListener(new JoinUIEvent(this));
-		mbti_check_btn.addActionListener(new MbtiCheckUI(this));
+		id_check_btn.addActionListener(new JoinUIEvent(this,main));
+		mbti_check_btn.addActionListener(new MbtiCheckUI(this,main));
 		join_btn.addActionListener(new JoinUIEvent(this,main));
-		cancel_btn.addActionListener(new JoinUIEvent(this));
-		mbtilist.addActionListener(new JoinUIEvent(this));
+		cancel_btn.addActionListener(new JoinUIEvent(this,main));
+//		mbtilist.addActionListener(new JoinUIEvent(this,main));
 	}
 	
 }

@@ -9,11 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import mbti_dao.UserDAO;
-import mbti_system.MbtiMgmSystem;
 import mbti_vo.MbtiVO;
 import mbti_vo.UserVO;
-
 
 public class JoinUIEvent extends WindowAdapter implements ActionListener {
 	//Field
@@ -34,7 +31,17 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		if(obj == ui.join_btn) {
+		if(obj == ui.id_check_btn) {
+			boolean result = main.system.idCheck(ui.tf.getText());
+			if(ui.tf.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요."));
+			}else if(result == true){
+				JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다."));
+				ui.tf.setText("");
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("사용 가능한 아이디입니다."));
+			}
+		}else if(obj == ui.join_btn) {
 			if(form_check()) {
 				ArrayList<JTextField> jlist = new ArrayList<JTextField>();
 				for(Object tf : ui.list) {
@@ -68,25 +75,17 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 				JTextField tf = (JTextField)obj2;
 				tf.setText("");
 			}	
-		}else if(obj == ui.id_check_btn) {
-			System.out.println("id_check");
-//			UserDAO userdao = new UserDAO();
-			boolean result = main.system.idCheck(ui.tf.getText());
-			if(result == true) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다."));
-				ui.tf.setText("");
-			}else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("사용 가능한 아이디입니다."));
-			}
-			
 		}
-		else {
-			JComboBox jcb = (JComboBox)e.getSource();
-			if(jcb == ui.mbtilist) {
-				System.out.println(jcb.getSelectedItem());
-				jcb.getSelectedItem();
-			}
-		}
+//		else {
+//			JComboBox jcb = (JComboBox)e.getSource();
+//			if(jcb == ui.mbtilist) {
+//				System.out.println(jcb.getSelectedItem());
+//				jcb.getSelectedItem();
+//				if(jcb.getSelectedItem().equals("== CHOICE ==")) {
+//					System.out.println("please choice select");
+//				}
+//			}
+//		}
 	}
 	
 	
@@ -96,21 +95,28 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		
 		for(int i=0;i<ui.list.size();i++) {
 			JTextField tf = (JTextField)ui.list.get(i);
-			String str = (String)ui.mbtilist.getSelectedItem();
-			//&& ui.mbtilist.getSelectedItem().equals("== CHOICE ==")
-			if(tf.getText().equals("") || str.equals("== CHOICE ==")) {
+//			String str = (String)ui.list.get(i);
+//			String str = (String)ui.mbtilist.getSelectedItem().toString();
+//			&& ui.mbtilist.getSelectedItem().equals("== CHOICE ==")
+//			|| str.equals("== CHOICE ==")
+			if(tf.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg(ui.namelistCheck[i]+" 을(를) 입력해주세요."));
 				tf.requestFocus();
 				i = ui.list.size();
 //			}else if(ui.mbtilist.getSelectedItem().equals("== CHOICE ==")) {
 //				JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
 //				ui.mbtilist.requestFocus();
-				
+//				
 			}else if(i == ui.list.size()-1) {
 				result = true;
 			}
 		
 		}
+		
+//		if()
+		
+		
+		
 		return result;
 	}
 
