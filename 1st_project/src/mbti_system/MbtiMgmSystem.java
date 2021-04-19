@@ -99,8 +99,8 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 게시판 검색 **/
-	public BoardVO searchBoard(String title) {
-		return bdao.getSelectResult(title);
+	public ArrayList<BoardVO> searchBoard(String title) {
+		return bdao.getSearchResult(title);
 	}
 	
 	/** 게시판 수정 **/

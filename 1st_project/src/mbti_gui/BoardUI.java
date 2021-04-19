@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -42,7 +43,6 @@ public class BoardUI implements MouseListener, ActionListener {
 	JTextField search_tf, title_tf;
 	JTextArea content_ta;
 	JButton btn_search, btn_write, btn_insert, btn_cancel, btn_list, btn_delete, btn_update;
-	int count = 1;
 	JLabel up_label;
 	JLabel down_label;
 
@@ -79,7 +79,7 @@ public class BoardUI implements MouseListener, ActionListener {
 		search_panel.add(btn_search);
 
 		// 센터패널 - 글목록
-		createJtableData();
+		createJtableData(main.system.getBoardList());
 		model.setColumnIdentifiers(colNames);
 
 		list_table.setModel(model);
@@ -134,37 +134,56 @@ public class BoardUI implements MouseListener, ActionListener {
 	}
 
 	/** 글목록 생성 **/
-	public void createJtableData() {
+//	public void createJtableData() {
+//
+//		model.setNumRows(0);
+//
+//		if(main.system.getBoardList().size() != 0) {
+//	      for(BoardVO board : main.system.getBoardList()) {
+//	         row[0] = board.getB_rno();
+//	         row[1] = board.getB_title();
+//	         row[2] = board.getB_id();
+//	         row[3] = board.getB_date();
+//	         row[4] = board.getB_good() + "/" + board.getB_bad();
+//	 
+//	         model.addRow(row);         
+//	      }      
+//		} else {
+//			row[1] = "등록된 게시글이 없습니다.";
+//			model.addRow(row);      
+//		}
+//		
+//		
+//		model.fireTableDataChanged();
+//	}
+
+	public void createJtableData(ArrayList<BoardVO> list) {
 
 		model.setNumRows(0);
 
-//		row[0] = "1";
-//		row[1] = "제목 테스트 제목 테스트 제목 테스트";
-//		row[2] = "어피치";
-//		row[3] = "2021.01.01";
-//		row[4] = "1/1";
-//		model.addRow(row);
-		
-		if(main.system.getBoardList().size() != 0) {
-	      for(BoardVO board : main.system.getBoardList()) {
-	         row[0] = board.getB_rno();
-	         row[1] = board.getB_title();
-	         row[2] = board.getB_id();
-	         row[3] = board.getB_date();
-	         row[4] = board.getB_good() + "/" + board.getB_bad();
-	 
-	         model.addRow(row);         
-	      }      
+		if (list.size() != 0) {
+			for (BoardVO board : list) {
+				row[0] = board.getB_rno();
+				row[1] = board.getB_title();
+				row[2] = board.getB_id();
+				row[3] = board.getB_date();
+				row[4] = board.getB_good() + "/" + board.getB_bad();
+				model.addRow(row);
+			}
+
 		} else {
-			row[1] = "등록된 게시글이 없습니다.";
-			model.addRow(row);      
+			for (int i = 0; i <= 4; i++) {
+				row[i] = "";
+				if (i == 1) {
+					row[1] = "등록된 게시물이 없습니다.";
+				}
+			}
+			model.addRow(row);
 		}
-		
-		
+
 		model.fireTableDataChanged();
 	}
 
-	
 	public void resizeColumnWidth(JTable table) { // 열 너비 조정
 		TableColumnModel columnModel = table.getColumnModel();
 		for (int column = 0; column < table.getColumnCount(); column++) {
@@ -184,34 +203,36 @@ public class BoardUI implements MouseListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btn_search || obj == search_tf) {
-			if (search_tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
-			} else {
-				// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
-				System.out.println("------------------------->> 검색");
-			}
-		} else if(obj == btn_write) {
+			searchProc();
+		} else if (obj == btn_write) {
 			new BoardWriteUI(main);
 		}
 	}
 
+	/** 검색 **/
+	public void searchProc() {
+		if (search_tf.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
+		} else {
+			createJtableData(main.system.searchBoard(search_tf.getText()));
+		}
+	}
 
 	/** 글목록 마우스 리스너 **/
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object obj = e.getSource();
-		Object lto = list_table.getValueAt(list_table.getSelectedRow(), 0);
-		
+		String rno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
+
 		if (obj == list_table) {
-			if(lto != null) {
-				int no = Integer.parseInt(lto.toString());
+			if (!rno.equals("")) {
+				int no = Integer.parseInt(rno);
 				new BoardReadUI(main, no);
 			} else {
 				System.out.println("no post");
 			}
-			
-			
-		} 
+
+		}
 	}
 
 	/** 마우스 리스너 오버라이드 **/

@@ -111,16 +111,18 @@ public class BoardDAO extends DBConn {
 		return board;
 	}
 	
-	/** 검색 **/
-	public BoardVO getSelectResult(String title){
-		BoardVO board = new BoardVO();
+	/** 검색 **/ // ###0419
+	public ArrayList<BoardVO> getSearchResult(String title) {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		
 		try {
-			String sql = " SELECT * FROM BOARD_TABLE WHERE B_TITLE=?";
+			String sql = " SELECT * FROM BOARD_TABLE WHERE B_TITLE LIKE '%' ||?|| '%' ORDER BY B_RNO DESC";
 			getPreparedStatement(sql);
 			pstmt.setString(1, title);
-			
+
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
+				BoardVO board = new BoardVO();
 				board.setB_rno(rs.getInt(1));
 				board.setB_title(rs.getString(2));
 				board.setB_content(rs.getString(3));
@@ -128,14 +130,14 @@ public class BoardDAO extends DBConn {
 				board.setB_date(rs.getDate(5));
 				board.setB_good(rs.getInt(6));
 				board.setB_bad(rs.getInt(7));
-							
-			}		
-					
+				list.add(board);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return board;
+
+		return list;
 	}
 	
 	/** 수정 **/
