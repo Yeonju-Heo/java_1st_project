@@ -55,6 +55,16 @@ public class MbtiMgmSystem {
 		return udao.getUpdateUserResult(user, pass);
 	}
 	
+	/** 모든 아이템 조회 **/
+	public ItemVO getItem() {
+		return idao.getItemResult();
+	}
+	
+	/** 내 mbti 조회 **/
+	public MbtiVO getMbti(UserVO user) {
+		return mdao.getMbtiSelectResult(user);
+	}
+	
 	
 	/** 종료 **/
 	public void close() {
@@ -118,11 +128,6 @@ public class MbtiMgmSystem {
 		return bdao.getDeleteResult(no);
 	}
 	
-	
-	/** 내 mbti 조회 **/
-	public MbtiVO getMbti(UserVO user) {
-		return mdao.getMbtiSelectResult(user);
-	}
 	
 	/** 뽑은 아이템 추가 **/
 	public boolean updateUserItem(UserVO user, ItemVO item) {
