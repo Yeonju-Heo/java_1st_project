@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import mbti_vo.BoardVO;
 
 public class BoardReadUI implements MouseListener, ActionListener {
-	// Field//
+	// Field
 
 	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
@@ -31,6 +31,7 @@ public class BoardReadUI implements MouseListener, ActionListener {
 	JTable list_table = new JTable(model);
 
 	MbtiMainUI main;
+	BoardVO board;
 	JTextArea content_ta;
 	JButton btn_list, btn_delete, btn_update;
 	JLabel good_label;
@@ -50,7 +51,8 @@ public class BoardReadUI implements MouseListener, ActionListener {
 
 	
 	public void getInfo() {
-		BoardVO board = main.system.readBoard(no);
+		board = main.system.readBoard(no);
+//		BoardVO board = main.system.readBoard(no);
 		title = board.getB_title();
 		id = board.getB_id();
 		content = board.getB_content();
@@ -158,13 +160,12 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		if (obj == btn_list) {
 			new BoardUI(main);
 		} else if (obj == btn_update) {
-			System.out.println("수정");
-			//작성자 확인 필요
+			new BoardUpdateUI(main, board);
 		} else if (obj == btn_delete) {
-			System.out.println("삭제");
 			deleteProc();
 		}
 	}
+	
 	
 	/** 글 삭제 **/
 	public void deleteProc() {

@@ -119,8 +119,8 @@ public class MbtiMgmSystem {
 	}
 	
 	/** 게시판 수정 **/
-	public int updateBoard(BoardVO board, String content) {
-		return bdao.getUpdateResult(board, content);
+	public int updateBoard(BoardVO board) {
+		return bdao.getUpdateResult(board);
 	}
 	
 	/** 게시판 추천 **/

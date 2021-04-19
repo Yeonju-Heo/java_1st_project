@@ -163,6 +163,29 @@ public class BoardDAO extends DBConn {
 		return result;
 	}
 	
+	
+	/** 수정 **/
+	public int getUpdateResult(BoardVO board) {
+		int result = 0;
+
+		try {
+			String sql = " UPDATE BOARD_TABLE SET B_TITLE = ?, B_CONTENT = ? WHERE B_RNO = ? ";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, board.getB_title());
+			pstmt.setString(2, board.getB_content());
+			pstmt.setInt(3, board.getB_rno());
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
 //	/** 삭제 **/
 //	public boolean getDeleteResult(BoardVO board) {
 //		boolean result = false;
