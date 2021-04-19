@@ -41,6 +41,64 @@ public class Commons {
 	
 	
 	
+	public static Font getMbtiFont(String mbti) {
+		Font font = null;
+		
+		if(mbti.equals("INFJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+					
+		}else if(mbti.equals("INFP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ENFJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ENFP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ISTJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ISFJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ESTJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ESFJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ISTP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ISFP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ESTP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ESFP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("INTJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("INTP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ENTJ")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}else if(mbti.equals("ENTP")) {
+			font = new Font("맑은 고딕", Font.BOLD, 12);
+			
+		}
+		
+		return font;
+	}
+	
+	
 	
 	
 }

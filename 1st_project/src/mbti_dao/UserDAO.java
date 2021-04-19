@@ -121,22 +121,24 @@ public class UserDAO extends DBConn{
 	}
 	
 	/** 유저 정보 검색 (admin)**/
-	public UserVO getUserSearchAdminResult(String id) {
-		UserVO user = new UserVO();
+	public ArrayList<UserVO> getUserSearchAdminResult(String id) {
+		ArrayList<UserVO> ulist = new ArrayList<UserVO>();
 		
 		try {
 			String sql = " SELECT U_ID,U_MBTI,U_POINT,U_DATE "
-					+ "	FROM USER_TABLE WHERE U_ID = ? ";
+					+ "	FROM USER_TABLE WHERE U_ID LIKE '%' " + 
+					" ||?|| '%' " ;
 			getPreparedStatement(sql);
 			pstmt.setString(1, id);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				UserVO user = new UserVO();
 				user.setU_id(rs.getString(1));
 				user.setU_mbti(rs.getString(2));
 				user.setU_point(rs.getInt(3));
 				user.setU_date(rs.getString(4));
-				
+				ulist.add(user);
 			}
 			
 		} catch (Exception e) {
@@ -144,8 +146,35 @@ public class UserDAO extends DBConn{
 			e.printStackTrace();
 		}
 		
-		return user;
+		return ulist;
 		
+	}
+	
+	/**유저 정보 체크(admin)**/
+	public boolean getUserExsistResult(String id) {
+		boolean result = false;
+		
+		try {
+			String sql = 
+//					"SELECT COUNT(*) FROM USER_TABLE " + 
+//					" WHERE U_ID = ? "
+					" SELECT COUNT(*) "
+					+ "	FROM USER_TABLE WHERE U_ID LIKE '%' " + 
+					" ||?|| '%' " ;
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt(1) >= 1) result = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	/** 유저 정보 조회(admin)**/

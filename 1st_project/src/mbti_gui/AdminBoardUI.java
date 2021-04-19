@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.ImageIcon;
@@ -28,7 +29,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import mbti_dao.BoardDAO;
 import mbti_vo.BoardVO;
 
 public class AdminBoardUI implements ActionListener, MouseListener {
@@ -166,22 +166,24 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	}
 	
 	/** 검색 UI 보여주기 **/
-	public void createJtableData(BoardVO board) {
+	public void createJtableData(ArrayList<BoardVO> board) {
 		model.setNumRows(0);
 		
-		row = new Object[6];
-		row[0] = board.getB_rno();
-		row[1] = board.getB_title();
-		row[2] = board.getB_id();
-		row[3] = board.getB_date();
-		row[4] = board.getB_good() +"/" + board.getB_bad();  
-		
-		model.addRow(row);
-		
-		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
-		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-		
-		model.fireTableDataChanged();
+		for(BoardVO data : board) {
+			row = new Object[6];
+			row[0] = data.getB_rno();
+			row[1] = data.getB_title();
+			row[2] = data.getB_id();
+			row[3] = data.getB_date();
+			row[4] = data.getB_good() +"/" + data.getB_bad();  
+			
+			model.addRow(row);
+			
+//			list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+//			list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+			
+			model.fireTableDataChanged();
+		}
 	}
 
 	/** 글 읽기 화면 **/
@@ -323,11 +325,9 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			search_tf.requestFocus();
 		}else {
 			//아니라면 검색
-			BoardVO board = main.system.searchBoard(search_tf.getText());
-			if(board.getB_rno() != 0) {
-				
-			createJtableData(board);
-			
+			if(main.system.getBoardDateExsistSelect(search_tf.getText())) {
+				ArrayList<BoardVO> board = main.system.searchAdminBoard(search_tf.getText());
+				createJtableData(board);
 			}else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
 			}

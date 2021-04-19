@@ -111,7 +111,7 @@ public class BoardDAO extends DBConn {
 		return board;
 	}
 	
-	/** 검색 **/ // ###0419
+	/** 검색 **/ // ###0419 
 	public ArrayList<BoardVO> getSearchResult(String title) {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		
@@ -139,6 +139,36 @@ public class BoardDAO extends DBConn {
 
 		return list;
 	}
+	
+	/**관리자 검색**/
+	public ArrayList<BoardVO> getSearchAdminResult(String title) {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		
+		try {
+			String sql = " SELECT * FROM BOARD_TABLE WHERE B_TITLE LIKE '%' ||?|| '%' ORDER BY B_RNO";
+			getPreparedStatement(sql);
+			pstmt.setString(1, title);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardVO board = new BoardVO();
+				board.setB_rno(rs.getInt(1));
+				board.setB_title(rs.getString(2));
+				board.setB_content(rs.getString(3));
+				board.setB_id(rs.getString(4));
+				board.setB_date(rs.getDate(5));
+				board.setB_good(rs.getInt(6));
+				board.setB_bad(rs.getInt(7));
+				list.add(board);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	
 	/** 수정 **/
 	public int getUpdateResult(BoardVO board, String content) {
@@ -224,6 +254,33 @@ public class BoardDAO extends DBConn {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**보드 정보 null체크(admin)**/
+	public boolean getBoardExsistResult(String title) {
+		boolean result = false;
+		
+		try {
+			String sql = 
+//					"SELECT COUNT(*) FROM BOARD_TABLE " + 
+//					" WHERE B_TITLE = ? "
+					" SELECT COUNT(*) "
+					+ "	FROM BOARD_TABLE WHERE B_TITLE LIKE '%' " + 
+					" ||?|| '%' " ;
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, title);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt(1) >= 1) result = true;
+			}
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

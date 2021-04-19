@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
@@ -38,6 +39,7 @@ public class AdminUserUI implements ActionListener {
 			return result;
 		}
 	};
+	int count = 1;
 	Object[] row = new Object[6];
 	JTable list_table = new JTable(model);
 
@@ -121,7 +123,6 @@ public class AdminUserUI implements ActionListener {
 		for(UserVO user : main.system.getUserDateSelect()) {
 	    	 System.out.println(user);
 	    	 row = new Object[5];
-	    	 int count = 1;
 	    	 row[0] = count; //DB에 추가하기
 	         row[1] = user.getU_id();
 	         row[2] = user.getU_mbti();
@@ -136,6 +137,27 @@ public class AdminUserUI implements ActionListener {
 //	         list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
 	      }  
 		
+		
+	}
+	
+	/**검색 화면생성**/
+	public void createJtableData(ArrayList<UserVO> u_list) {
+		model.setNumRows(0);
+		for(UserVO user : u_list) {
+			row = new Object[5];
+			row[0] = count; 
+			row[1] = user.getU_id();
+			row[2] = user.getU_mbti();
+			row[3] = user.getU_date();
+			row[4] = user.getU_point();
+			
+			model.addRow(row); 
+			count++;
+			
+			model.fireTableDataChanged();
+//	         list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+//	         list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+		}  
 		
 	}
 
@@ -174,9 +196,13 @@ public class AdminUserUI implements ActionListener {
 			search_tf.requestFocus();
 		}else {
 			// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
-			UserVO user = main.system.getUserDateSelect(search_tf.getText());
-			if(user.getU_id().equals(search_tf.getText())) {
+			if(main.system.getUserDateExsistSelect(search_tf.getText())) {
+				ArrayList<UserVO> user = main.system.getUserDateSelect(search_tf.getText());
+				System.out.println("검색");
 				createJtableData(user);
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
+				search_tf.requestFocus();
 			}
 		}
 	}

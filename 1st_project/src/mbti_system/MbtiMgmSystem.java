@@ -141,10 +141,11 @@ public class MbtiMgmSystem {
 	
 	
 	/** 관리자 유저 검색 **/
-	public UserVO getUserDateSelect(String id){
+	public ArrayList<UserVO> getUserDateSelect(String id){
 		System.out.println("검색");
 		return udao.getUserSearchAdminResult(id);
 	}
+	
 	/** 유저 검색 **/
 	public UserVO getUserDataSelect(String id){
 		System.out.println("메인시스템");
@@ -155,6 +156,18 @@ public class MbtiMgmSystem {
 	public ArrayList<UserVO> getUserDateSelect(){
 		System.out.println("조회");
 		return udao.getUserDataResult();
+	}
+	
+	/** 관리자 유저 조회(null체크) **/
+	public boolean getUserDateExsistSelect(String id){
+		System.out.println("조회");
+		return udao.getUserExsistResult(id);
+	}
+	
+	/** 관리자 게시글 조회(null체크) **/
+	public boolean getBoardDateExsistSelect(String title){
+		System.out.println("조회");
+		return bdao.getBoardExsistResult(title);
 	}
 	
 	/** 유저 조회 **/
@@ -176,13 +189,14 @@ public class MbtiMgmSystem {
 	public boolean deleteAdminUser(String name) {
 		return udao.getDeleteUserAdmin(name);
 	}
-//	/** 관리자 유저 삭제 **/
-//	public int deleteAdminBoard(BoardVO) {
-//		
-//	}
 	
 	/** 관리자 보드 삭제 **/
 	public boolean deleteAdminBoard(int bno) {
 		return bdao.getDeleteResult(bno);
+	}
+	
+	/** 관리자 게시판 검색 **/
+	public ArrayList<BoardVO> searchAdminBoard(String title) {
+		return bdao.getSearchAdminResult(title);
 	}
 }

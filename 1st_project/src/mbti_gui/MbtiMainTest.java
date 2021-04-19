@@ -8,6 +8,7 @@ public class MbtiMainTest {
 //		new JRadioButtonTest();
 //		new MbtiCheckUI();
 		new AdminMainUI();
+//		new LoginUI();
 		
 
 	}

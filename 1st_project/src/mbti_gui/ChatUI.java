@@ -30,16 +30,16 @@ import mbti_vo.UserVO;
 
 public class ChatUI implements ActionListener{
 	//Field
-	JFrame chat_frame;//?��?��?��
+	JFrame chat_frame;//프레임
 	
 	JPanel left_panel;
 	JPanel right_panel;
 	JPanel center_panel;
 	
 	JTextArea chat_content;
-	JTextField chat_tf;//text 보내?�� �?
+	JTextField chat_tf;//텍스트 치는 곳
 	JButton btn_send;
-	JList user_list;//?��?? 리스?��
+	JList user_list;//접속자 보여주는 곳
 	
 	JPanel list_panel;
 	JPanel botton_panel;
@@ -84,9 +84,9 @@ public class ChatUI implements ActionListener{
 		
 		//채팅 오른쪽 패널
 		user_panel = new JPanel(new GridLayout());
-		la_user = new JLabel("채팅 ?��?��?��");
+		la_user = new JLabel("채팅 접속자 목록");
 		la_user.setHorizontalAlignment(JLabel.CENTER);
-		la_count = new JLabel("0�? ?��?���?");
+		la_count = new JLabel("0명 접속중");
 		la_count.setHorizontalAlignment(JLabel.CENTER);
 		la_user.setFont(Commons.getFont());
 		user_list.setFont(Commons.getFont());
@@ -162,7 +162,7 @@ public class ChatUI implements ActionListener{
 			public void windowClosing(WindowEvent e) {
 				try {
 					//Exit
-					System.out.println("?��?���?");
+					System.out.println("나가기");
 					MessageVO vo = new MessageVO();
 					UserVO uvo = new UserVO();
 					vo.setName(uvo.getU_id()); //퇴장 아이디
@@ -197,7 +197,7 @@ public class ChatUI implements ActionListener{
 					vo.setMsg(chat_tf.getText());
 					vo.setStatus(MessageVO.TALK);
 					
-					//보내�?
+					//보내기
 					client.oos.writeObject(vo);
 					chat_tf.setText("");
 					
@@ -205,7 +205,7 @@ public class ChatUI implements ActionListener{
 					e2.printStackTrace();
 				}
 			}else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("?��?��?���? ?��?��?��주세?��."));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("메시지를 입력해주세요."));
 				chat_tf.requestFocus();
 			}
 	}

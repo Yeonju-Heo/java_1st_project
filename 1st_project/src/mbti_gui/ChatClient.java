@@ -34,7 +34,7 @@ public class ChatClient {
 			vo.setStatus(MessageVO.CONNECT); //연결상태전송
 			oos.writeObject(vo); //전송
 			
-			System.out.println("?���?!");
+			System.out.println("클라이언트 연결");
 			
 			
 		} catch (Exception e) {
