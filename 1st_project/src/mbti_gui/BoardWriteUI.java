@@ -11,25 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import mbti_vo.BoardVO;
 
 public class BoardWriteUI implements ActionListener {
 	// Field//
-
-	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
-	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
-		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
-			return false;
-		}
-	};
-	Object[] row = new Object[5];
-	JTable list_table = new JTable(model);
-
 	MbtiMainUI main;
 	JTextField title_tf;
 	JTextArea content_ta;

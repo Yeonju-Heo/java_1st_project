@@ -101,12 +101,6 @@ public class BoardUI implements MouseListener, ActionListener {
 			tcm.getColumn(i).setCellRenderer(dtcr);
 		}
 
-//      list_table.getColumn("번호").setPreferredWidth(5); 
-//      list_table.getColumn("제목").setWidth(125);
-//      list_table.getColumn("작성자").setPreferredWidth(5);
-//      list_table.getColumn("작성일").setPreferredWidth(5);
-//      list_table.getColumn("추천").setPreferredWidth(5);
-
 		resizeColumnWidth(list_table); // 컬럼 크기 조정
 		JScrollPane pane = new JScrollPane(list_table);
 		pane.setPreferredSize(new Dimension(700, 400));
@@ -134,29 +128,6 @@ public class BoardUI implements MouseListener, ActionListener {
 	}
 
 	/** 글목록 생성 **/
-//	public void createJtableData() {
-//
-//		model.setNumRows(0);
-//
-//		if(main.system.getBoardList().size() != 0) {
-//	      for(BoardVO board : main.system.getBoardList()) {
-//	         row[0] = board.getB_rno();
-//	         row[1] = board.getB_title();
-//	         row[2] = board.getB_id();
-//	         row[3] = board.getB_date();
-//	         row[4] = board.getB_good() + "/" + board.getB_bad();
-//	 
-//	         model.addRow(row);         
-//	      }      
-//		} else {
-//			row[1] = "등록된 게시글이 없습니다.";
-//			model.addRow(row);      
-//		}
-//		
-//		
-//		model.fireTableDataChanged();
-//	}
-
 	public void createJtableData(ArrayList<BoardVO> list) {
 
 		model.setNumRows(0);
@@ -172,16 +143,14 @@ public class BoardUI implements MouseListener, ActionListener {
 			}
 
 		} else {
-			for (int i = 0; i <= 4; i++) {
-				row[i] = "";
-				if (i == 1) {
-					row[1] = "등록된 게시물이 없습니다.";
-				}
-			}
+			row[0] = "";
+			row[1] = "등록된 게시물이 없습니다.";
+
 			model.addRow(row);
 		}
 
 		model.fireTableDataChanged();
+	
 	}
 
 	public void resizeColumnWidth(JTable table) { // 열 너비 조정
@@ -214,7 +183,12 @@ public class BoardUI implements MouseListener, ActionListener {
 		if (search_tf.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
 		} else {
-			createJtableData(main.system.searchBoard(search_tf.getText()));
+			ArrayList<BoardVO> list = main.system.searchBoard(search_tf.getText());
+			if(list.size() == 0) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg(search_tf.getText() + "에 대한 검색 결과가 없습니다."));
+			} else {
+				createJtableData(main.system.searchBoard(search_tf.getText()));
+			}
 		}
 	}
 

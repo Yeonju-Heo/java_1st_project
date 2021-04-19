@@ -15,20 +15,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableModel;
 
 import mbti_vo.BoardVO;
 
 public class BoardReadUI implements MouseListener, ActionListener {
 	// Field
-
-	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
-	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
-		public boolean isCellEditable(int i, int c) { return false; }};
-	Object[] row = new Object[5];
-	JTable list_table = new JTable(model);
 
 	MbtiMainUI main;
 	BoardVO board;
@@ -180,7 +172,7 @@ public class BoardReadUI implements MouseListener, ActionListener {
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "권한이 없습니다");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("본인의 글만 삭제할 수 있습니다."));
 		}
 	}
 	

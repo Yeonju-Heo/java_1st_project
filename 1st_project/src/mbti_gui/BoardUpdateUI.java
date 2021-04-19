@@ -43,7 +43,7 @@ public class BoardUpdateUI implements ActionListener{
 			title_tf.setText(board.getB_title());
 			content_ta.setText(board.getB_content());
 		} else {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("권한이 없습니다."));
+			JOptionPane.showMessageDialog(null, Commons.getMsg("본인의 글만 수정할 수 있습니다."));
 		}
 	}
 	
@@ -107,27 +107,12 @@ public class BoardUpdateUI implements ActionListener{
 		btn_update.addActionListener(this);
 		btn_cancel.addActionListener(this);
 	}
-	
-	/** 액션 리스너 **/
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if (obj == btn_update) {
-			updateResultProc();
-		} else if (obj == btn_cancel) {
-			int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("게시물 수정을 취소하시겠습니까?"));
-			if (result == 0) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물 수정이 취소되었습니다."));
-				new BoardUI(main);
-			}
-		}
-	}
+
 	
 	public void updateResultProc() {
 		if (writeCheck()) {
-//			BoardVO board = new BoardVO();
 			board.setB_title(title_tf.getText());
 			board.setB_content(content_ta.getText());
-//			board.setB_id(main.id_tf.getText());
 
 			int result = main.system.updateBoard(board);
 			if(result != 0) {
@@ -155,6 +140,20 @@ public class BoardUpdateUI implements ActionListener{
 		}
 		
 		return result;
+	}
+	
+	/** 액션 리스너 **/
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		if (obj == btn_update) {
+			updateResultProc();
+		} else if (obj == btn_cancel) {
+			int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("게시물 수정을 취소하시겠습니까?"));
+			if (result == 0) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물 수정이 취소되었습니다."));
+				new BoardUI(main);
+			}
+		}
 	}
 
 
