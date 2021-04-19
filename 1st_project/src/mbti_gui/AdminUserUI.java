@@ -39,7 +39,7 @@ public class AdminUserUI implements ActionListener {
 			return result;
 		}
 	};
-	int count = 1;
+	int count;
 	Object[] row = new Object[6];
 	JTable list_table = new JTable(model);
 
@@ -119,7 +119,7 @@ public class AdminUserUI implements ActionListener {
 	/** 전체 데이터 출력 **/
 	public void createJtableData() {
 		model.setNumRows(0);
-		
+		count = 1;
 		for(UserVO user : main.system.getUserDateSelect()) {
 	    	 System.out.println(user);
 	    	 row = new Object[5];
@@ -143,6 +143,7 @@ public class AdminUserUI implements ActionListener {
 	/**검색 화면생성**/
 	public void createJtableData(ArrayList<UserVO> u_list) {
 		model.setNumRows(0);
+		count = 1;
 		for(UserVO user : u_list) {
 			row = new Object[5];
 			row[0] = count; 
@@ -160,6 +161,7 @@ public class AdminUserUI implements ActionListener {
 		}  
 		
 	}
+	
 
 	/** 일부 데이터 출력 **/
 	public void createJtableData(UserVO user) {

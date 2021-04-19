@@ -121,30 +121,33 @@ public class UserDAO extends DBConn{
 	}
 	
 	/** 유저 정보 검색 (admin)**/
-	public UserVO getUserSearchAdminResult(String id) {
-		UserVO user = new UserVO();
+	public ArrayList<UserVO> getUserSearchAdminResult(String id) {
+		ArrayList<UserVO> u_list = new ArrayList<UserVO>();
 		
 		try {
-			String sql = " SELECT U_ID,U_MBTI,U_POINT,U_DATE "
-					+ "	FROM USER_TABLE WHERE U_ID = ? ";
+			String sql = 
+					" SELECT U_ID, U_MBTI,TO_CHAR(U_DATE, 'YYYY-MM-DD'),U_POINT "
+					+ "	FROM USER_TABLE WHERE U_ID LIKE '%' " + 
+					" ||?|| '%' " ;
+			
 			getPreparedStatement(sql);
 			pstmt.setString(1, id);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				UserVO user = new UserVO();
 				user.setU_id(rs.getString(1));
 				user.setU_mbti(rs.getString(2));
-				user.setU_point(rs.getInt(3));
-				user.setU_date(rs.getString(4));
-				
+				user.setU_date(rs.getString(3));;
+				user.setU_point(rs.getInt(4));
+				u_list.add(user);
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
-		return user;
+		return u_list;
 		
 	}
 	
@@ -152,8 +155,9 @@ public class UserDAO extends DBConn{
 	public ArrayList<UserVO> getUserDataResult() {
 		ArrayList<UserVO> list = new ArrayList<UserVO>();
 		try {
-			String sql = "SELECT U_ID, U_PASS, U_MBTI,U_DATE,U_POINT " + 
-					" FROM USER_TABLE ";
+			String sql = "SELECT U_ID, U_PASS, U_MBTI,TO_CHAR(U_DATE, 'YYYY-MM-DD'),U_POINT " + 
+						 " FROM USER_TABLE ";
+			
 			getPreparedStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -174,6 +178,33 @@ public class UserDAO extends DBConn{
 		
 		return list;
 		
+	}
+	
+	/**유저 정보 null체크(admin)**/
+	public boolean getUserExsistResult(String name) {
+		boolean result = false;
+		
+		try {
+			String sql = 
+//					"SELECT COUNT(*) FROM BOARD_TABLE " + 
+//					" WHERE B_TITLE = ? "
+					" SELECT COUNT(*) FROM USER_TABLE " + 
+					" WHERE U_ID LIKE '%' ||?|| '%' " ;
+			
+			getPreparedStatement(sql);
+			pstmt.setString(1, name);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				if(rs.getInt(1) >= 1) result = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	
