@@ -34,7 +34,7 @@ public class MbtiMainUIEvent implements ActionListener {
 			new CreateUI(main);
 			main.secondFrame.setTitle("캐릭터 생성");
 		} else if (obj == main.buttonlist.get(2)) {
-			new ChatUI();
+			new ChatUI(main);
 		} else if (obj == main.buttonlist.get(3)) {
 			new BoardUI(main);
 			main.secondFrame.setTitle("게시판");

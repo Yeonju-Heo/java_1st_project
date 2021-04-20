@@ -31,6 +31,7 @@ import mbti_vo.UserVO;
 public class ChatUI implements ActionListener{
 	//Field
 	JFrame chat_frame;//프레임
+	MbtiMainUI main;
 	
 	JPanel left_panel;
 	JPanel right_panel;
@@ -49,11 +50,13 @@ public class ChatUI implements ActionListener{
 	JLabel la_count;
 	JLabel title_label;
 	
-	ChatClient client = new ChatClient();
+	ChatClient client;
 	ClientThread ct;
 	
 	//Constructor
-	public ChatUI(){
+	public ChatUI(MbtiMainUI main){
+		this.main = main;
+		client = new ChatClient(main);
 		init();
 //		client = new ChatClient();
 		ct = new ClientThread(client.ois, chat_content, user_list, la_count);
@@ -164,7 +167,7 @@ public class ChatUI implements ActionListener{
 					//Exit
 					System.out.println("나가기");
 					MessageVO vo = new MessageVO();
-					UserVO uvo = new UserVO();
+					UserVO uvo = main.system.getChatUserDataSelect(main.id_tf.getText());
 					vo.setName(uvo.getU_id()); //퇴장 아이디
 					vo.setStatus(MessageVO.EXIT);			
 					client.oos.writeObject(vo);
@@ -190,8 +193,8 @@ public class ChatUI implements ActionListener{
 				try {
 					//talk
 					MessageVO vo = new MessageVO();
-					UserVO uvo = new UserVO();
-					MbtiVO mvo = new MbtiVO();
+					UserVO uvo = main.system.getChatUserDataSelect(main.id_tf.getText());
+					MbtiVO mvo = main.system.getMbti(uvo);
 					vo.setName(uvo.getU_id()); //말할때 아이디
 					vo.setMbti(mvo.getMbti_type());
 					vo.setMsg(chat_tf.getText());

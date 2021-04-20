@@ -10,6 +10,7 @@ import mbti_dao.UserItemDAO;
 import mbti_vo.BoardVO;
 import mbti_vo.ItemVO;
 import mbti_vo.MbtiVO;
+import mbti_vo.MessageVO;
 import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
@@ -132,7 +133,13 @@ public class MbtiMgmSystem {
 		System.out.println("메인시스템");
 		return udao.getUserDataResult(id);
 	}
-
+	
+	/** 유저 검색 (채팅)**/
+	public UserVO getChatUserDataSelect(String id) {
+		System.out.println("메인시스템");
+		return udao.getChatUserDataResult(id);
+	}
+	
 	/** 관리자 유저 조회 **/
 	public ArrayList<UserVO> getUserDateSelect() {
 		System.out.println("조회");

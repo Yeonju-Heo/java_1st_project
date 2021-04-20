@@ -24,7 +24,6 @@ public class ClientThread extends Thread{
 				this.user_count = usercount;
 				
 			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		
 		}
@@ -44,7 +43,6 @@ public class ClientThread extends Thread{
 					
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 

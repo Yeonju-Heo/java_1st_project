@@ -43,6 +43,7 @@ public class ChatServer {
 	synchronized static public void broadcasting(MessageVO vo) {
 		try {
 			if(vo.getStatus() == MessageVO.CONNECT) {
+//				user_list.add(vo.getName());
 				user_list.add( vo.getName() + "(" + vo.getMbti() + ")" );
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
@@ -55,14 +56,16 @@ public class ChatServer {
 				vo.setMsg(vo.getName() + "(" + vo.getMbti() + ")" + " ▶ " + vo.getMsg());
 				
 			}else if(vo.getStatus() == MessageVO.EXIT) {
-				int index = user_list.indexOf(vo.getName());
+//				int index = user_list.indexOf(vo.getName());
+				int index = user_list.indexOf(vo.getName() + "(" + vo.getMbti() + ")");
+				System.out.println(index);
 				ObjectOutputStream remove = (ObjectOutputStream)list.get(index);
 				Iterator<ObjectOutputStream> ie = list.iterator();
 				while(ie.hasNext()) {
 					if(ie.next() == remove) ie.remove();
 				}
 				
-				user_list.remove(vo.getName());
+				user_list.remove(vo.getName() + "(" + vo.getMbti() + ")");
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
 				vo.setMsg("---------------->>" + 
@@ -71,12 +74,13 @@ public class ChatServer {
 			}
 			
 			for(ObjectOutputStream oos : list) {
+				
+				
 				oos.writeObject(vo);
 			}
 			
 						
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 

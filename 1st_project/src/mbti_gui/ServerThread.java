@@ -7,7 +7,6 @@ import java.net.Socket;
 import mbti_vo.MessageVO;
 
 public class ServerThread extends Thread{
-	
 	ChatServer cs = new ChatServer();
 	ObjectInputStream ois;
 	ObjectOutputStream oos;
@@ -18,7 +17,6 @@ public class ServerThread extends Thread{
 			oos = new ObjectOutputStream(s.getOutputStream());
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		
 	}
@@ -31,7 +29,6 @@ public class ServerThread extends Thread{
 				ChatServer.broadcasting(vo);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

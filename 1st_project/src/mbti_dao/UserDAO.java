@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import mbti_gui.MbtiMainUIEvent;
 import mbti_vo.BoardVO;
-import mbti_vo.MbtiVO;
+import mbti_vo.MessageVO;
 import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
@@ -123,6 +123,33 @@ public class UserDAO extends DBConn{
 		return user;
 		
 	}
+	
+	/** 유저 정보 조회(채팅) **/
+	public UserVO getChatUserDataResult(String id) {
+		UserVO user = new UserVO();
+		try {
+			String sql = "SELECT U_ID, U_MBTI " + 
+					" FROM USER_TABLE " + 
+					" WHERE U_ID = ? ";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				user.setU_id(rs.getString(1));
+				user.setU_mbti(rs.getString(2));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+		
+	}
+	
 	
 	/** 유저 정보 검색 (admin)**/
 	public ArrayList<UserVO> getUserSearchAdminResult(String id) {
