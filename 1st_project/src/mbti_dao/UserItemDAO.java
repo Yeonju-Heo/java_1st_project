@@ -91,7 +91,7 @@ public class UserItemDAO extends DBConn{
 				uitem.setI_content(ImageIO.read(in));
 				in = rs.getBinaryStream(3);
 				uitem.setI_closet(ImageIO.read(in));
-				
+				uitemlist.add(uitem);
 			}
 			
 		} catch (Exception e) {
@@ -120,7 +120,7 @@ public class UserItemDAO extends DBConn{
 				uitem.setI_content(ImageIO.read(in));
 				in = rs.getBinaryStream(3);
 				uitem.setI_closet(ImageIO.read(in));
-				
+				uitemlist.add(uitem);
 			}
 			
 		} catch (Exception e) {

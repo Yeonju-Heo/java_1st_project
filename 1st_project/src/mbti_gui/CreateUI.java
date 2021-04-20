@@ -171,10 +171,13 @@ public class CreateUI implements ActionListener{
 		hairlist.add(hair4);
 		hairlist.add(hair5);
 		
-		JLabel l = new JLabel(hairlist.get(random.nextInt(bound)));
-		uitem.setI_name(hairlist.get(random.nextInt(bound)).getDescription());
+		int i=random.nextInt(bound);
+		JLabel l = new JLabel(hairlist.get(i));
+		System.out.println(hairlist.get(i));
+		uitem.setI_name(hairlist.get(i).getDescription());
+		System.out.println(hairlist.get(i));
 		uitem.setU_id(user.getU_id());
-		main.system.updateUserItem(main.id_tf.getText(), hairlist.get(random.nextInt(bound)).getDescription());
+		main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
 		p.add(l);
 		f.add(BorderLayout.CENTER,p);
 		f.setSize(350,350);
@@ -197,17 +200,24 @@ public class CreateUI implements ActionListener{
 	public void random_top() {
 		JFrame f = new JFrame("짜잔! 멋진 상의 당첨!");
 		JPanel p = new JPanel(new BorderLayout());
+		UserItemVO uitem = new UserItemVO();
 
 		random = new Random();
 		int bound = 6;
 		ArrayList<ImageIcon> toplist = new ArrayList<ImageIcon>();
 		
 		ImageIcon top1 = new ImageIcon("images/top1.png");
+		top1.setDescription("top1");
 		ImageIcon top2 = new ImageIcon("images/top2.png");
+		top2.setDescription("top2");
 		ImageIcon top3 = new ImageIcon("images/top3.png");
+		top3.setDescription("top3");
 		ImageIcon top4 = new ImageIcon("images/top4.png");
+		top4.setDescription("top4");
 		ImageIcon top5 = new ImageIcon("images/top5.png");
+		top5.setDescription("top5");
 		ImageIcon top6 = new ImageIcon("images/top6.png");
+		top6.setDescription("top6");
 		toplist.add(top1);
 		toplist.add(top2);
 		toplist.add(top3);
@@ -215,7 +225,13 @@ public class CreateUI implements ActionListener{
 		toplist.add(top5);
 		toplist.add(top6);
 		
-		JLabel l = new JLabel(toplist.get(random.nextInt(bound)));
+		int i=random.nextInt(bound);
+		JLabel l = new JLabel(toplist.get(i));
+		System.out.println(toplist.get(i));
+		uitem.setI_name(toplist.get(i).getDescription());
+		System.out.println(toplist.get(i));
+		uitem.setU_id(user.getU_id());
+		main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
 		p.add(l);
 		f.add(BorderLayout.CENTER,p);
 		f.setSize(350,350);
@@ -238,23 +254,35 @@ public class CreateUI implements ActionListener{
 	public void random_bottom() {
 		JFrame f = new JFrame("짜잔! 멋진 바지 당첨!");
 		JPanel p = new JPanel(new BorderLayout());
+		UserItemVO uitem = new UserItemVO();
 		
 		random = new Random();
 		int bound = 5;
 		ArrayList<ImageIcon> bottomlist = new ArrayList<ImageIcon>();
 		
 		ImageIcon bottom1 = new ImageIcon("images/bottom1.png");
+		bottom1.setDescription("bottom1");
 		ImageIcon bottom2 = new ImageIcon("images/bottom2.png");
+		bottom2.setDescription("bottom2");
 		ImageIcon bottom3 = new ImageIcon("images/bottom3.png");
+		bottom3.setDescription("bottom3");
 		ImageIcon bottom4 = new ImageIcon("images/bottom4.png");
+		bottom4.setDescription("bottom4");
 		ImageIcon bottom5 = new ImageIcon("images/bottom5.png");
+		bottom5.setDescription("bottom5");
 		bottomlist.add(bottom1);
 		bottomlist.add(bottom2);
 		bottomlist.add(bottom3);
 		bottomlist.add(bottom4);
 		bottomlist.add(bottom5);
 		
-		JLabel l = new JLabel(bottomlist.get(random.nextInt(bound)));
+		int i=random.nextInt(bound);
+		JLabel l = new JLabel(bottomlist.get(i));
+		System.out.println(bottomlist.get(i));
+		uitem.setI_name(bottomlist.get(i).getDescription());
+		System.out.println(bottomlist.get(i));
+		uitem.setU_id(user.getU_id());
+		main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
 		p.add(l);
 		f.add(BorderLayout.CENTER,l);
 		f.setSize(350,350);
