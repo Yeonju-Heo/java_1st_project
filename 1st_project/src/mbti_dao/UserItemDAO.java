@@ -103,7 +103,7 @@ public class UserItemDAO extends DBConn{
 
 	}
 	
-	/** 유저 아이템 헤어 조회 **/
+	/** 유저 아이템 하의조회 **/
 	public ArrayList<UserItemVO> getUserBottomItem(String id) {
 		ArrayList<UserItemVO> uitemlist = new ArrayList<UserItemVO>();
 		

@@ -33,7 +33,9 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	
 	ArrayList<ImageIcon> cl_list = new ArrayList<ImageIcon>();
 	ArrayList<JButton> btn_list = new ArrayList<JButton>();
-	ArrayList<JLabel> label_list = new ArrayList<JLabel>();
+	ArrayList<JLabel> hair_list = new ArrayList<JLabel>();
+	ArrayList<JLabel> top_list = new ArrayList<JLabel>();
+	ArrayList<JLabel> bottom_list = new ArrayList<JLabel>();
 	
 	private ImageIcon img_hair1 = new ImageIcon("images/closet_hair1.png");
 	private ImageIcon img_hair2 = new ImageIcon("images/closet_hair2.png");
@@ -62,7 +64,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	MbtiMainUI main;
 	UserItemVO uitem;
 	
-	int index=0;
+	int hidx=0,tidx=0,bidx=0,type=-1;
 //	JButton btn_hair;
 
 	public ClosetUI(MbtiMainUI main) {
@@ -146,21 +148,26 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			con.repaint();
 			img_p.removeAll();
 			img_p.repaint();
-			System.out.println("hair?");
+			
+			type=0;
 			
 			int i=0;
+			
 			cl_list.clear();
-			label_list.clear();
+//			hair_list.clear();
+			btn_list.clear();
 			
 			for(UserItemVO uitem : main.system.searchHairItem(main.id_tf.getText())) {
 				cl_list.add(new ImageIcon(uitem.getI_closet()));
 				btn_list.add(new JButton(cl_list.get(i)));
 				btn_list.get(i).addMouseListener(this);
-				label_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
+				hair_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
 				img_p.add(btn_list.get(i));
+				btn_list.get(i).setBorderPainted(false);
+				btn_list.get(i).setContentAreaFilled(false);
+				btn_list.get(i).setFocusPainted(false);
 				i++;
 			}
-			
 			
 			revalidate();
 		}else if(obj == btn_menu_top) {
@@ -168,15 +175,22 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			img_p.removeAll();
 			img_p.repaint();
 			
+			type=1;
+			
 			int i=0;
 			cl_list.clear();
-			label_list.clear();
+//			top_list.clear();
+			btn_list.clear();
+			
 			for(UserItemVO uitem : main.system.searchTopItem(main.id_tf.getText())) {
 				cl_list.add(new ImageIcon(uitem.getI_closet()));
 				btn_list.add(new JButton(cl_list.get(i)));
 				btn_list.get(i).addMouseListener(this);
-				label_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
+				top_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
 				img_p.add(btn_list.get(i));
+				btn_list.get(i).setBorderPainted(false);
+				btn_list.get(i).setContentAreaFilled(false);
+				btn_list.get(i).setFocusPainted(false);
 				i++;
 			}
 			
@@ -186,15 +200,22 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			img_p.removeAll();
 			img_p.repaint();
 			
+			type=2;
+			
 			int i=0;
 			cl_list.clear();
-			label_list.clear();
+//			bottom_list.clear();
+			btn_list.clear();
+			
 			for(UserItemVO uitem : main.system.searchBottomItem(main.id_tf.getText())) {
 				cl_list.add(new ImageIcon(uitem.getI_closet()));
 				btn_list.add(new JButton(cl_list.get(i)));
 				btn_list.get(i).addMouseListener(this);
-				label_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
+				bottom_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
 				img_p.add(btn_list.get(i));
+				btn_list.get(i).setBorderPainted(false);
+				btn_list.get(i).setContentAreaFilled(false);
+				btn_list.get(i).setFocusPainted(false);
 				i++;
 			}
 			
@@ -202,10 +223,21 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		}else if(obj == btn_reset) {
 			
 			character_l.setVisible(true);
-			for(int i=0;i<label_list.size();i++) {
-				label_list.get(i).setVisible(false);
+			if(hair_list.size() != 0) {
+				for(int i=0;i<hair_list.size();i++) {
+					hair_list.get(i).setVisible(false);
+				}
 			}
-			
+			if(top_list.size() != 0) {
+				for(int i=0;i<top_list.size();i++) {
+					top_list.get(i).setVisible(false);
+				}
+			}
+			if(bottom_list.size() != 0) {
+				for(int i=0;i<bottom_list.size();i++) {
+					bottom_list.get(i).setVisible(false);
+				}
+			}
 			
 			add(character_l,BorderLayout.WEST);	//#####################
 			con.repaint();
@@ -214,13 +246,31 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		}else if(obj == btn_save) {
 			
 		}else {
+			character_l.setVisible(false);
 			for(int i=0;i<cl_list.size();i++) {
 				if(obj == btn_list.get(i)) {
-					character_l.setVisible(false);
-					label_list.get(index).setVisible(false);
-					label_list.get(i).setVisible(true);
-					add(label_list.get(i),BorderLayout.WEST);
-					index = i;
+					if(type==0) {
+						for(int j=0;j<=hidx;j++) {
+							hair_list.get(j).setVisible(false);
+						}
+						hair_list.get(i).setVisible(true);
+						add(hair_list.get(i),BorderLayout.WEST);
+						hidx=i;
+					}else if(type==1) {
+						for(int j=0;j<=tidx;j++) {
+							top_list.get(j).setVisible(false);
+						}
+						top_list.get(i).setVisible(true);
+						add(top_list.get(i),BorderLayout.WEST);
+						tidx=i;
+					}else if(type==2) {
+						for(int j=0;j<=bidx;j++) {
+							bottom_list.get(j).setVisible(false);
+						}
+						bottom_list.get(i).setVisible(true);
+						add(bottom_list.get(i),BorderLayout.WEST);
+						bidx=i;
+					}
 				}
 			}
 			con.repaint();

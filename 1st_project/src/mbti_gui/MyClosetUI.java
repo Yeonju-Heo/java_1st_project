@@ -90,7 +90,6 @@ public class MyClosetUI extends JPanel implements ActionListener, MouseListener{
 	Container con;
 	
 	MbtiMainUI main;
-	UserItemVO uitem;
 
 	public MyClosetUI(MbtiMainUI main) {
 		this.main = main;
@@ -98,8 +97,6 @@ public class MyClosetUI extends JPanel implements ActionListener, MouseListener{
 	}
 
 	public void init() {
-		uitem = main.system.searchItem(main.id_tf.getText());
-		
 		setLayout(new BorderLayout());
 //		setSize(900,700);
 		setPreferredSize(new Dimension(550,500));

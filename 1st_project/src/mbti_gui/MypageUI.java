@@ -173,6 +173,7 @@ public class MypageUI implements ActionListener{
 			if(con == 0) {
 				if(main.system.updateUser(user, pwd.getText())!=0) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("수정이 완료되었습니다"));
+					pwd.setText("");
 				}else {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("수정에 실패하였습니다"));
 				}
@@ -196,8 +197,7 @@ public class MypageUI implements ActionListener{
 			if(con == 0) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다"));
 					main.secondFrame.dispose();
-//					new MbtiMainUI().firstView();
-					main.firstView();
+					new MbtiMainUI().firstView();
 			}
 		}
 	
