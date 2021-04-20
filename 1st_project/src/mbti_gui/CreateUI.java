@@ -19,6 +19,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import mbti_vo.ItemVO;
+import mbti_vo.UserItemVO;
+import mbti_vo.UserVO;
+
 public class CreateUI implements ActionListener{
 	//Field
 	MbtiMainUI main;
@@ -30,7 +34,8 @@ public class CreateUI implements ActionListener{
 			  top_normal, top_rollover, top_pressed,
 			  bottom_normal, bottom_rollover, bottom_pressed;
 	Random random;
-	
+	UserVO user;
+	ArrayList<ItemVO> item;
 	//Constructor
 	public CreateUI(MbtiMainUI main) {
 		this.main = main;
@@ -40,9 +45,12 @@ public class CreateUI implements ActionListener{
 	//Method
 	public void init() {
 		main.switch_panel(MbtiMainUI.CREATE);
+		user = main.system.searchUser(main.id_tf.getText());
+		item = main.system.getItem();
+		
 		/** 포인트 패널 **/
 		point_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,50));
-		point_label = new JLabel("내 포인트 : 0 point");
+		point_label = new JLabel("내 포인트 : "+user.getU_point()+" point");
 		point_label.setFont(Commons.getFont2());
 		point_panel.add(point_label);
 		
@@ -141,16 +149,22 @@ public class CreateUI implements ActionListener{
 	public void random_hair() {
 		JFrame f = new JFrame("짜잔! 멋진 헤어 당첨!");
 		JPanel p = new JPanel(new BorderLayout());
+		UserItemVO uitem = new UserItemVO();
 		
 		random = new Random();
 		int bound = 5;
 		ArrayList<ImageIcon> hairlist = new ArrayList<ImageIcon>();
 		
 		ImageIcon hair1 = new ImageIcon("images/hair1.png");
+		hair1.setDescription("hair1");
 		ImageIcon hair2 = new ImageIcon("images/hair2.png");
+		hair2.setDescription("hair2");
 		ImageIcon hair3 = new ImageIcon("images/hair3.png");
+		hair3.setDescription("hair3");
 		ImageIcon hair4 = new ImageIcon("images/hair4.png");
+		hair4.setDescription("hair4");
 		ImageIcon hair5 = new ImageIcon("images/hair5.png");
+		hair5.setDescription("hair5");
 		hairlist.add(hair1);
 		hairlist.add(hair2);
 		hairlist.add(hair3);
@@ -158,6 +172,9 @@ public class CreateUI implements ActionListener{
 		hairlist.add(hair5);
 		
 		JLabel l = new JLabel(hairlist.get(random.nextInt(bound)));
+		uitem.setI_name(hairlist.get(random.nextInt(bound)).getDescription());
+		uitem.setU_id(user.getU_id());
+		main.system.updateUserItem(main.id_tf.getText(), hairlist.get(random.nextInt(bound)).getDescription());
 		p.add(l);
 		f.add(BorderLayout.CENTER,p);
 		f.setSize(350,350);
