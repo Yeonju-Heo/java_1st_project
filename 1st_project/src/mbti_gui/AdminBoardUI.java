@@ -32,17 +32,18 @@ import javax.swing.table.TableColumnModel;
 import mbti_vo.BoardVO;
 
 public class AdminBoardUI implements ActionListener, MouseListener {
-	//Field
+	// Field
 	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대", "삭제" };
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
 		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
 			boolean result = false;
-			if(c==5) result = true;
+			if (c == 5)
+				result = true;
 			return result;
 		}
-		
+
 	};
-	
+
 	Object[] row;
 	JTable list_table = new JTable(model);
 
@@ -67,8 +68,8 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	public void init() {
 		main.switch_panel(AdminMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
-		//main.board_panel.setBackground(Color.white);
-		//main.content_panel.setBackground(Color.white);
+		// main.board_panel.setBackground(Color.white);
+		// main.content_panel.setBackground(Color.white);
 
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		Panel center_panel = new Panel(new BorderLayout());
@@ -102,15 +103,15 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		list_table.getTableHeader().setResizingAllowed(false); // 마우스로 컬럼 크기 조절 불가
 		list_table.setBackground(Color.white);
 		list_table.setShowVerticalLines(false); // 컬럼 구분선 안 보이게
-		
+
 		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
 		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-		
+
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 목록 리스트 내용 가운데 정렬
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = list_table.getColumnModel();
 
-		for (int i = 0; i < tcm.getColumnCount()-1; i++) {
+		for (int i = 0; i < tcm.getColumnCount() - 1; i++) {
 			tcm.getColumn(i).setCellRenderer(dtcr);
 		}
 
@@ -120,7 +121,6 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		list_panel.add(pane);
 		center_panel.add(BorderLayout.NORTH, search_panel);
 		center_panel.add(BorderLayout.CENTER, list_panel);
-
 
 		// 붙이기
 		main.board_panel.add(BorderLayout.NORTH, top_panel);
@@ -133,55 +133,52 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		btn_search.addActionListener(this);
 		search_tf.addActionListener(this);
 	}
-	
-	
-	
 
 	/** 글목록 생성 **/
 	public void createJtableData() {
 //		BoardDAO bdao = new BoardDAO();
 //		data = bdao.selectTable();
 //		model.setDataVector(data, colName);
-		
+
 //		model.setNumRows(0);
 //		model.setDataVector(dataVector, columnIdentifiers);
-		
+
 		model.setNumRows(0);
-		for(BoardVO board : main.system.getBoardList()) {
+		for (BoardVO board : main.system.getBoardList()) {
 			row = new Object[6];
 			row[0] = board.getB_rno();
 			row[1] = board.getB_title();
 			row[2] = board.getB_id();
 			row[3] = board.getB_date();
-			row[4] = board.getB_good() +"/" + board.getB_bad();  
-			
+			row[4] = board.getB_good() + "/" + board.getB_bad();
+
 			model.addRow(row);
-			
+
 //			list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
 //			list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-			
+
 			model.fireTableDataChanged();
 		}
 
 	}
-	
+
 	/** 검색 UI 보여주기 **/
 	public void createJtableData(ArrayList<BoardVO> board) {
 		model.setNumRows(0);
-		
-		for(BoardVO data : board) {
+
+		for (BoardVO data : board) {
 			row = new Object[6];
 			row[0] = data.getB_rno();
 			row[1] = data.getB_title();
 			row[2] = data.getB_id();
 			row[3] = data.getB_date();
-			row[4] = data.getB_good() +"/" + data.getB_bad();  
-			
+			row[4] = data.getB_good() + "/" + data.getB_bad();
+
 			model.addRow(row);
-			
+
 //			list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
 //			list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-			
+
 			model.fireTableDataChanged();
 		}
 	}
@@ -213,14 +210,13 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		title_panel.add(BorderLayout.EAST, writer_label);
 
 		// 센터패널 - 내용
-		
+
 		JTextArea rcontent_ta = new JTextArea(15, 45);
 		rcontent_ta.setEditable(false);
 		rcontent_ta.setFont(Commons.getFont(15));
 		JScrollPane ta_pane = new JScrollPane(rcontent_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		rcontent_ta.setCaretPosition(0); // 스크롤 맨 위로
-		
 
 		// 센터패널 - 추천수
 		ImageIcon up = new ImageIcon("images/up.png");
@@ -235,14 +231,14 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		recommend_panel.add(up_count);
 		recommend_panel.add(down_label);
 		recommend_panel.add(down_count);
-		
-		for(BoardVO bvo : main.system.getBoardList()) {
+
+		for (BoardVO bvo : main.system.getBoardList()) {
 			rcontent_ta.setText(bvo.getB_content());
 			title_label.setText(bvo.getB_title());
 			writer_label.setText(bvo.getB_id());
 			up_count.setText(String.valueOf(bvo.getB_good()));
 			down_count.setText(String.valueOf(bvo.getB_bad()));
-			
+
 			bno = bvo.getB_rno();
 		}
 
@@ -276,7 +272,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 		btn_list.addActionListener(this);
 		btn_delete.addActionListener(this);
-		
+
 	}
 
 	public void resizeColumnWidth(JTable table) { // 열 너비 조정
@@ -303,36 +299,36 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			init();
 		} else if (obj == btn_delete) {
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
-			if(con==0) {
-				//delete process
-				//어떤거를 삭제할지 어떻게 알려주지... 
-				if(main.system.deleteAdminBoard(bno)) {
+			if (con == 0) {
+				// delete process
+				// 어떤거를 삭제할지 어떻게 알려주지...
+				if (main.system.deleteAdminBoard(bno)) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제가 완료되었습니다."));
 					new AdminBoardUI(main);
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제를 실패했습니다."));
 				}
 			}
-			//해당 버튼을 누르면 게시글 삭제
+			// 해당 버튼을 누르면 게시글 삭제
 		}
 	}
-	
+
 	/** 검색 Proc **/
 	public void search_Proc() {
-		if(search_tf.getText().equals("")) {
-			//메소드로 갖고 와서 그 값이 비어있다면
+		if (search_tf.getText().equals("")) {
+			// 메소드로 갖고 와서 그 값이 비어있다면
 			JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 이름을 입력해주세요."));
 			search_tf.requestFocus();
-		}else {
-			//아니라면 검색
-			if(main.system.getBoardDateExsistSelect(search_tf.getText())) {
+		} else {
+			// 아니라면 검색
+			if (main.system.getBoardDateExsistSelect(search_tf.getText())) {
 				ArrayList<BoardVO> board = main.system.searchAdminBoard(search_tf.getText());
 				createJtableData(board);
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
 			}
 		}
-		
+
 	}
 
 	/** 글목록 마우스 리스너 **/
@@ -361,20 +357,21 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	public void mouseExited(MouseEvent e) {
 	}
 
-	
 	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
-		
+
 		JButton jb;
+
 		public TableCell() {
 			jb = new JButton("삭제");
 			jb.addActionListener(e -> {
-				String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
-				int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
-				if(con == 0) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제되었습니다."));
-					main.system.deleteAdminBoard(Integer.parseInt(bno));
-					new AdminBoardUI(main);
-					
+				if (list_table.getSelectedRow() != -1) {
+					String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
+					int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+					if (con == 0) {
+						JOptionPane.showMessageDialog(null, Commons.getMsg("삭제되었습니다."));
+						main.system.deleteAdminBoard(Integer.parseInt(bno));
+						new AdminBoardUI(main);
+					}
 				}
 			});
 		}
@@ -388,7 +385,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 				int row, int column) {
 			Component comp = null;
-			if(column == 5) {
+			if (column == 5) {
 				comp = jb;
 			}
 			return jb;
@@ -401,6 +398,5 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		}
 
 	}
-	
-	
+
 }

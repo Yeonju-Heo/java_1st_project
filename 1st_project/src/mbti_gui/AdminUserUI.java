@@ -213,19 +213,22 @@ public class AdminUserUI implements ActionListener {
 		public TableCell() {
 			jb = new JButton("삭제");
 			jb.addActionListener(e -> {
-				String user_name = list_table.getValueAt(list_table.getSelectedRow(), 1).toString();
-				if (user_name.equals("admin")) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("관리자 계정은 삭제할 수 없습니다."));
-				} else {
-					int con = JOptionPane.showConfirmDialog(null, Commons.getMsg(user_name + "님을 정말 삭제하시겠습니까?"));
-					if (con == 0) {
-						// DB연동해서 삭제 진행
-						JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
-						main.system.deleteAdminUser(user_name);
-						new AdminUserUI(main);
+				if(list_table.getSelectedRow() != -1) {
+					String user_name = list_table.getValueAt(list_table.getSelectedRow(), 1).toString();
+					if (user_name.equals("admin")) {
+						JOptionPane.showMessageDialog(null, Commons.getMsg("관리자 계정은 삭제할 수 없습니다."));
+					} else {
+						int con = JOptionPane.showConfirmDialog(null, Commons.getMsg(user_name + "님을 정말 삭제하시겠습니까?"));
+						if (con == 0) {
+							// DB연동해서 삭제 진행
+							JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
+							main.system.deleteAdminUser(user_name);
+							new AdminUserUI(main);
+						}
 					}
 				}
 			});
+			
 		}
 
 		@Override
