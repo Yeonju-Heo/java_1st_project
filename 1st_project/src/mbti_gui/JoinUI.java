@@ -30,8 +30,6 @@ public class JoinUI {
 	JTextField tf;
 	JPasswordField pf, cpf;
 	ArrayList<Object> obj_list = new ArrayList<Object>();
-//	ArrayList<JTextField> tf_list = new ArrayList<JTextField>();
-//	ArrayList<String> str_list = new ArrayList<String>();
 	String[] mbtitype = {"== CHOICE ==","INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
 	JComboBox<String> mbtilist; 
 	
@@ -81,6 +79,7 @@ public class JoinUI {
 				t_panel.add(pf);
 				tf_panel.add(t_panel);
 				obj_list.add(pf);
+				
 			}else if(name.equals("비밀번호확인")) {
 				cpf = new JPasswordField(15);
 				t_panel.add(cpf);
@@ -88,17 +87,12 @@ public class JoinUI {
 				obj_list.add(cpf);
 				
 			}else if(name.equals("MBTI")) {
-//				list.add(mbtitype);
 				mbtilist = new JComboBox<>(mbtitype);
 				mbtilist.setPreferredSize(new Dimension(170,20));
 				t_panel.add(mbtilist);
 				tf_panel.add(t_panel);
 				obj_list.add(mbtilist);
-//			}else if(name.equals("MBTI")) {
-//				JTextField mbtitf = new JTextField(15);
-//				t_panel.add(mbtitf);
-//				tf_panel.add(t_panel);
-//				list.add(mbtitf);
+				
 			}else {
 				tf = new JTextField(15);
 				t_panel.add(tf);

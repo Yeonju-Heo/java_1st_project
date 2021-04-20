@@ -28,7 +28,6 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		this.main = main;
 	}
 	
-	
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
@@ -48,11 +47,11 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 				ArrayList<JTextField> jlist = new ArrayList<JTextField>();
 				for(Object tf : ui.obj_list) {
 					if(tf == ui.mbtilist) {
-						JTextField jtf = new JTextField(join_mbti);
-						jlist.add(jtf);	
-					} else {
+					  JTextField jtf = new JTextField(join_mbti);
+	                  jlist.add(jtf);   
+					}else {
 						JTextField jtf = (JTextField)tf;
-						jlist.add(jtf);						
+		                jlist.add(jtf);   
 					}
 				}
 				UserVO user = new UserVO();
@@ -63,77 +62,45 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 				user.setU_mbti(jlist.get(3).getText());
 				mbti.setMbti_type(jlist.get(3).getText());
 				
-				System.out.println("join formcheck");
 				boolean result = main.system.join(user);
-				boolean result2 = main.system.idCheck(ui.tf.getText());
+				boolean id_check = main.system.idCheck(ui.tf.getText());
 				if(result == true) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 완료되었습니다."));
 					for(Object obj2 : ui.obj_list) {
 						if(obj2 == ui.mbtilist) {
 							ui.mbtilist.setSelectedIndex(0);
-						} else {
+						}else {
 							JTextField tf = (JTextField)obj2;
 							tf.setText("");
 						}
 					}	
 					ui.f.setVisible(false);
-				}
-				else if(result2 == true){
+					
+				}else if(id_check == true){
 					JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복 확인을 해주세요."));
-				}
-				else {
+					
+				}else {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 다시 진행해주세요."));
 				}
 			} 
 		}else if(obj == ui.cancel_btn){
 			System.out.println("cancel");
 			for(Object obj2 : ui.obj_list) {
-				JTextField tf = (JTextField)obj2;
-				tf.setText("");
+				if(obj2 == ui.mbtilist) {
+					ui.mbtilist.setSelectedIndex(0);
+				}else {
+					JTextField tf = (JTextField)obj2;
+					tf.setText("");
+				}
 			}	
 		}
-//		else {
-//			ui.mbtitf.setText((String)ui.mbtilist.getSelectedItem());
-//			JComboBox jcb = (JComboBox)e.getSource();
-//			if(jcb == ui.mbtilist) {
-//				String mbti_str = (String)ui.mbtilist.getSelectedItem();
-//				System.out.println(jcb.getSelectedItem());
-//				jcb.getSelectedItem();
-//				if(jcb.getSelectedItem().equals("== CHOICE ==")) {
-//					System.out.println("please choice select");
-//				}
-//			}
-//		}
 	}
 	
 	
 	/** 폼 체크 **/
 	public boolean form_check() {
 		boolean result = false;
-//		for(int i=0;i<ui.obj_list.size();i++) {
-//			JTextField tf = (JTextField)ui.tf_list.get(i);
-//			String str = (String)ui.str_list.get(i);
-//			if(tf.getText().equals("") || str.equals("== CHOICE ==")) {
-//				JOptionPane.showMessageDialog(null, Commons.getMsg(ui.namelistCheck[i]+" 을(를) 입력해주세요."));
-//				tf.requestFocus();
-//				i = ui.tf_list.size();
-////			}else if(str.equals("== CHOICE ==")) {
-////				JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
-////				ui.mbtilist.requestFocus();
-////				
-//			}else if(i == ui.obj_list.size()-1) {
-//				result = true;
-//			}
-//		
-//		}
-		/*
-		arraylist에 콤보박스를 getSelectedItem으로 넣은 뒤, 
-		폼체크를 이렇게 하고 실행해보면  
-		Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: 
-		class java.lang.String cannot be cast to class javax.swing.JTextField
-		오류가 뜬다. String str로 형변환한 부분을 없애도 저런 오류가 뜬다. 
-		arraylist<object> 형식으로 해도 텍스트필드와 스트링값이 같이 들어가고 같이 불러올 순 없나?!
-		 */
+		
 		JTextField tf = (JTextField)ui.obj_list.get(0);
 		JTextField pf = (JTextField)ui.obj_list.get(1);
 		JTextField cpf = (JTextField)ui.obj_list.get(2);
@@ -150,21 +117,10 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 			ui.cpf.requestFocus();
 		}else if(cb.getSelectedItem().equals("== CHOICE ==")) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
-//			if(cb.getSelectedItem().equals("== CHOICE ==") == false) {
-//				result = true;
-//			}
-		} else {
+		}else {
 			join_mbti = (String) cb.getSelectedItem();
 			result = true;
 		}
-		
-		
-//		else if(str.matches("== CHOICE ==") == false) {
-//			result = true;
-//		}
-		
 		return result;
 	}
-
-	
 }
