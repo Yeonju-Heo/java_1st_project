@@ -51,9 +51,19 @@ public class MbtiMgmSystem {
 		return udao.getUserDataResult(id);
 	}
 
-	/** 회원 아이템 조회 **/
-	public UserItemVO searchItem(String id) {
-		return u_idao.getUserItemResult(id);
+	/** 회원 아이템 헤어 조회 **/
+	public ArrayList<UserItemVO> searchHairItem(String id) {
+		return u_idao.getUserHairItem(id);
+	}
+	
+	/** 회원 아이템 상의 조회 **/
+	public ArrayList<UserItemVO> searchTopItem(String id) {
+		return u_idao.getUserTopItem(id);
+	}
+	
+	/** 회원 아이템 하의 조회 **/
+	public ArrayList<UserItemVO> searchBottomItem(String id) {
+		return u_idao.getUserBottomItem(id);
 	}
 
 	/** 회원 비밀번호 수정 **/

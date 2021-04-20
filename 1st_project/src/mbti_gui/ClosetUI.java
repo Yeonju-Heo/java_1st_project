@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +30,9 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	JLabel hair1_l,hair2_l,hair3_l,hair4_l,hair5_l;
 	JLabel top1_l,top2_l,top3_l,top4_l,top5_l,top6_l;
 	JLabel bottom1_l,bottom2_l,bottom3_l,bottom4_l,bottom5_l;
+	
+	ArrayList<ImageIcon> cl_list = new ArrayList<ImageIcon>();
+	ArrayList<JButton> btn_list = new ArrayList<JButton>();
 	
 	private ImageIcon img_hair1 = new ImageIcon("images/closet_hair1.png");
 	private ImageIcon img_hair2 = new ImageIcon("images/closet_hair2.png");
@@ -57,6 +60,8 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	
 	MbtiMainUI main;
 	UserItemVO uitem;
+	
+//	JButton btn_hair;
 
 	public ClosetUI(MbtiMainUI main) {
 		this.main = main;
@@ -64,8 +69,11 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	}
 
 	public void init() {
-		main.system.updateUserItem(main.id_tf.getText(), "hair1");
-		uitem = main.system.searchItem(main.id_tf.getText());
+		/////////////////////////////
+//		main.system.updateUserItem(main.id_tf.getText(), "hair1");
+//		uitem = main.system.searchItem(main.id_tf.getText());
+		//////////////////////////////////
+		
 		setLayout(new BorderLayout());
 //		setSize(900,700);
 		setPreferredSize(new Dimension(550,500));
@@ -75,10 +83,12 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		character_l.setBounds(10,20,300,500);
 //		con.add(character_l);				 //#####################
 		add(character_l,BorderLayout.WEST);  //#####################
-		hair1 = new ImageIcon(uitem.getI_content());
-		hair1_l = new JLabel(hair1);
-		add(hair1_l,BorderLayout.WEST);
 		
+		//////////////////////////////////
+//		hair1 = new ImageIcon(uitem.getI_content());
+//		hair1_l = new JLabel(hair1);
+//		add(hair1_l,BorderLayout.WEST);
+		////////////////////////////////////
 		
 		panel = new JPanel(new BorderLayout());
 		img_p = new JPanel(new GridLayout(0,4,5,5));
@@ -143,52 +153,67 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			con.repaint();
 			img_p.removeAll();
 			img_p.repaint();
-			btn_hair1 = new JButton(img_hair1);
-			btn_hair1.setPreferredSize(new Dimension(40,40));
-			img_p.add(btn_hair1);
-			btn_hair1.setBorderPainted(false);
-			btn_hair1.setContentAreaFilled(false);
-			btn_hair1.setFocusPainted(false);
-			btn_hair1.addMouseListener(this);
+//			btn_hair1 = new JButton(img_hair1);
+//			btn_hair1.setPreferredSize(new Dimension(40,40));
+//			img_p.add(btn_hair1);
+//			btn_hair1.setBorderPainted(false);
+//			btn_hair1.setContentAreaFilled(false);
+//			btn_hair1.setFocusPainted(false);
+//			btn_hair1.addMouseListener(this);
+//			
+//			btn_hair2 = new JButton(img_hair2);
+//			btn_hair2.setPreferredSize(new Dimension(40,40));
+//			img_p.add(btn_hair2);
+//			btn_hair2.setBorderPainted(false);
+//			btn_hair2.setContentAreaFilled(false);
+//			btn_hair2.setFocusPainted(false);
+//			btn_hair2.addMouseListener(this);
+//			
+//			btn_hair3 = new JButton(img_hair3);
+//			btn_hair3.setPreferredSize(new Dimension(40,40));
+//			img_p.add(btn_hair3);
+//			btn_hair3.setBorderPainted(false);
+//			btn_hair3.setContentAreaFilled(false);
+//			btn_hair3.setFocusPainted(false);
+//			btn_hair3.addMouseListener(this);
+//			
+//			btn_hair4 = new JButton(img_hair4);
+//			btn_hair4.setPreferredSize(new Dimension(40,40));
+////			btn_hair4.setBounds(720,150,90,90);
+//			img_p.add(btn_hair4);
+//			btn_hair4.setBorderPainted(false);
+//			btn_hair4.setContentAreaFilled(false);
+//			btn_hair4.setFocusPainted(false);
+//			btn_hair4.addMouseListener(this);
+//			
+//			btn_hair5 = new JButton(img_hair5);
+//			btn_hair5.setPreferredSize(new Dimension(40,40));
+//			img_p.add(btn_hair5);
+//			btn_hair5.setBorderPainted(false);
+//			btn_hair5.setContentAreaFilled(false);
+//			btn_hair5.setFocusPainted(false);
+//			btn_hair5.addMouseListener(this);
 			
-			btn_hair2 = new JButton(img_hair2);
-			btn_hair2.setPreferredSize(new Dimension(40,40));
-			img_p.add(btn_hair2);
-			btn_hair2.setBorderPainted(false);
-			btn_hair2.setContentAreaFilled(false);
-			btn_hair2.setFocusPainted(false);
-			btn_hair2.addMouseListener(this);
+			///////////////////////
+			System.out.println("hair?");
+			int i=0;
+			cl_list.clear();
+			System.out.println(main.system.searchHairItem(main.id_tf.getText()));
+			for(UserItemVO uitem : main.system.searchHairItem(main.id_tf.getText())) {
+				cl_list.add(new ImageIcon(uitem.getI_closet()));
+				btn_list.add(new JButton(cl_list.get(i)));
+				btn_list.get(i).addMouseListener(this);
+				img_p.add(btn_list.get(i));
+				i++;
+			}
 			
-			btn_hair3 = new JButton(img_hair3);
-			btn_hair3.setPreferredSize(new Dimension(40,40));
-			img_p.add(btn_hair3);
-			btn_hair3.setBorderPainted(false);
-			btn_hair3.setContentAreaFilled(false);
-			btn_hair3.setFocusPainted(false);
-			btn_hair3.addMouseListener(this);
-			
-			btn_hair4 = new JButton(img_hair4);
-			btn_hair4.setPreferredSize(new Dimension(40,40));
-//			btn_hair4.setBounds(720,150,90,90);
-			img_p.add(btn_hair4);
-			btn_hair4.setBorderPainted(false);
-			btn_hair4.setContentAreaFilled(false);
-			btn_hair4.setFocusPainted(false);
-			btn_hair4.addMouseListener(this);
-			
-			btn_hair5 = new JButton(img_hair5);
-			btn_hair5.setPreferredSize(new Dimension(40,40));
-			img_p.add(btn_hair5);
-			btn_hair5.setBorderPainted(false);
-			btn_hair5.setContentAreaFilled(false);
-			btn_hair5.setFocusPainted(false);
-			btn_hair5.addMouseListener(this);
 			
 			revalidate();
 		}else if(obj == btn_menu_top) {
 			img_p.removeAll();
 			img_p.repaint();
 			btn_top1 = new JButton(img_top1);
+			System.out.println("btn_top1 : "+btn_top1);
 //			btn_top1.setBounds(450,150,90,90);
 			img_p.add(btn_top1);
 			btn_top1.setBorderPainted(false);
@@ -308,7 +333,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			
 		}else if(obj == btn_save) {
 
-		}else if(obj == btn_hair1) {
+		}else if(obj == btn_list.get(1)) {
 			hair1_l.setBounds(10,20,300,500);
 			//con.add(hair1_l);				//#####################
 			character_l.setVisible(false);
@@ -321,7 +346,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			con.repaint();
 			revalidate();
 
-		}else if(obj == btn_hair2) {
+		}else if(obj == btn_list.get(2)) {
 			hair2_l.setBounds(10,20,300,500);
 			//con.add(hair2_l);
 			character_l.setVisible(false);
