@@ -20,12 +20,12 @@ public class MypageUI implements ActionListener{
 	//Field
 	MbtiMainUI main;
 	JPanel closet_panel,char_closet_panel, char_panel, inform_panel,info_mbti_panel, info_text_panel,info_panel, mbti_panel, mbti_label_panel, id_panel, pass_panel,
-			point_panel, date_panel,btn_panel,update_panel, cancel_account_panel,content_panel;
+			point_panel, date_panel,btn_panel,update_panel, cancel_account_panel,content_panel,logout_panel;
 	String[] infolist = {"mbti","mbti설명","아이디","비밀번호","포인트","가입일"};
 	JLabel char_img;
-	JButton btn_update_info, btn_delete_account, btn_closet;
+	JButton btn_update_info, btn_delete_account, btn_closet, btn_logout;
 	JPasswordField pwd;
-	ImageIcon character;
+	ImageIcon character, logout;
 	JLabel mbti, mbti_label, id_label, id_detail_label, pwd_label, point_label, point_detail_label,
 			date_label, date_detail_label;
 	
@@ -111,11 +111,23 @@ public class MypageUI implements ActionListener{
 		info_panel.add(info_text_panel);
 		info_panel.add(btn_panel);
 		inform_panel.add(info_panel);
+		
+		logout_panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,5));
+		logout = new ImageIcon("images/logout.png");
+		btn_logout = new JButton("로그아웃",logout);
+		btn_logout.setHorizontalTextPosition(JButton.LEFT);
+		btn_logout.setBorderPainted(false);
+		btn_logout.setContentAreaFilled(false);
+		btn_logout.setFocusPainted(false);
+		btn_logout.addActionListener(this);
+		logout_panel.add(btn_logout);
+		inform_panel.add(logout_panel);
 
 		main.mypage_panel.setLayout(new BorderLayout());
 		main.mypage_panel.setSize(900, 700);
 		main.mypage_panel.add(BorderLayout.WEST,char_closet_panel);
-		main.mypage_panel.add(BorderLayout.EAST,inform_panel);
+		main.mypage_panel.add(BorderLayout.CENTER,inform_panel);
+		main.mypage_panel.add(BorderLayout.EAST,logout_panel);
 		
 		main.content_panel.add(main.mypage_panel);
 		main.secondFrame.setVisible(true);
@@ -150,6 +162,7 @@ public class MypageUI implements ActionListener{
 	         main.mypage_panel.add(BorderLayout.CENTER,new MyClosetUI());
 	         
 	         main.content_panel.add(main.mypage_panel);
+	         main.secondFrame.setTitle("내 옷장");
 	         main.secondFrame.setVisible(true);
 	         
 	         
@@ -171,14 +184,23 @@ public class MypageUI implements ActionListener{
 				if(main.system.deleteAdminUser(user.getU_id())) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("탈퇴가 완료되었습니다"));
 					main.secondFrame.dispose();
-					new MbtiMainUI().firstView();
+//					new MbtiMainUI().firstView();
+					main.firstView();
 				}else {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("탈퇴에 실패하였습니다"));
 				}
 			}
+		}else if(obj == btn_logout) {
+			System.out.println("로그아웃");
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("로그아웃 하시겠습니까?"));
+			if(con == 0) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다"));
+					main.secondFrame.dispose();
+//					new MbtiMainUI().firstView();
+					main.firstView();
+			}
 		}
+	
 	}
-	
-	
 	
 }
