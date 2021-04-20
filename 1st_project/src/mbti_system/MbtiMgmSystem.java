@@ -45,7 +45,17 @@ public class MbtiMgmSystem {
 	public boolean idCheck(String id) {
 		return udao.getIdCheck(id);
 	}
-
+	
+	/** 유저 포인트 조회 **/
+	public UserVO userPoint(String id) {
+		return udao.getUserPointResult(id);
+	}
+	
+	/** 유저 포인트 차감**/
+	public boolean subPoint(UserVO user) {
+		return udao.getSubPointResult(user);
+	}
+	
 	/** 회원 정보 조회 **/
 	public UserVO searchUser(String id) {
 		return udao.getUserDataResult(id);

@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import mbti_vo.ItemVO;
@@ -36,6 +37,7 @@ public class CreateUI implements ActionListener{
 	Random random;
 	UserVO user;
 	ArrayList<ItemVO> item;
+	
 	//Constructor
 	public CreateUI(MbtiMainUI main) {
 		this.main = main;
@@ -137,169 +139,199 @@ public class CreateUI implements ActionListener{
 		Object obj = e.getSource();
 		if(obj == btn_hair) {
 			random_hair();
+			main.create_panel.revalidate();
+			main.create_panel.repaint();
 		}else if(obj == btn_top) {
 			random_top();
+			main.create_panel.revalidate();
+			main.create_panel.repaint();
 		}else if(obj == btn_bottom) {
 			random_bottom();
+			main.create_panel.revalidate();
+			main.create_panel.repaint();
 		}
 		
 	}
 	
 	/** 뽑기 창 **/
 	public void random_hair() {
-		JFrame f = new JFrame("짜잔! 멋진 헤어 당첨!");
-		JPanel p = new JPanel(new BorderLayout());
-		UserItemVO uitem = new UserItemVO();
-		
-		random = new Random();
-		int bound = 5;
-		ArrayList<ImageIcon> hairlist = new ArrayList<ImageIcon>();
-		
-		ImageIcon hair1 = new ImageIcon("images/hair1.png");
-		hair1.setDescription("hair1");
-		ImageIcon hair2 = new ImageIcon("images/hair2.png");
-		hair2.setDescription("hair2");
-		ImageIcon hair3 = new ImageIcon("images/hair3.png");
-		hair3.setDescription("hair3");
-		ImageIcon hair4 = new ImageIcon("images/hair4.png");
-		hair4.setDescription("hair4");
-		ImageIcon hair5 = new ImageIcon("images/hair5.png");
-		hair5.setDescription("hair5");
-		hairlist.add(hair1);
-		hairlist.add(hair2);
-		hairlist.add(hair3);
-		hairlist.add(hair4);
-		hairlist.add(hair5);
-		
-		int i=random.nextInt(bound);
-		JLabel l = new JLabel(hairlist.get(i));
-		System.out.println(hairlist.get(i));
-		uitem.setI_name(hairlist.get(i).getDescription());
-		System.out.println(hairlist.get(i));
-		uitem.setU_id(user.getU_id());
-		main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
-		p.add(l);
-		f.add(BorderLayout.CENTER,p);
-		f.setSize(350,350);
-		
-		Dimension fsize = f.getSize();
-		Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
-		int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
-		f.setLocation(width, height);
-		
-		f.setVisible(true);
-		f.addWindowListener(new WindowAdapter() {
-			public void	windowClosing(WindowEvent e) {
-				f.setVisible(false);
-				f.dispose();
+		if(main.system.subPoint(user)) {
+			if(user.getU_point() >= 20) {
+				JFrame f = new JFrame("짜잔! 멋진 헤어 당첨!");
+				JPanel p = new JPanel(new BorderLayout());
+				UserItemVO uitem = new UserItemVO();
+				
+				random = new Random();
+				int bound = 5;
+				ArrayList<ImageIcon> hairlist = new ArrayList<ImageIcon>();
+				
+				ImageIcon hair1 = new ImageIcon("images/hair1.png");
+				hair1.setDescription("hair1");
+				ImageIcon hair2 = new ImageIcon("images/hair2.png");
+				hair2.setDescription("hair2");
+				ImageIcon hair3 = new ImageIcon("images/hair3.png");
+				hair3.setDescription("hair3");
+				ImageIcon hair4 = new ImageIcon("images/hair4.png");
+				hair4.setDescription("hair4");
+				ImageIcon hair5 = new ImageIcon("images/hair5.png");
+				hair5.setDescription("hair5");
+				hairlist.add(hair1);
+				hairlist.add(hair2);
+				hairlist.add(hair3);
+				hairlist.add(hair4);
+				hairlist.add(hair5);
+				
+				int i=random.nextInt(bound);
+				JLabel l = new JLabel(hairlist.get(i));
+				System.out.println(hairlist.get(i));
+				uitem.setI_name(hairlist.get(i).getDescription());
+				System.out.println(hairlist.get(i));
+				uitem.setU_id(user.getU_id());
+				main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
+				p.add(l);
+				f.add(BorderLayout.CENTER,p);
+				f.setSize(350,350);
+				
+				Dimension fsize = f.getSize();
+				Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
+				int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
+				int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
+				f.setLocation(width, height);
+				
+				f.setVisible(true);
+				f.addWindowListener(new WindowAdapter() {
+					public void	windowClosing(WindowEvent e) {
+						f.setVisible(false);
+						f.dispose();
+					}
+				});
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 			}
-		});
+		}else {
+			JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
+		}
 	}
 	
 	public void random_top() {
-		JFrame f = new JFrame("짜잔! 멋진 상의 당첨!");
-		JPanel p = new JPanel(new BorderLayout());
-		UserItemVO uitem = new UserItemVO();
-
-		random = new Random();
-		int bound = 6;
-		ArrayList<ImageIcon> toplist = new ArrayList<ImageIcon>();
-		
-		ImageIcon top1 = new ImageIcon("images/top1.png");
-		top1.setDescription("top1");
-		ImageIcon top2 = new ImageIcon("images/top2.png");
-		top2.setDescription("top2");
-		ImageIcon top3 = new ImageIcon("images/top3.png");
-		top3.setDescription("top3");
-		ImageIcon top4 = new ImageIcon("images/top4.png");
-		top4.setDescription("top4");
-		ImageIcon top5 = new ImageIcon("images/top5.png");
-		top5.setDescription("top5");
-		ImageIcon top6 = new ImageIcon("images/top6.png");
-		top6.setDescription("top6");
-		toplist.add(top1);
-		toplist.add(top2);
-		toplist.add(top3);
-		toplist.add(top4);
-		toplist.add(top5);
-		toplist.add(top6);
-		
-		int i=random.nextInt(bound);
-		JLabel l = new JLabel(toplist.get(i));
-		System.out.println(toplist.get(i));
-		uitem.setI_name(toplist.get(i).getDescription());
-		System.out.println(toplist.get(i));
-		uitem.setU_id(user.getU_id());
-		main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
-		p.add(l);
-		f.add(BorderLayout.CENTER,p);
-		f.setSize(350,350);
-		
-		Dimension fsize = f.getSize();
-		Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
-		int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
-		f.setLocation(width, height);
-		
-		f.setVisible(true);
-		f.addWindowListener(new WindowAdapter() {
-			public void	windowClosing(WindowEvent e) {
-				f.setVisible(false);
-				f.dispose();
+		if(main.system.subPoint(user)) {
+			if(user.getU_point() >= 20) {
+				JFrame f = new JFrame("짜잔! 멋진 상의 당첨!");
+				JPanel p = new JPanel(new BorderLayout());
+				UserItemVO uitem = new UserItemVO();
+				
+				random = new Random();
+				int bound = 6;
+				ArrayList<ImageIcon> toplist = new ArrayList<ImageIcon>();
+				
+				ImageIcon top1 = new ImageIcon("images/top1.png");
+				top1.setDescription("top1");
+				ImageIcon top2 = new ImageIcon("images/top2.png");
+				top2.setDescription("top2");
+				ImageIcon top3 = new ImageIcon("images/top3.png");
+				top3.setDescription("top3");
+				ImageIcon top4 = new ImageIcon("images/top4.png");
+				top4.setDescription("top4");
+				ImageIcon top5 = new ImageIcon("images/top5.png");
+				top5.setDescription("top5");
+				ImageIcon top6 = new ImageIcon("images/top6.png");
+				top6.setDescription("top6");
+				toplist.add(top1);
+				toplist.add(top2);
+				toplist.add(top3);
+				toplist.add(top4);
+				toplist.add(top5);
+				toplist.add(top6);
+				
+				int i=random.nextInt(bound);
+				JLabel l = new JLabel(toplist.get(i));
+				System.out.println(toplist.get(i));
+				uitem.setI_name(toplist.get(i).getDescription());
+				System.out.println(toplist.get(i));
+				uitem.setU_id(user.getU_id());
+				main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
+				p.add(l);
+				f.add(BorderLayout.CENTER,p);
+				f.setSize(350,350);
+				
+				Dimension fsize = f.getSize();
+				Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
+				int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
+				int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
+				f.setLocation(width, height);
+				
+				f.setVisible(true);
+				f.addWindowListener(new WindowAdapter() {
+					public void	windowClosing(WindowEvent e) {
+						f.setVisible(false);
+						f.dispose();
+					}
+				});
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 			}
-		});
+		}else {
+			JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
+		}
 	}
 	
 	public void random_bottom() {
-		JFrame f = new JFrame("짜잔! 멋진 바지 당첨!");
-		JPanel p = new JPanel(new BorderLayout());
-		UserItemVO uitem = new UserItemVO();
-		
-		random = new Random();
-		int bound = 5;
-		ArrayList<ImageIcon> bottomlist = new ArrayList<ImageIcon>();
-		
-		ImageIcon bottom1 = new ImageIcon("images/bottom1.png");
-		bottom1.setDescription("bottom1");
-		ImageIcon bottom2 = new ImageIcon("images/bottom2.png");
-		bottom2.setDescription("bottom2");
-		ImageIcon bottom3 = new ImageIcon("images/bottom3.png");
-		bottom3.setDescription("bottom3");
-		ImageIcon bottom4 = new ImageIcon("images/bottom4.png");
-		bottom4.setDescription("bottom4");
-		ImageIcon bottom5 = new ImageIcon("images/bottom5.png");
-		bottom5.setDescription("bottom5");
-		bottomlist.add(bottom1);
-		bottomlist.add(bottom2);
-		bottomlist.add(bottom3);
-		bottomlist.add(bottom4);
-		bottomlist.add(bottom5);
-		
-		int i=random.nextInt(bound);
-		JLabel l = new JLabel(bottomlist.get(i));
-		System.out.println(bottomlist.get(i));
-		uitem.setI_name(bottomlist.get(i).getDescription());
-		System.out.println(bottomlist.get(i));
-		uitem.setU_id(user.getU_id());
-		main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
-		p.add(l);
-		f.add(BorderLayout.CENTER,l);
-		f.setSize(350,350);
-		
-		Dimension fsize = f.getSize();
-		Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
-		int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
-		f.setLocation(width, height);
-		
-		f.setVisible(true);
-		f.addWindowListener(new WindowAdapter() {
-			public void	windowClosing(WindowEvent e) {
-				f.setVisible(false);
-				f.dispose();
+		if(main.system.subPoint(user)) {
+			if(user.getU_point() >= 20) {
+				JFrame f = new JFrame("짜잔! 멋진 바지 당첨!");
+				JPanel p = new JPanel(new BorderLayout());
+				UserItemVO uitem = new UserItemVO();
+				
+				random = new Random();
+				int bound = 5;
+				ArrayList<ImageIcon> bottomlist = new ArrayList<ImageIcon>();
+				
+				ImageIcon bottom1 = new ImageIcon("images/bottom1.png");
+				bottom1.setDescription("bottom1");
+				ImageIcon bottom2 = new ImageIcon("images/bottom2.png");
+				bottom2.setDescription("bottom2");
+				ImageIcon bottom3 = new ImageIcon("images/bottom3.png");
+				bottom3.setDescription("bottom3");
+				ImageIcon bottom4 = new ImageIcon("images/bottom4.png");
+				bottom4.setDescription("bottom4");
+				ImageIcon bottom5 = new ImageIcon("images/bottom5.png");
+				bottom5.setDescription("bottom5");
+				bottomlist.add(bottom1);
+				bottomlist.add(bottom2);
+				bottomlist.add(bottom3);
+				bottomlist.add(bottom4);
+				bottomlist.add(bottom5);
+				
+				int i=random.nextInt(bound);
+				JLabel l = new JLabel(bottomlist.get(i));
+				System.out.println(bottomlist.get(i));
+				uitem.setI_name(bottomlist.get(i).getDescription());
+				System.out.println(bottomlist.get(i));
+				uitem.setU_id(user.getU_id());
+				main.system.updateUserItem(main.id_tf.getText(), uitem.getI_name());
+				p.add(l);
+				f.add(BorderLayout.CENTER,l);
+				f.setSize(350,350);
+				
+				Dimension fsize = f.getSize();
+				Dimension scsize = Toolkit.getDefaultToolkit().getScreenSize();
+				int width = (int)(scsize.getWidth()-fsize.getWidth())/2;
+				int height = (int)(scsize.getHeight()-fsize.getHeight())/2;
+				f.setLocation(width, height);
+				
+				f.setVisible(true);
+				f.addWindowListener(new WindowAdapter() {
+					public void	windowClosing(WindowEvent e) {
+						f.setVisible(false);
+						f.dispose();
+					}
+				});
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 			}
-		});
+		}else {
+			JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
+		}
 	}
 	
 
