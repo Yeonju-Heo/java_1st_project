@@ -62,6 +62,7 @@ public class MbtiMainUIEvent implements ActionListener {
 			int result = main.system.loginCheck(main.id_tf.getText(), main.pw_tf.getText());
 			if (result == USER) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다."));
+				main.firstFrame.dispose();
 				main.secondView();
 				main.btn_login.setText("LOGOUT");
 				MbtiMgmSystem.LOGIN_RESULT = true;

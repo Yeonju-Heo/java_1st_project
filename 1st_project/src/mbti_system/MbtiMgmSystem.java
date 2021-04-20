@@ -51,8 +51,8 @@ public class MbtiMgmSystem {
 	}
 
 	/** 회원 아이템 조회 **/
-	public UserItemVO searchItem(UserVO user) {
-		return u_idao.getUserItemResult(user);
+	public UserItemVO searchItem(String id) {
+		return u_idao.getUserItemResult(id);
 	}
 
 	/** 회원 비밀번호 수정 **/
@@ -61,7 +61,7 @@ public class MbtiMgmSystem {
 	}
 
 	/** 모든 아이템 조회 **/
-	public ItemVO getItem() {
+	public ArrayList<ItemVO> getItem() {
 		return idao.getItemResult();
 	}
 
@@ -117,8 +117,8 @@ public class MbtiMgmSystem {
 	}
 
 	/** 뽑은 아이템 추가 **/
-	public boolean updateUserItem(UserVO user, ItemVO item) {
-		return u_idao.getUserItemResult(user, item);
+	public boolean updateUserItem(String id, String item) {
+		return u_idao.getUserItemResult(id, item);
 	}
 
 	/** 관리자 유저 검색 **/

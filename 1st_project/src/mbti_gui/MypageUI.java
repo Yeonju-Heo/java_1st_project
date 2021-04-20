@@ -159,7 +159,7 @@ public class MypageUI implements ActionListener{
 	         main.switch_panel(MbtiMainUI.MYPAGE);
 	         main.mypage_panel.setLayout(new BorderLayout());
 	         main.mypage_panel.setSize(900, 700);
-	         main.mypage_panel.add(BorderLayout.CENTER,new MyClosetUI());
+	         main.mypage_panel.add(BorderLayout.CENTER,new ClosetUI(main));
 	         
 	         main.content_panel.add(main.mypage_panel);
 	         main.secondFrame.setTitle("내 옷장");

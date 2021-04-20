@@ -1,13 +1,14 @@
 package mbti_dao;
 
+import java.util.ArrayList;
+
 import mbti_vo.ItemVO;
-import mbti_vo.UserVO;
 
 public class ItemDAO extends DBConn{
 	
 	/** 모든 아이템 조회 **/
-	public ItemVO getItemResult() {
-		ItemVO item = new ItemVO();
+	public ArrayList<ItemVO> getItemResult() {
+		ArrayList<ItemVO> itemlist = new ArrayList<ItemVO>();
 		
 		try {
 			String sql = " SELECT I_TYPE FROM ITEM_TABLE ";
@@ -15,6 +16,7 @@ public class ItemDAO extends DBConn{
 			
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				ItemVO item = new ItemVO();
 				item.setI_type(rs.getString(1));
 			}
 			
@@ -23,7 +25,7 @@ public class ItemDAO extends DBConn{
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return item;
+		return itemlist;
 		
 	}
 	
