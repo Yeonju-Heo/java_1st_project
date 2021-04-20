@@ -120,6 +120,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 		main.secondFrame.setTitle("내 옷장");
 		
 		setSize(900,700);
+//		main.secondFrame.setResizable(false); --jiwon
+		
 		screenSizeLocation();
 		init();
 	}
@@ -170,6 +172,7 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 		con.add(btn_save);
 		btn_reset.addMouseListener(this);
 		btn_save.addMouseListener(this);
+		
 		
 //		btn_hair = new JButton(img_hair1);
 //		btn_top = new JButton(img_top1);
@@ -246,7 +249,6 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if(obj == btn_hair1) {
-				hair1_l.setBounds(10,20,300,500);
 				con.add(hair1_l);
 				character_l.setVisible(false);
 				hair1_l.setVisible(true);
@@ -255,8 +257,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				hair4_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				hair1_l.setBounds(10,20,300,500);
 		}else if(obj == btn_hair2) {
-				hair2_l.setBounds(10,20,300,500);
 				con.add(hair2_l);
 				character_l.setVisible(false);
 				hair2_l.setVisible(true);
@@ -265,8 +267,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				hair4_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				hair2_l.setBounds(10,20,300,500);
 		}else if(obj == btn_hair3) {
-				hair3_l.setBounds(10,20,300,500);
 				con.add(hair3_l);
 				character_l.setVisible(false);
 				hair3_l.setVisible(true);
@@ -275,8 +277,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				hair4_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				hair3_l.setBounds(10,20,300,500);
 		}else if(obj == btn_hair4) {
-				hair4_l.setBounds(10,20,300,500);
 				con.add(hair4_l);
 				character_l.setVisible(false);
 				hair4_l.setVisible(true);
@@ -285,9 +287,9 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				hair1_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				hair4_l.setBounds(10,20,300,500);
 //			main.secondFrame.repaint();
 		}else if(obj == btn_top1) {
-				top1_l.setBounds(10,20,300,500);
 				con.add(top1_l);
 				character_l.setVisible(false);
 				top1_l.setVisible(true);
@@ -298,8 +300,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				top6_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				top1_l.setBounds(10,20,300,500);
 		}else if(obj == btn_top2) {
-				top2_l.setBounds(10,20,300,500);
 				con.add(top2_l);
 				character_l.setVisible(false);
 				top2_l.setVisible(true);
@@ -310,8 +312,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				top6_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				top2_l.setBounds(10,20,300,500);
 		}else if(obj == btn_top3) {
-				top3_l.setBounds(10,20,300,500);
 				con.add(top3_l);
 				character_l.setVisible(false);
 				top3_l.setVisible(true);
@@ -322,8 +324,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				top6_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				top3_l.setBounds(10,20,300,500);
 		}else if(obj == btn_top4) {
-				top4_l.setBounds(10,20,300,500);
 				con.add(top4_l);
 				character_l.setVisible(false);
 				top4_l.setVisible(true);
@@ -334,8 +336,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				top6_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				top4_l.setBounds(10,20,300,500);
 		}else if(obj == btn_top5) {
-			top5_l.setBounds(10,20,300,500);
 				con.add(top5_l);
 				character_l.setVisible(false);
 				top5_l.setVisible(true);
@@ -346,8 +348,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				top6_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				top5_l.setBounds(10,20,300,500);
 		}else if(obj == btn_top6) {
-				top6_l.setBounds(10,20,300,500);
 				con.add(top6_l);
 				character_l.setVisible(false);
 				top1_l.setVisible(false);
@@ -358,9 +360,9 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				top6_l.setVisible(true);
 				con.repaint();
 				main.secondFrame.revalidate();
+				top6_l.setBounds(10,20,300,500);
 //			main.secondFrame.repaint();
 		}else if(obj == btn_bottom1) {
-				bottom1_l.setBounds(10,20,300,500);
 				con.add(bottom1_l);
 				character_l.setVisible(false);
 				bottom1_l.setVisible(true);
@@ -370,8 +372,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				bottom5_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				bottom1_l.setBounds(10,20,300,500);
 		}else if(obj == btn_bottom2) {
-				bottom2_l.setBounds(10,20,300,500);
 				con.add(bottom2_l);
 				character_l.setVisible(false);
 				bottom2_l.setVisible(true);
@@ -381,8 +383,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				bottom5_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				bottom2_l.setBounds(10,20,300,500);
 		}else if(obj == btn_bottom3) {
-				bottom3_l.setBounds(10,20,300,500);
 				con.add(bottom3_l);
 				character_l.setVisible(false);
 				bottom3_l.setVisible(true);
@@ -392,8 +394,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				bottom5_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				bottom3_l.setBounds(10,20,300,500);
 		}else if(obj == btn_bottom4) {
-				bottom4_l.setBounds(10,20,300,500);
 				con.add(bottom4_l);
 				character_l.setVisible(false);
 				bottom1_l.setVisible(false);
@@ -403,8 +405,8 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				bottom5_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				bottom4_l.setBounds(10,20,300,500);
 		}else if(obj == btn_bottom5) {
-				bottom5_l.setBounds(10,20,300,500);
 				con.add(bottom5_l);
 				character_l.setVisible(false);
 				bottom5_l.setVisible(true);
@@ -414,6 +416,7 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 				bottom4_l.setVisible(false);
 				con.repaint();
 				main.secondFrame.revalidate();
+				bottom5_l.setBounds(10,20,300,500);
 		}
 		
 //			main.secondFrame.repaint();
@@ -442,24 +445,24 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 //			btn_top.setVisible(false);
 //			btn_bottom.setVisible(false);
 			btn_hair1 = new JButton(img_hair1);
-			btn_hair1.setBounds(450,150,90,90);
 			con.add(btn_hair1);
 			btn_hair1.addMouseListener(this);
+			btn_hair1.setBounds(450,150,90,90);
 			
 			btn_hair2 = new JButton(img_hair2);
-			btn_hair2.setBounds(540,150,90,90);
 			con.add(btn_hair2);
 			btn_hair2.addMouseListener(this);
+			btn_hair2.setBounds(540,150,90,90);
 			
 			btn_hair3 = new JButton(img_hair3);
-			btn_hair3.setBounds(630,150,90,90);
 			con.add(btn_hair3);
 			btn_hair3.addMouseListener(this);
+			btn_hair3.setBounds(630,150,90,90);
 			
 			btn_hair4 = new JButton(img_hair4);
-			btn_hair4.setBounds(720,150,90,90);
 			con.add(btn_hair4);
 			btn_hair4.addMouseListener(this);
+			btn_hair4.setBounds(720,150,90,90);
 			
 			
 		}else if(obj == btn_menu_top) {
@@ -481,34 +484,34 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 //			btn_hair.setVisible(false);
 //			btn_bottom.setVisible(false);
 			btn_top1 = new JButton(img_top1);
-			btn_top1.setBounds(450,150,90,90);
 			con.add(btn_top1);
 			btn_top1.addMouseListener(this);
+			btn_top1.setBounds(450,150,90,90);
 			
 			btn_top2 = new JButton(img_top2);
-			btn_top2.setBounds(540,150,90,90);
 			con.add(btn_top2);
 			btn_top2.addMouseListener(this);
+			btn_top2.setBounds(540,150,90,90);
 			
 			btn_top3 = new JButton(img_top3);
-			btn_top3.setBounds(630,150,90,90);
 			con.add(btn_top3);
 			btn_top3.addMouseListener(this);
+			btn_top3.setBounds(630,150,90,90);
 			
 			btn_top4 = new JButton(img_top4);
-			btn_top4.setBounds(720,150,90,90);
 			con.add(btn_top4);
 			btn_top4.addMouseListener(this);
+			btn_top4.setBounds(720,150,90,90);
 			
 			btn_top5 = new JButton(img_top5);
-			btn_top5.setBounds(450,240,90,90);
 			con.add(btn_top5);
 			btn_top5.addMouseListener(this);
+			btn_top5.setBounds(450,240,90,90);
 			
 			btn_top6 = new JButton(img_top6);
-			btn_top6.setBounds(540,240,90,90);
 			con.add(btn_top6);
 			btn_top6.addMouseListener(this);
+			btn_top6.setBounds(540,240,90,90);
 		}else if(obj == btn_menu_bottom) {
 			if(btn_top1 != null) {
 //				con.remove(btn_top);
@@ -531,29 +534,29 @@ public class ClosetUI  extends JPanel implements ActionListener, MouseListener {
 //			btn_hair.setVisible(false);
 //			btn_top.setVisible(false);
 			btn_bottom1 = new JButton(img_bottom1);
-			btn_bottom1.setBounds(450,150,90,90);
 			con.add(btn_bottom1);
 			btn_bottom1.addMouseListener(this);
+			btn_bottom1.setBounds(450,150,90,90);
 			
 			btn_bottom2 = new JButton(img_bottom2);
-			btn_bottom2.setBounds(540,150,90,90);
 			con.add(btn_bottom2);
 			btn_bottom2.addMouseListener(this);
+			btn_bottom2.setBounds(540,150,90,90);
 			
 			btn_bottom3 = new JButton(img_bottom3);
-			btn_bottom3.setBounds(630,150,90,90);
 			con.add(btn_bottom3);
 			btn_bottom3.addMouseListener(this);
+			btn_bottom3.setBounds(630,150,90,90);
 			
 			btn_bottom4 = new JButton(img_bottom4);
-			btn_bottom4.setBounds(720,150,90,90);
 			con.add(btn_bottom4);
 			btn_bottom4.addMouseListener(this);
+			btn_bottom4.setBounds(720,150,90,90);
 			
 			btn_bottom5 = new JButton(img_bottom5);
-			btn_bottom5.setBounds(450,240,90,90);
 			con.add(btn_bottom5);
 			btn_bottom5.addMouseListener(this);
+			btn_bottom5.setBounds(450,240,90,90);
 			
 		}else if(obj == btn_reset) {
 			character_l.setVisible(true);

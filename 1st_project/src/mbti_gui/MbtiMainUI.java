@@ -121,6 +121,7 @@ public class MbtiMainUI {
 				System.exit(0);
 			}
 		});
+		
 		firstFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		btn_login.addActionListener(eventObj);
