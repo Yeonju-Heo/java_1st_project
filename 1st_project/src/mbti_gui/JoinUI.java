@@ -28,9 +28,12 @@ public class JoinUI {
 	String namelist[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	String namelistCheck[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	JTextField tf;
-	ArrayList<Object> list = new ArrayList<Object>();
-//	String[] mbtitype = {"== CHOICE ==","INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
-//	JComboBox<String> mbtilist; 
+	JPasswordField pf, cpf;
+	ArrayList<Object> obj_list = new ArrayList<Object>();
+//	ArrayList<JTextField> tf_list = new ArrayList<JTextField>();
+//	ArrayList<String> str_list = new ArrayList<String>();
+	String[] mbtitype = {"== CHOICE ==","INFJ","INTJ","INFP","INTP","ISTJ","ISFJ","ISTP","ISFP","ENFP","ENTP","ENFJ","ENTJ","ESTP","ESFP","ESTJ","ESFJ"};
+	JComboBox<String> mbtilist; 
 	
 	//Constructor
 	public JoinUI() {
@@ -72,31 +75,35 @@ public class JoinUI {
 			label_panel.add(l_panel);
 			
 			Panel t_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-
-			if(name.equals("비밀번호") || name.equals("비밀번호확인")) {
-				JPasswordField pf = new JPasswordField(15);
+			
+			if(name.equals("비밀번호")) {
+				pf = new JPasswordField(15);
 				t_panel.add(pf);
 				tf_panel.add(t_panel);
-				list.add(pf);
-				
-//			}else if(name.equals("MBTI")) {
-//				list.add(mbtitype);
-//				mbtilist = new JComboBox<>(mbtitype);
-//				mbtilist.setPreferredSize(new Dimension(170,20));
-//				t_panel.add(mbtilist);
-//				tf_panel.add(t_panel);
-//				String mbtilist_str = mbtilist.getSelectedItem().toString();
-//				list.add(mbtilist_str);
-			}else if(name.equals("MBTI")) {
-				JTextField mbtitf = new JTextField(15);
-				t_panel.add(mbtitf);
+				obj_list.add(pf);
+			}else if(name.equals("비밀번호확인")) {
+				cpf = new JPasswordField(15);
+				t_panel.add(cpf);
 				tf_panel.add(t_panel);
-				list.add(mbtitf);
+				obj_list.add(cpf);
+				
+			}else if(name.equals("MBTI")) {
+//				list.add(mbtitype);
+				mbtilist = new JComboBox<>(mbtitype);
+				mbtilist.setPreferredSize(new Dimension(170,20));
+				t_panel.add(mbtilist);
+				tf_panel.add(t_panel);
+				obj_list.add(mbtilist);
+//			}else if(name.equals("MBTI")) {
+//				JTextField mbtitf = new JTextField(15);
+//				t_panel.add(mbtitf);
+//				tf_panel.add(t_panel);
+//				list.add(mbtitf);
 			}else {
 				tf = new JTextField(15);
 				t_panel.add(tf);
 				tf_panel.add(t_panel);
-				list.add(tf);
+				obj_list.add(tf);
 			}
 		}
 		
@@ -125,7 +132,7 @@ public class JoinUI {
 		mbti_check_btn.addActionListener(new MbtiCheckUI(this,main));
 		join_btn.addActionListener(new JoinUIEvent(this,main));
 		cancel_btn.addActionListener(new JoinUIEvent(this,main));
-//		mbtilist.addActionListener(new JoinUIEvent(this,main));
+		mbtilist.addActionListener(new JoinUIEvent(this,main));
 	}
 	
 }
