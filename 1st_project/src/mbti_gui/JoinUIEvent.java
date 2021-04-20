@@ -16,6 +16,7 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 	//Field
 	JoinUI ui;
 	MbtiMainUI main;
+	String join_mbti;
 	
 	//Constructor
 	public JoinUIEvent() {}
@@ -46,8 +47,13 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 			if(form_check()) {
 				ArrayList<JTextField> jlist = new ArrayList<JTextField>();
 				for(Object tf : ui.obj_list) {
-					JTextField jtf = (JTextField)tf;
-					jlist.add(jtf);
+					if(tf == ui.mbtilist) {
+						JTextField jtf = new JTextField(join_mbti);
+						jlist.add(jtf);	
+					} else {
+						JTextField jtf = (JTextField)tf;
+						jlist.add(jtf);						
+					}
 				}
 				UserVO user = new UserVO();
 				MbtiVO mbti = new MbtiVO();
@@ -63,8 +69,12 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 				if(result == true) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 완료되었습니다."));
 					for(Object obj2 : ui.obj_list) {
-						JTextField tf = (JTextField)obj2;
-						tf.setText("");
+						if(obj2 == ui.mbtilist) {
+							ui.mbtilist.setSelectedIndex(0);
+						} else {
+							JTextField tf = (JTextField)obj2;
+							tf.setText("");
+						}
 					}	
 					ui.f.setVisible(false);
 				}
@@ -140,10 +150,15 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 			ui.cpf.requestFocus();
 		}else if(cb.getSelectedItem().equals("== CHOICE ==")) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
-			if(cb.getSelectedItem().equals("== CHOICE ==") == false) {
-				result = true;
-			}
+//			if(cb.getSelectedItem().equals("== CHOICE ==") == false) {
+//				result = true;
+//			}
+		} else {
+			join_mbti = (String) cb.getSelectedItem();
+			result = true;
 		}
+		
+		
 //		else if(str.matches("== CHOICE ==") == false) {
 //			result = true;
 //		}
