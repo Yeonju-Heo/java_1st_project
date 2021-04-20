@@ -2,6 +2,7 @@ package mbti_dao;
 
 import java.util.ArrayList;
 
+import mbti_gui.MbtiMainUIEvent;
 import mbti_vo.BoardVO;
 import mbti_vo.MbtiVO;
 import mbti_vo.UserItemVO;
@@ -10,27 +11,30 @@ import mbti_vo.UserVO;
 public class UserDAO extends DBConn{
 	
 	/** 로그인 처리 **/
-	public boolean getLoginResult(String id, String pass) {
+	public int getLoginResult(String id, String pass) {
 		UserVO user = new UserVO();
 		UserItemVO uitem = new UserItemVO();
 		BoardVO board = new BoardVO();
-		boolean result = false;
+		
+		int result = -1;
 		
 		try {
-			String sql = " SELECT U_ID, COUNT(*) FROM USER_TABLE "
-					+ " WHERE U_ID=? AND U_PASS=? GROUP BY U_ID";
+			String sql = " SELECT* FROM USER_TABLE WHERE U_ID = ? AND U_PASS = ? ";
 			getPreparedStatement(sql);
 			
 			pstmt.setString(1,id);
 			pstmt.setString(2,pass);
 			
 			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				uitem.setU_id(rs.getString(1));
 				board.setB_id(rs.getString(1));
 				user.setU_id(rs.getString(1));
-				if(rs.getInt(2) == 1) {
-					result = true;
+				if(rs != null && rs.getString(6).equals("Y")) {
+					result = MbtiMainUIEvent.ADMIN;
+				} else if(rs != null && rs.getString(6).equals("N")) {
+					result = MbtiMainUIEvent.USER;
 				}
 			}
 			
@@ -152,11 +156,11 @@ public class UserDAO extends DBConn{
 	}
 	
 	/** 유저 정보 조회(admin)**/
-	public ArrayList<UserVO> getUserDataResult() {
+	public ArrayList<UserVO> getUserDataResult() {	//#############################
 		ArrayList<UserVO> list = new ArrayList<UserVO>();
 		try {
 			String sql = "SELECT U_ID, U_PASS, U_MBTI,TO_CHAR(U_DATE, 'YYYY-MM-DD'),U_POINT " + 
-						 " FROM USER_TABLE ";
+						 " FROM USER_TABLE WHERE U_ID != 'admin' ";
 			
 			getPreparedStatement(sql);
 			rs = pstmt.executeQuery();
@@ -181,7 +185,7 @@ public class UserDAO extends DBConn{
 	}
 	
 	/**유저 정보 null체크(admin)**/
-	public boolean getUserExsistResult(String name) {
+	public boolean getUserExsistResult(String name) {  
 		boolean result = false;
 		
 		try {

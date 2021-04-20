@@ -35,14 +35,14 @@ public class AdminUserUI implements ActionListener {
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
 		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
 			boolean result = false;
-			if(c==5) result = true;
+			if (c == 5)
+				result = true;
 			return result;
 		}
 	};
 	int count;
 	Object[] row = new Object[6];
 	JTable list_table = new JTable(model);
-
 
 	// Constructor
 	public AdminUserUI(AdminMainUI main) {
@@ -86,15 +86,15 @@ public class AdminUserUI implements ActionListener {
 		list_table.getTableHeader().setReorderingAllowed(false); // 마우스로 컬럼 이동 불가
 		list_table.getTableHeader().setResizingAllowed(false); // 마우스로 컬럼 크기 조절 불가
 		list_table.setBackground(Color.white);
-		
+
 		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
-        list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
 
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 목록 리스트 내용 가운데 정렬
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = list_table.getColumnModel();
 
-		for (int i = 0; i < tcm.getColumnCount()-1; i++) {
+		for (int i = 0; i < tcm.getColumnCount() - 1; i++) {
 			tcm.getColumn(i).setCellRenderer(dtcr);
 		}
 
@@ -113,96 +113,93 @@ public class AdminUserUI implements ActionListener {
 
 		btn_search.addActionListener(this);
 		search_tf.addActionListener(this);
-		
+
 	}
 
 	/** 전체 데이터 출력 **/
 	public void createJtableData() {
 		model.setNumRows(0);
 		count = 1;
-		for(UserVO user : main.system.getUserDateSelect()) {
-	    	 System.out.println(user);
-	    	 row = new Object[5];
-	    	 row[0] = count; //DB에 추가하기
-	         row[1] = user.getU_id();
-	         row[2] = user.getU_mbti();
-	         row[3] = user.getU_date();
-	         row[4] = user.getU_point();
-	         
-	         model.addRow(row); 
-	         count++;
-	         
-	         model.fireTableDataChanged();
-//	         list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
-//	         list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-	      }  
-		
-		
-	}
-	
-	/**검색 화면생성**/
-	public void createJtableData(ArrayList<UserVO> u_list) {
-		model.setNumRows(0);
-		count = 1;
-		for(UserVO user : u_list) {
+		for (UserVO user : main.system.getUserDateSelect()) {
+			System.out.println(user);
 			row = new Object[5];
-			row[0] = count; 
+			row[0] = count; // DB에 추가하기
 			row[1] = user.getU_id();
 			row[2] = user.getU_mbti();
 			row[3] = user.getU_date();
 			row[4] = user.getU_point();
-			
-			model.addRow(row); 
+
+			model.addRow(row);
 			count++;
-			
+
 			model.fireTableDataChanged();
 //	         list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
 //	         list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-		}  
-		
+		}
+
 	}
-	
+
+	/** 검색 화면생성 **/
+	public void createJtableData(ArrayList<UserVO> u_list) {
+		model.setNumRows(0);
+		count = 1;
+		for (UserVO user : u_list) {
+			row = new Object[5];
+			row[0] = count;
+			row[1] = user.getU_id();
+			row[2] = user.getU_mbti();
+			row[3] = user.getU_date();
+			row[4] = user.getU_point();
+
+			model.addRow(row);
+			count++;
+
+			model.fireTableDataChanged();
+//	         list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
+//	         list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
+		}
+
+	}
 
 	/** 일부 데이터 출력 **/
 	public void createJtableData(UserVO user) {
 		model.setNumRows(0);
 		row = new Object[5];
 		int count = 1;
-		row[0] = count; //DB에 추가하기
+		row[0] = count; // DB에 추가하기
 		row[1] = user.getU_id();
 		row[2] = user.getU_mbti();
 		row[3] = user.getU_date();
 		row[4] = user.getU_point();
-		
-		model.addRow(row); 
-		
+
+		model.addRow(row);
+
 		count++;
-		
+
 		model.fireTableDataChanged();
 		list_table.getColumnModel().getColumn(5).setCellRenderer(new TableCell());
 		list_table.getColumnModel().getColumn(5).setCellEditor(new TableCell());
-	}  
-
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btn_search || obj == search_tf) {
-				UserSearchProc();
+			UserSearchProc();
 		}
 	}
-		
+
 	public void UserSearchProc() {
 		if (search_tf.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 아이디를 입력해주세요."));
 			search_tf.requestFocus();
-		}else {
+		} else {
 			// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
-			if(main.system.getUserDateExsistSelect(search_tf.getText())) {
+			if (main.system.getUserDateExsistSelect(search_tf.getText())) {
 				ArrayList<UserVO> user = main.system.getUserDateSelect(search_tf.getText());
 				System.out.println("검색");
 				createJtableData(user);
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
 				search_tf.requestFocus();
 			}
@@ -217,12 +214,16 @@ public class AdminUserUI implements ActionListener {
 			jb = new JButton("삭제");
 			jb.addActionListener(e -> {
 				String user_name = list_table.getValueAt(list_table.getSelectedRow(), 1).toString();
-				int con = JOptionPane.showConfirmDialog(null, Commons.getMsg(user_name + "님을 정말 삭제하시겠습니까?"));
-				if(con == 0) {
-					//DB연동해서 삭제 진행
-					JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
-					main.system.deleteAdminUser(user_name);
-					new AdminUserUI(main);
+				if (user_name.equals("admin")) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("관리자 계정은 삭제할 수 없습니다."));
+				} else {
+					int con = JOptionPane.showConfirmDialog(null, Commons.getMsg(user_name + "님을 정말 삭제하시겠습니까?"));
+					if (con == 0) {
+						// DB연동해서 삭제 진행
+						JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
+						main.system.deleteAdminUser(user_name);
+						new AdminUserUI(main);
+					}
 				}
 			});
 		}
