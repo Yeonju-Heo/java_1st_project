@@ -177,7 +177,9 @@ public class ChatUI implements ActionListener{
 					System.out.println("나가기");
 					MessageVO vo = new MessageVO();
 					UserVO uvo = main.system.getChatUserDataSelect(main.id_tf.getText());
+					MbtiVO mvo = main.system.getMbti(uvo);
 					vo.setName(uvo.getU_id()); //퇴장 아이디
+					vo.setMbti(mvo.getMbti_type());
 					vo.setStatus(MessageVO.EXIT);			
 					client.oos.writeObject(vo);
 					
