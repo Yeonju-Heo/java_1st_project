@@ -6,16 +6,21 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -49,13 +54,16 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 	AdminMainUI main;
 	BoardVO bvo = new BoardVO();
+	BoardVO board;
 	JTextField search_tf, title_tf;
 	JTextArea content_ta;
 	JButton btn_search, btn_list, btn_delete;
 //	int count = 1;
-	JLabel up_label;
-	JLabel down_label;
+	JLabel good_label, bad_label, img_label;
 	int bno = 0;
+	int no;
+	String title, id, content, good, bad, filepath; // &&&
+	BufferedImage img;
 
 	// Constructor
 	public AdminBoardUI(AdminMainUI main) {
@@ -182,17 +190,35 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			model.fireTableDataChanged();
 		}
 	}
-
+	
+	public void getInfo() {
+		board = main.system.readBoard(no);
+//		BoardVO board = main.system.readBoard(no);
+		title = board.getB_title();
+		id = board.getB_id();
+		content = board.getB_content();
+		good = String.valueOf(board.getB_good());
+		bad = String.valueOf(board.getB_bad());
+		filepath = board.getB_filepath();
+		img = board.getB_img();
+	}
+	
 	/** 글 읽기 화면 **/
-	public void readUI() {
+	public void readUI(int no) {
+		this.no = no;
+		getInfo();
+
 		main.board_panel.removeAll();
 		main.switch_panel(AdminMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
+//		main.board_panel.setBackground(Color.white);
+//		main.content_panel.setBackground(Color.white);
+
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		Panel center_panel = new Panel(new BorderLayout());
 		Panel bottom_panel = new Panel(new BorderLayout());
 		Panel title_panel = new Panel(new BorderLayout());
-		Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+		Panel content_panel = new Panel(new BorderLayout()); // &&
 		Panel recommend_panel = new Panel();
 
 		// 탑패널
@@ -202,50 +228,52 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		top_panel.setLayout(new GridLayout(2, 1)); // 자유게시판이랑 제목 사이 간격 만들기
 
 		// 센터패널 - 제목 + 작성자
-		JLabel title_label = new JLabel();
-		JLabel writer_label = new JLabel();
+		JLabel title_label = new JLabel("제목: " + title);
+		JLabel writer_label = new JLabel("작성자: " + id);
 		title_label.setFont(Commons.getFont(15));
 		writer_label.setFont(Commons.getFont(15));
 		title_panel.add(BorderLayout.WEST, title_label);
 		title_panel.add(BorderLayout.EAST, writer_label);
 
 		// 센터패널 - 내용
+		if (img != null) { // &&&&
+			if (img.getWidth() >= 400 && img.getHeight() >= 250) {
+				Image rimg = img.getScaledInstance(400, 250, Image.SCALE_SMOOTH);
+				img_label = new JLabel(new ImageIcon(rimg));
+			} else {
+				img_label = new JLabel(new ImageIcon(img));
+			}
+			content_panel.add(img_label, BorderLayout.NORTH);
+			img_label.addMouseListener(this);
+		}
 
 		JTextArea rcontent_ta = new JTextArea(15, 45);
 		rcontent_ta.setEditable(false);
 		rcontent_ta.setFont(Commons.getFont(15));
+		rcontent_ta.setText(content);
 		JScrollPane ta_pane = new JScrollPane(rcontent_ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		rcontent_ta.setCaretPosition(0); // 스크롤 맨 위로
 
 		// 센터패널 - 추천수
-		ImageIcon up = new ImageIcon("images/up.png");
-		up_label = new JLabel(up);
-		JLabel up_count = new JLabel();
+		ImageIcon good_icon = new ImageIcon("images/up.png");
+		good_label = new JLabel(good_icon);
+		JLabel good_count = new JLabel(good);
 
-		ImageIcon down = new ImageIcon("images/down.png");
-		down_label = new JLabel(down);
-		JLabel down_count = new JLabel();
+		ImageIcon bad_icon = new ImageIcon("images/down.png");
+		bad_label = new JLabel(bad_icon);
+		JLabel bad_count = new JLabel(bad);
 
-		recommend_panel.add(up_label);
-		recommend_panel.add(up_count);
-		recommend_panel.add(down_label);
-		recommend_panel.add(down_count);
-
-		for (BoardVO bvo : main.system.getBoardList()) {
-			rcontent_ta.setText(bvo.getB_content());
-			title_label.setText(bvo.getB_title());
-			writer_label.setText(bvo.getB_id());
-			up_count.setText(String.valueOf(bvo.getB_good()));
-			down_count.setText(String.valueOf(bvo.getB_bad()));
-
-			bno = bvo.getB_rno();
-		}
+		recommend_panel.add(good_label);
+		recommend_panel.add(good_count);
+		recommend_panel.add(bad_label);
+		recommend_panel.add(bad_count);
 
 //		ImageIcon writer = new ImageIcon("images/character.png"); // 0413: 게시글에 캐릭터 추가
 //		JLabel character_label = new JLabel(writer);
 
-		content_panel.add(ta_pane);
+		content_panel.add(ta_pane, BorderLayout.CENTER); // &&&&
+		content_panel.setPreferredSize(new Dimension(700, 400));
 		center_panel.add(BorderLayout.NORTH, title_panel);
 		center_panel.add(BorderLayout.CENTER, content_panel);
 //		center_panel.add(BorderLayout.EAST, character_label); // 0413: 게시글에 캐릭터 추가
@@ -302,7 +330,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			if (con == 0) {
 				// delete process
 				// 어떤거를 삭제할지 어떻게 알려주지...
-				if (main.system.deleteAdminBoard(bno)) {
+				if (main.system.deleteAdminBoard(no)) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제가 완료되었습니다."));
 					new AdminBoardUI(main);
 				} else {
@@ -330,6 +358,25 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		}
 
 	}
+	
+	public void showImg() {
+		JFrame img_frame = new JFrame("image");
+
+		ImageIcon origin_icon = new ImageIcon(img);
+		JLabel origin_label = new JLabel(origin_icon);
+
+		img_frame.add(origin_label);
+		img_frame.setSize(img.getWidth(), img.getHeight());
+
+		img_frame.setVisible(true);
+
+		img_frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				img_frame.dispose();
+			}
+		});
+
+	}
 
 	/** 글목록 마우스 리스너 **/
 	@Override
@@ -338,9 +385,12 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 		if (obj == list_table) {
 			System.out.println("클릭!!");
-			readUI();
+			String no = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
+			readUI(Integer.parseInt(no));
 			// int row = list_table.getSelectedRow();
 			// int column = list_table.getSelectedColumn();
+		} else if (obj == img_label) {
+			showImg();
 		}
 	}
 
