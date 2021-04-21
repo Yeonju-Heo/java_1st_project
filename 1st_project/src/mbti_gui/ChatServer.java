@@ -44,7 +44,7 @@ public class ChatServer {
 		try {
 			if(vo.getStatus() == MessageVO.CONNECT) {
 //				user_list.add(vo.getName());
-				user_list.add( vo.getName() + "(" + vo.getMbti() + ")" );
+				user_list.add(vo.getName() + "(" + vo.getMbti() + ")");
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
 				vo.setMsg("---------------->>" + 
@@ -57,7 +57,7 @@ public class ChatServer {
 				
 			}else if(vo.getStatus() == MessageVO.EXIT) {
 //				int index = user_list.indexOf(vo.getName());
-				int index = user_list.indexOf(vo.getName() + "(" + vo.getMbti() + ")");
+				int index = user_list.indexOf(vo.getName() + "(" + vo.getMbti() + ")") ;
 				System.out.println(index);
 				ObjectOutputStream remove = (ObjectOutputStream)list.get(index);
 				Iterator<ObjectOutputStream> ie = list.iterator();
@@ -75,12 +75,12 @@ public class ChatServer {
 			
 			for(ObjectOutputStream oos : list) {
 				
-				
 				oos.writeObject(vo);
 			}
 			
 						
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
