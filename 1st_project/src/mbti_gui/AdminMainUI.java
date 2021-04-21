@@ -119,6 +119,7 @@ public class AdminMainUI implements ActionListener{
 		adminFrame.setLocation(width, height);
 
 		adminFrame.setVisible(true);
+		adminFrame.setResizable(false);
 
 		adminFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -134,14 +135,11 @@ public class AdminMainUI implements ActionListener{
 		main_panel.setVisible(false);
 		user_panel.setVisible(false);
 		board_panel.setVisible(false);
-		logout_panel.setVisible(false);
 
 		switch (menu) {
 		case MAIN:
 			main_panel.removeAll();
-			logout_panel.removeAll();
 			main_panel.setVisible(true);
-			logout_panel.setVisible(true);
 		case USER:
 			user_panel.removeAll();
 			user_panel.setVisible(true);
@@ -161,12 +159,10 @@ public class AdminMainUI implements ActionListener{
 		} else if(obj == log_out) {
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 로그아웃 하시겠습니까?"));
 			if(con == 0) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다."));
-//				System.exit(0);
-				
 				adminFrame.setVisible(false);
 				adminFrame.dispose();
-				
+				JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다."));
+//				System.exit(0);
 				new MbtiMainUI();
 			}
 		} else if (obj == admin_buttonlist.get(1)) {
