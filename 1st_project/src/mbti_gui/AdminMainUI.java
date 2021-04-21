@@ -41,9 +41,11 @@ public class AdminMainUI implements ActionListener{
 	// Field
 	MbtiMgmSystem system;
 	JFrame adminFrame = new JFrame("MBTI WORLD - 관리자");
-	JPanel menu_panel, bottom_panel;
+	JPanel menu_panel, bottom_panel, bottom_panel2, logout_panel, status_panel;
 	String[] admin_menulist = { "메인", "회원관리", "게시글 관리", "종료" }; // 관리자
 	ArrayList<JButton> admin_buttonlist = new ArrayList<JButton>(); // 관리자
+	
+	JButton log_out = new JButton("로그아웃");
 
 	Panel main_panel = new Panel();
 	Panel user_panel = new Panel();
@@ -62,7 +64,12 @@ public class AdminMainUI implements ActionListener{
 
 	public void init() { // 관리자
 		menu_panel = new JPanel(new GridLayout(1, 3, 5, 5));
+//		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+		bottom_panel2 = new JPanel(new GridLayout(0,1));
+		logout_panel = new JPanel();
+		status_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+		
 
 		for (String name : admin_menulist) {
 			JButton btn_menu = new JButton(name);
@@ -76,13 +83,19 @@ public class AdminMainUI implements ActionListener{
 		JLabel main_label = new JLabel(icon);
 		main_panel.add(main_label);
 		content_panel.add(main_panel);
-
+		
 		JLabel status_label = new JLabel("※ 관리자 계정으로 접속중입니다. ※");
 		status_label.setFont(Commons.getFont(17));
 		status_label.setForeground(Color.RED);
 		status_label.setHorizontalAlignment(JLabel.CENTER);
-		bottom_panel.add(status_label);
-
+		logout_panel.add(log_out);
+		bottom_panel2.add(logout_panel);
+		status_panel.add(status_label);
+		bottom_panel2.add(status_panel);
+		
+		bottom_panel.add(bottom_panel2);
+		
+		log_out.addActionListener(this);
 		
 		adminFrame.add(BorderLayout.NORTH, menu_panel);
 		adminFrame.add(BorderLayout.CENTER, content_panel);
@@ -91,6 +104,8 @@ public class AdminMainUI implements ActionListener{
 		menu_panel.setBackground(Color.white);
 		content_panel.setBackground(Color.white);
 		bottom_panel.setBackground(Color.white);
+		logout_panel.setBackground(Color.white);
+		status_panel.setBackground(Color.white);
 
 		adminFrame.setSize(900, 700);
 
@@ -145,6 +160,14 @@ public class AdminMainUI implements ActionListener{
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 종료하시겠습니까?"));
 			if (con == 0)
 				System.exit(0);
+		} else if(obj == log_out) {
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 로그아웃 하시겠습니까?"));
+			if(con == 0) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다."));
+				adminFrame.dispose();
+				new MbtiMainUI();
+			}
+			
 		}
 	}
 
