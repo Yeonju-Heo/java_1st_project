@@ -138,13 +138,10 @@ public class CreateUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == btn_hair) {
-			init();
 			random_hair();
 		}else if(obj == btn_top) {
-			init();
 			random_top();
 		}else if(obj == btn_bottom) {
-			init();
 			random_bottom();
 		}
 		
@@ -152,8 +149,9 @@ public class CreateUI implements ActionListener{
 	
 	/** 뽑기 창 **/
 	public void random_hair() {
-		if(main.system.subPoint(user)) {
-			if(user.getU_point() >= 20) {
+		if(user.getU_point() >= 30) {
+			if(main.system.subHairPoint(user)) {
+				init();
 				JFrame f = new JFrame("짜잔! 멋진 헤어 당첨!");
 				JPanel p = new JPanel(new BorderLayout());
 				UserItemVO uitem = new UserItemVO();
@@ -211,8 +209,9 @@ public class CreateUI implements ActionListener{
 	}
 	
 	public void random_top() {
-		if(main.system.subPoint(user)) {
-			if(user.getU_point() >= 20) {
+		if(user.getU_point() >= 20) {
+			if(main.system.subTopBottomPoint(user)) {
+				init();
 				JFrame f = new JFrame("짜잔! 멋진 상의 당첨!");
 				JPanel p = new JPanel(new BorderLayout());
 				UserItemVO uitem = new UserItemVO();
@@ -273,8 +272,9 @@ public class CreateUI implements ActionListener{
 	}
 	
 	public void random_bottom() {
-		if(main.system.subPoint(user)) {
-			if(user.getU_point() >= 20) {
+		if(user.getU_point() >= 20) {
+			if(main.system.subTopBottomPoint(user)) {
+				init();
 				JFrame f = new JFrame("짜잔! 멋진 바지 당첨!");
 				JPanel p = new JPanel(new BorderLayout());
 				UserItemVO uitem = new UserItemVO();

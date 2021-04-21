@@ -46,14 +46,14 @@ public class MbtiMgmSystem {
 		return udao.getIdCheck(id);
 	}
 	
-	/** 유저 포인트 조회 **/
-	public UserVO userPoint(String id) {
-		return udao.getUserPointResult(id);
+	/** 유저 포인트 차감(헤어) **/
+	public boolean subHairPoint(UserVO user) {
+		return udao.getSubHairPointResult(user);
 	}
-	
-	/** 유저 포인트 차감**/
-	public boolean subPoint(UserVO user) {
-		return udao.getSubPointResult(user);
+
+	/** 유저 포인트 차감(상의,하의) **/
+	public boolean subTopBottomPoint(UserVO user) {
+		return udao.getSubTopBottomPointResult(user);
 	}
 	
 	/** 회원 정보 조회 **/

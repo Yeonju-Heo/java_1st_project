@@ -96,28 +96,30 @@ public class UserDAO extends DBConn{
 		
 	}
 	
-	/** 유저 포인트 조회 **/
-	public UserVO getUserPointResult(String id) {
-		UserVO user = new UserVO();
+	/** 유저 포인트 차감(헤어) **/
+	public boolean getSubHairPointResult(UserVO user) {
+		boolean result = false;
 		try {
-			String sql = "select u_point from user_table where u_id=?";
+			String sql = " update user_table set u_point=decode(sign(u_point-30), -1,  0, u_point-30) where u_id=?";
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, id);
+			pstmt.setString(1, user.getU_id());
 			
-			rs = pstmt.executeQuery();
+			int val = pstmt.executeUpdate();
 			
-			while(rs.next()) {
-				user.setU_point(rs.getInt(1));
+			if(val != 0) {
+				result = true;
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return user;
+		
+		return result;
 	}
 	
-	/** 유저 포인트 차감 **/
-	public boolean getSubPointResult(UserVO user) {
+	/** 유저 포인트 차감(상의,하의) **/
+	public boolean getSubTopBottomPointResult(UserVO user) {
 		boolean result = false;
 		try {
 			String sql = " update user_table set u_point=decode(sign(u_point-20), -1,  0, u_point-20) where u_id=?";
