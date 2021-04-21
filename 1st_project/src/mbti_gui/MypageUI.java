@@ -150,18 +150,6 @@ public class MypageUI implements ActionListener{
 	      // TODO Auto-generated method stub
 	      Object obj = e.getSource();
 	      if(obj == btn_closet) {
-//	         main.content_panel.removeAll();
-//	         main.login_panel.setVisible(false);
-//	         main.main_panel.setVisible(false);
-//	         main.create_panel.setVisible(false);
-//	         main.chat_panel.setVisible(false);
-//	         main.board_panel.setVisible(false);
-////	         main.mypage_panel.setVisible(false);
-//	         main.mypage_panel.removeAll();   
-	         
-//	         main.mypage_panel.add(new ClosetUI());
-//	         main.mypage_panel.setVisible(true);
-	         
 	         
 	         main.switch_panel(MbtiMainUI.MYPAGE);
 	         main.mypage_panel.setLayout(new BorderLayout());
@@ -204,7 +192,7 @@ public class MypageUI implements ActionListener{
 			if(con == 0) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다"));
 					main.secondFrame.dispose();
-					new MbtiMainUI().firstView();
+					new MbtiMainUI();
 			}
 		}
 	

@@ -160,10 +160,6 @@ public class UserDAO extends DBConn{
 			String sql = " UPDATE USER_TABLE SET U_CHAR = ?"
 					+ " WHERE U_ID = ? ";
 			getPreparedStatement(sql);
-//			BufferedImage himg = new BufferedImage(hair.getIconWidth(),hair.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
-//			System.out.println("hairimage : "+himg);
-//			BufferedImage timg = new BufferedImage(top.getIconWidth(),top.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
-//			BufferedImage bimg = new BufferedImage(bottom.getIconWidth(),bottom.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
 			BufferedImage himg = (BufferedImage) hair.getImage();
 			BufferedImage timg = (BufferedImage) top.getImage();
 			BufferedImage bimg = (BufferedImage) bottom.getImage();
