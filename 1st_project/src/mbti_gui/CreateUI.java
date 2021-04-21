@@ -138,17 +138,14 @@ public class CreateUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == btn_hair) {
+			init();
 			random_hair();
-			main.create_panel.revalidate();
-			main.create_panel.repaint();
 		}else if(obj == btn_top) {
+			init();
 			random_top();
-			main.create_panel.revalidate();
-			main.create_panel.repaint();
 		}else if(obj == btn_bottom) {
+			init();
 			random_bottom();
-			main.create_panel.revalidate();
-			main.create_panel.repaint();
 		}
 		
 	}
