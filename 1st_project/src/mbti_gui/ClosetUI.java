@@ -14,47 +14,25 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import mbti_vo.UserItemVO;
+import mbti_vo.UserVO;
 
 public class ClosetUI extends JPanel implements ActionListener, MouseListener{
-	JButton btn_hair1,btn_hair2,btn_hair3,btn_hair4,btn_hair5,btn_top1,btn_top2,btn_top3,btn_top4,btn_top5,btn_top6, btn_bottom1,btn_bottom2,btn_bottom3,btn_bottom4,btn_bottom5;
+	ImageIcon character;
 
-	ImageIcon character = new ImageIcon("images/merge_charactor.png");
-
-	ImageIcon hair1,hair2, hair3,hair4,hair5;
-	ImageIcon top1,top2,top3, top4,top5,top6;
-	ImageIcon bottom1,bottom2,bottom3,bottom4,bottom5;
-	JLabel character_l = new JLabel(character);
-	JLabel hair1_l,hair2_l,hair3_l,hair4_l,hair5_l;
-	JLabel top1_l,top2_l,top3_l,top4_l,top5_l,top6_l;
-	JLabel bottom1_l,bottom2_l,bottom3_l,bottom4_l,bottom5_l;
+	JLabel character_l;
 	
-	ArrayList<ImageIcon> cl_list = new ArrayList<ImageIcon>();
-	ArrayList<JButton> btn_list = new ArrayList<JButton>();
-	ArrayList<JLabel> hair_list = new ArrayList<JLabel>();
-	ArrayList<JLabel> top_list = new ArrayList<JLabel>();
-	ArrayList<JLabel> bottom_list = new ArrayList<JLabel>();
-	
-	private ImageIcon img_hair1 = new ImageIcon("images/closet_hair1.png");
-	private ImageIcon img_hair2 = new ImageIcon("images/closet_hair2.png");
-	private ImageIcon img_hair3 = new ImageIcon("images/closet_hair3.png");
-	private ImageIcon img_hair4 = new ImageIcon("images/closet_hair4.png");
-	private ImageIcon img_hair5 = new ImageIcon("images/closet_hair5.png");
-
-	private ImageIcon img_top1 = new ImageIcon("images/closet_top1.png");
-	private ImageIcon img_top2 = new ImageIcon("images/closet_top2.png");
-	private ImageIcon img_top3 = new ImageIcon("images/closet_top3.png");
-	private ImageIcon img_top4 = new ImageIcon("images/closet_top4.png");
-	private ImageIcon img_top5 = new ImageIcon("images/closet_top5.png");
-	private ImageIcon img_top6 = new ImageIcon("images/closet_top6.png");
-
-	private ImageIcon img_bottom1 = new ImageIcon("images/closet_bottom1.png");
-	private ImageIcon img_bottom2 = new ImageIcon("images/closet_bottom2.png");
-	private ImageIcon img_bottom3 = new ImageIcon("images/closet_bottom3.png");
-	private ImageIcon img_bottom4 = new ImageIcon("images/closet_bottom4.png");
-	private ImageIcon img_bottom5 = new ImageIcon("images/closet_bottom5.png");
+	ArrayList<ImageIcon> cl_list = new ArrayList<ImageIcon>();//내옷장 안 작은 이미지 리스트
+	ArrayList<JButton> btn_list = new ArrayList<JButton>();//내옷장 안 작은 이미지를 버튼으로 만든 리스트
+	ArrayList<ImageIcon> ch_list = new ArrayList<ImageIcon>();//캐릭터가 입는 큰 헤어 이미지 리스트
+	ArrayList<JLabel> hair_list = new ArrayList<JLabel>();//캐릭터가 입는 큰 이미지 헤어라벨 리스트
+	ArrayList<ImageIcon> ct_list = new ArrayList<ImageIcon>();//캐릭터가 입는 큰 상의 이미지 리스트
+	ArrayList<JLabel> top_list = new ArrayList<JLabel>();//캐릭터가 입는 큰 이미지 상의라벨 리스트
+	ArrayList<ImageIcon> cb_list = new ArrayList<ImageIcon>();//캐릭터가 입는 큰 하의 이미지 리스트
+	ArrayList<JLabel> bottom_list = new ArrayList<JLabel>();//캐릭터가 입는 큰 이미지 하의라벨 리스트
 
 	JButton btn_menu_hair,btn_menu_top,btn_menu_bottom,btn_reset,btn_save;
 
@@ -63,6 +41,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	
 	MbtiMainUI main;
 	UserItemVO uitem;
+	UserVO userch;
 	
 	int hidx=0,tidx=0,bidx=0,type=-1;
 //	JButton btn_hair;
@@ -80,6 +59,10 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		setBackground(Color.white);
 		con = new JPanel();
 		con.setSize(900,700);
+		
+		userch = main.system.getUserChar(main.id_tf.getText());
+		character = new ImageIcon(userch.getU_char());
+		character_l = new JLabel(character);
 		character_l.setBounds(10,20,300,500);
 //		con.add(character_l);				 //#####################
 		add(character_l,BorderLayout.WEST);  //#####################
@@ -161,7 +144,8 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 				cl_list.add(new ImageIcon(uitem.getI_closet()));
 				btn_list.add(new JButton(cl_list.get(i)));
 				btn_list.get(i).addMouseListener(this);
-				hair_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
+				ch_list.add(new ImageIcon(uitem.getI_content()));
+				hair_list.add(new JLabel(ch_list.get(i)));
 				img_p.add(btn_list.get(i));
 				btn_list.get(i).setBorderPainted(false);
 				btn_list.get(i).setContentAreaFilled(false);
@@ -186,7 +170,8 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 				cl_list.add(new ImageIcon(uitem.getI_closet()));
 				btn_list.add(new JButton(cl_list.get(i)));
 				btn_list.get(i).addMouseListener(this);
-				top_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
+				ct_list.add(new ImageIcon(uitem.getI_content()));
+				top_list.add(new JLabel(ct_list.get(i)));
 				img_p.add(btn_list.get(i));
 				btn_list.get(i).setBorderPainted(false);
 				btn_list.get(i).setContentAreaFilled(false);
@@ -211,7 +196,8 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 				cl_list.add(new ImageIcon(uitem.getI_closet()));
 				btn_list.add(new JButton(cl_list.get(i)));
 				btn_list.get(i).addMouseListener(this);
-				bottom_list.add(new JLabel(new ImageIcon(uitem.getI_content())));
+				cb_list.add(new ImageIcon(uitem.getI_content()));
+				bottom_list.add(new JLabel(cb_list.get(i)));
 				img_p.add(btn_list.get(i));
 				btn_list.get(i).setBorderPainted(false);
 				btn_list.get(i).setContentAreaFilled(false);
@@ -244,7 +230,11 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			revalidate();
 			
 		}else if(obj == btn_save) {
-			
+			if(main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), cb_list.get(bidx)) != 0) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("저장되었습니다"));
+			}else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("저장에 실패하였습니다"));
+			}
 		}else {
 			character_l.setVisible(false);
 			for(int i=0;i<cl_list.size();i++) {

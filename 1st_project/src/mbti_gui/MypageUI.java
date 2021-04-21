@@ -29,7 +29,7 @@ public class MypageUI implements ActionListener{
 	JLabel mbti, mbti_label, id_label, id_detail_label, pwd_label, point_label, point_detail_label,
 			date_label, date_detail_label;
 	
-	UserVO user;
+	UserVO user,userch;
 	MbtiVO mbtivo;
 	
 	//Constructor
@@ -50,7 +50,14 @@ public class MypageUI implements ActionListener{
 		btn_closet.setFont(Commons.getFont());
 		closet_panel.add(btn_closet);
 		char_panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,50));
-		character = new ImageIcon("images/character.png");
+//		character = new ImageIcon("images/character.png");
+		
+		////////////////
+		userch = main.system.getUserChar(main.id_tf.getText());
+		character = new ImageIcon(userch.getU_char());
+		/////////////////
+		
+		
 		char_img = new JLabel(character);
 		char_panel.add(char_img);
 		char_closet_panel.add(closet_panel);

@@ -34,7 +34,7 @@ public class UserItemDAO extends DBConn{
 			int val = pstmt.executeUpdate();
 			if(val != 0) {
 				result = true;
-			}
+			} 
 			
 			
 		} catch (Exception e) {
@@ -131,5 +131,6 @@ public class UserItemDAO extends DBConn{
 		return uitemlist;
 
 	}
+	
 	
 }

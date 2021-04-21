@@ -1,13 +1,20 @@
 package mbti_vo;
 
-import java.util.Date;
+import java.awt.image.BufferedImage;
 
 public class UserVO {
 	String u_id,u_pass,u_cpass,u_mbti;
 	int u_point;
 	String u_date;
+	BufferedImage u_char;
 	
 	
+	public BufferedImage getU_char() {
+		return u_char;
+	}
+	public void setU_char(BufferedImage u_char) {
+		this.u_char = u_char;
+	}
 	public String getU_cpass() {
 		return u_cpass;
 	}

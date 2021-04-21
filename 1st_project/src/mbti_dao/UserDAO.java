@@ -1,10 +1,18 @@
 package mbti_dao;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import mbti_gui.MbtiMainUIEvent;
 import mbti_vo.BoardVO;
-import mbti_vo.MessageVO;
 import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
@@ -138,6 +146,68 @@ public class UserDAO extends DBConn{
 		}
 		
 		return result;
+	}
+	
+	/** 유저 캐릭터 완성본 저장 **/
+	public int saveUserCharResult(String id, ImageIcon hair, ImageIcon top, ImageIcon bottom) {
+		int result = 0;
+		
+		try {
+			String sql = " UPDATE USER_TABLE SET U_CHAR = ?"
+					+ " WHERE U_ID = ? ";
+			getPreparedStatement(sql);
+//			BufferedImage himg = new BufferedImage(hair.getIconWidth(),hair.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+//			System.out.println("hairimage : "+himg);
+//			BufferedImage timg = new BufferedImage(top.getIconWidth(),top.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+//			BufferedImage bimg = new BufferedImage(bottom.getIconWidth(),bottom.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+			BufferedImage himg = (BufferedImage) hair.getImage();
+			BufferedImage timg = (BufferedImage) top.getImage();
+			BufferedImage bimg = (BufferedImage) bottom.getImage();
+			
+			BufferedImage merge = new BufferedImage(timg.getWidth(),
+					bimg.getHeight(),BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = (Graphics2D) merge.getGraphics();
+			g.drawImage(timg, 0, 0, null);
+			g.drawImage(bimg, 0, 0, null);
+			g.drawImage(himg, 0, 0, null);
+			
+			ImageIO.write(merge, "png", new File("images/char_"+id+".png"));
+			
+			FileInputStream fin = new FileInputStream("images/char_"+id+".png");
+			pstmt.setBinaryStream(1, fin, fin.available());
+			
+			pstmt.setString(2, id);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/** 유저 완성캐릭터 조회 **/
+	public UserVO getUserChar(String id) {
+		UserVO user = new UserVO();
+		try {
+			String sql =" SELECT U_CHAR FROM USER_TABLE WHERE U_ID = ? ";
+			getPreparedStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				InputStream in = rs.getBinaryStream(1);
+				user.setU_char(ImageIO.read(in));
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	/** 유저 정보 조회 **/

@@ -1,6 +1,9 @@
 package mbti_system;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 import mbti_dao.BoardDAO;
 import mbti_dao.ItemDAO;
@@ -74,6 +77,16 @@ public class MbtiMgmSystem {
 	/** 회원 아이템 하의 조회 **/
 	public ArrayList<UserItemVO> searchBottomItem(String id) {
 		return u_idao.getUserBottomItem(id);
+	}
+	
+	/** 회원 완성캐릭터 수정 **/
+	public int saveUserChar(String id, ImageIcon hair, ImageIcon top, ImageIcon bottom) {
+		return udao.saveUserCharResult(id, hair, top, bottom);
+	}
+	
+	/** 회원 완성캐릭터 조회 **/
+	public UserVO getUserChar(String id) {
+		return udao.getUserChar(id);
 	}
 
 	/** 회원 비밀번호 수정 **/
