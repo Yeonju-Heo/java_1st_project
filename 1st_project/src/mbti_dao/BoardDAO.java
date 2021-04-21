@@ -60,7 +60,7 @@ public class BoardDAO extends DBConn {
 	public ArrayList<BoardVO> getSelectResult(){
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		try {
-			String sql = " SELECT * FROM BOARD_TABLE ";
+			String sql = " SELECT * FROM BOARD_TABLE ORDER BY B_RNO DESC ";
 			getPreparedStatement(sql);
 			
 			rs=pstmt.executeQuery();
