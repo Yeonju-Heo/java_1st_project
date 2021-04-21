@@ -1,6 +1,10 @@
 package mbti_dao;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import mbti_gui.BoardReadUI;
 import mbti_vo.BoardVO;
@@ -8,38 +12,27 @@ import mbti_vo.UserVO;
 
 public class BoardDAO extends DBConn {
 	
-//	/** 등록 **/
-//	public boolean getInsertResult(BoardVO board, UserVO user) {
-//		boolean result = false;
-//		
-//		try {
-//			String sql = " INSERT INTO BOARD_TABLE(B_RNO,B_TITLE,B_CONTENT,B_ID,B_DATE) "
-//					+ " VALUES(SEQ_BOARD.NEXTVAL,?,?,?,sysdate)";
-//			getPreparedStatement(sql);
-//			
-//			pstmt.setString(1, board.getB_title());
-//			pstmt.setString(2, board.getB_content());
-//			pstmt.setString(3, user.getU_id());
-//			
-//			int val = pstmt.executeUpdate();
-//			if(val != 0) {
-//				result = true;
-//			}
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return result;
-//	}
-//
 	/** 등록 **/
 	public boolean getInsertResult(BoardVO board) {
 		boolean result = false;
+		String sql = "";
 
 		try {
-			String sql = " INSERT INTO BOARD_TABLE(B_RNO,B_TITLE,B_CONTENT,B_ID,B_DATE) "
-					+ " VALUES(SEQ_BOARD.NEXTVAL,?,?,?,sysdate)";
-			getPreparedStatement(sql);
+			if (board.getB_filepath().equals("")) {
+				sql = " INSERT INTO BOARD_TABLE(B_RNO,B_TITLE,B_CONTENT,B_ID,B_DATE) "
+						+ " VALUES(SEQ_BOARD.NEXTVAL,?,?,?,sysdate)";
+				getPreparedStatement(sql);
+
+			} else {
+				sql = " INSERT INTO BOARD_TABLE(B_RNO,B_TITLE,B_CONTENT,B_ID,B_DATE,B_FILEPATH, B_IMG) "
+						+ " VALUES(SEQ_BOARD.NEXTVAL,?,?,?,sysdate,?,?)";
+				getPreparedStatement(sql);
+
+				pstmt.setString(4, board.getB_filepath());
+				
+				FileInputStream fin = new FileInputStream(board.getB_filepath());
+				pstmt.setBinaryStream(5, fin, fin.available());
+			}
 
 			pstmt.setString(1, board.getB_title());
 			pstmt.setString(2, board.getB_content());
@@ -103,6 +96,14 @@ public class BoardDAO extends DBConn {
 				board.setB_date(rs.getDate(5));
 				board.setB_good(rs.getInt(6));
 				board.setB_bad(rs.getInt(7));
+				
+				if(rs.getString(8) != null) {
+					board.setB_filepath(rs.getString(8));
+					
+					InputStream in = rs.getBinaryStream(9);
+					board.setB_img(ImageIO.read(in)); // &&&
+				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,40 +172,31 @@ public class BoardDAO extends DBConn {
 	
 	
 	/** 수정 **/
-//	public int getUpdateResult(BoardVO board, String content) {
-//		int result = 0;
-//		
-//		try {
-//			String sql = " UPDATE BOARD_TABLE "
-//					+ " SET B_CONTENT = ? WHERE B_RNO=?";
-//			getPreparedStatement(sql);
-//			
-//			pstmt.setString(1, content);
-//			pstmt.setInt(2, board.getB_rno());
-//			
-//			result = pstmt.executeUpdate();
-//			
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//		
-//		return result;
-//	}
-	
-	
-	/** 수정 **/
 	public int getUpdateResult(BoardVO board) {
 		int result = 0;
+		String sql = "";
 
 		try {
-			String sql = " UPDATE BOARD_TABLE SET B_TITLE = ?, B_CONTENT = ? WHERE B_RNO = ? ";
-			getPreparedStatement(sql);
+			if (board.getB_filepath().equals("")) {
+				sql = " UPDATE BOARD_TABLE SET B_TITLE = ?, B_CONTENT = ?, B_FILEPATH = NULL, B_IMG = NULL WHERE B_RNO = ? ";
+				getPreparedStatement(sql);
+				pstmt.setInt(3, board.getB_rno());
+				
+			} else {
+				sql = " UPDATE BOARD_TABLE SET B_TITLE = ?, B_CONTENT = ?, B_FILEPATH = ?, B_IMG = ? WHERE B_RNO = ?";
+				getPreparedStatement(sql);
 
+				pstmt.setString(3, board.getB_filepath());
+				
+				FileInputStream fin = new FileInputStream(board.getB_filepath());
+				pstmt.setBinaryStream(4, fin, fin.available());
+				
+				pstmt.setInt(5, board.getB_rno());
+
+			}
+			
 			pstmt.setString(1, board.getB_title());
 			pstmt.setString(2, board.getB_content());
-			pstmt.setInt(3, board.getB_rno());
 
 			result = pstmt.executeUpdate();
 
@@ -215,28 +207,7 @@ public class BoardDAO extends DBConn {
 
 		return result;
 	}
-	
-//	/** 삭제 **/
-//	public boolean getDeleteResult(BoardVO board) {
-//		boolean result = false;
-//		
-//		try {
-//			String sql = " DELETE FROM BOARD_TABLE WHERE B_RNO = ?";
-//			getPreparedStatement(sql);
-//			
-//			pstmt.setInt(1, board.getB_rno());
-//			int val = pstmt.executeUpdate();
-//			if(val != 0) {
-//				result = true;
-//			}
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//		
-//		return result;
-//	}
+
 	
 	/** 삭제 (admin + 일반) **/
 	public boolean getDeleteResult(int bno) {

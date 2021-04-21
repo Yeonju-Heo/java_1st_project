@@ -2,38 +2,56 @@ package mbti_gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 
 import mbti_vo.BoardVO;
 
 public class BoardReadUI implements MouseListener, ActionListener {
 	// Field
 
+	String[] colNames = { "번호", "제목", "작성자", "작성일", "추천/반대" };
+	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
+		public boolean isCellEditable(int i, int c) {
+			return false;
+		}
+	};
+	Object[] row = new Object[5];
+	JTable list_table = new JTable(model);
+
 	MbtiMainUI main;
 	BoardVO board;
 	JTextArea content_ta;
 	JButton btn_list, btn_delete, btn_update;
-	JLabel good_label;
-	JLabel bad_label;
-	String title, id, content, good, bad;
+	JLabel good_label, bad_label, img_label;
+	String title, id, content, good, bad, filepath; // &&&
+	BufferedImage img;
 	int no;
-	
+
 	public static final int GOOD = 1;
 	public static final int BAD = 0;
-	
+
 	// Constructor
 	public BoardReadUI(MbtiMainUI main, int no) {
 		this.main = main;
@@ -41,7 +59,6 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		init();
 	}
 
-	
 	public void getInfo() {
 		board = main.system.readBoard(no);
 //		BoardVO board = main.system.readBoard(no);
@@ -50,24 +67,25 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		content = board.getB_content();
 		good = String.valueOf(board.getB_good());
 		bad = String.valueOf(board.getB_bad());
+		filepath = board.getB_filepath();
+		img = board.getB_img();
 	}
 
-	
 	/** 글 읽기 화면 **/
 	public void init() {
 		getInfo();
-		
+
 		main.board_panel.removeAll();
 		main.switch_panel(MbtiMainUI.BOARD);
 		main.board_panel.setLayout(new BorderLayout());
 		main.board_panel.setBackground(Color.white);
 		main.content_panel.setBackground(Color.white);
-		
+
 		Panel top_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 		Panel center_panel = new Panel(new BorderLayout());
 		Panel bottom_panel = new Panel(new BorderLayout());
 		Panel title_panel = new Panel(new BorderLayout());
-		Panel content_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
+		Panel content_panel = new Panel(new BorderLayout()); // &&
 		Panel recommend_panel = new Panel();
 
 		// 탑패널
@@ -85,6 +103,17 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		title_panel.add(BorderLayout.EAST, writer_label);
 
 		// 센터패널 - 내용
+		if (img != null) { // &&&&
+			if (img.getWidth() >= 400 && img.getHeight() >= 250) {
+				Image rimg = img.getScaledInstance(400, 250, Image.SCALE_SMOOTH);
+				img_label = new JLabel(new ImageIcon(rimg));
+			} else {
+				img_label = new JLabel(new ImageIcon(img));
+			}
+			content_panel.add(img_label, BorderLayout.NORTH);
+			img_label.addMouseListener(this);
+		}
+
 		JTextArea rcontent_ta = new JTextArea(15, 45);
 		rcontent_ta.setEditable(false);
 		rcontent_ta.setFont(Commons.getFont(15));
@@ -110,7 +139,8 @@ public class BoardReadUI implements MouseListener, ActionListener {
 //		ImageIcon writer = new ImageIcon("images/character.png"); // 0413: 게시글에 캐릭터 추가
 //		JLabel character_label = new JLabel(writer);
 
-		content_panel.add(ta_pane);
+		content_panel.add(ta_pane, BorderLayout.CENTER); // &&&&
+		content_panel.setPreferredSize(new Dimension(700, 400));
 		center_panel.add(BorderLayout.NORTH, title_panel);
 		center_panel.add(BorderLayout.CENTER, content_panel);
 //		center_panel.add(BorderLayout.EAST, character_label); // 0413: 게시글에 캐릭터 추가
@@ -143,8 +173,44 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		btn_delete.addActionListener(this);
 		good_label.addMouseListener(this);
 		bad_label.addMouseListener(this);
+
 	}
 
+	/** 글 삭제 **/
+	public void deleteProc() {
+		if (id.equals(main.id_tf.getText())) {
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+			if (con == 0) {
+				if (main.system.deleteBoard(no)) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("글이 삭제되었습니다."));
+					new BoardUI(main);
+				} else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제에 실패했습니다."));
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "권한이 없습니다");
+		}
+	}
+
+	public void showImg() {
+		JFrame img_frame = new JFrame("image");
+
+		ImageIcon origin_icon = new ImageIcon(img);
+		JLabel origin_label = new JLabel(origin_icon);
+
+		img_frame.add(origin_label);
+		img_frame.setSize(img.getWidth(), img.getHeight());
+
+		img_frame.setVisible(true);
+
+		img_frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				img_frame.dispose();
+			}
+		});
+
+	}
 
 	/** 액션 리스너 **/
 	public void actionPerformed(ActionEvent e) {
@@ -157,25 +223,6 @@ public class BoardReadUI implements MouseListener, ActionListener {
 			deleteProc();
 		}
 	}
-	
-	
-	/** 글 삭제 **/
-	public void deleteProc() {
-		if(id.equals(main.id_tf.getText())) {
-			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
-			if(con == 0) {
-				if(main.system.deleteBoard(no)) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("글이 삭제되었습니다."));
-					new BoardUI(main);
-				} else {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제에 실패했습니다."));
-				}
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("본인의 글만 삭제할 수 있습니다."));
-		}
-	}
-	
 
 	/** 글목록 마우스 리스너 **/
 	@Override
@@ -183,14 +230,20 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		Object obj = e.getSource();
 		int result = 0;
 
-		if(obj == good_label) {
+		if (obj == good_label) {
 			result = main.system.updateRecommend(GOOD, no);
-			if(result != 0) JOptionPane.showMessageDialog(null,Commons.getMsg("추천 완료"));
+			if (result != 0)
+				JOptionPane.showMessageDialog(null, Commons.getMsg("추천 완료"));
+			init();
 		} else if (obj == bad_label) {
 			result = main.system.updateRecommend(BAD, no);
-			if(result != 0) JOptionPane.showMessageDialog(null,Commons.getMsg("비추천 완료"));
+			if (result != 0)
+				JOptionPane.showMessageDialog(null, Commons.getMsg("비추천 완료"));
+			init();
+		} else if (obj == img_label) {
+			showImg();
 		}
-		init();
+
 	}
 
 	/** 마우스 리스너 오버라이드 **/

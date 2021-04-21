@@ -1,13 +1,27 @@
 package mbti_vo;
 
+import java.awt.image.BufferedImage;
 import java.util.Date;
 
 public class BoardVO {
 	int b_rno, b_good, b_bad;
-	String b_title, b_content, b_id;
+	String b_title, b_content, b_id, b_filepath;
 	Date b_date;
+	BufferedImage b_img;
 	
 	
+	public BufferedImage getB_img() {
+		return b_img;
+	}
+	public void setB_img(BufferedImage b_img) {
+		this.b_img = b_img;
+	}
+	public String getB_filepath() {
+		return b_filepath;
+	}
+	public void setB_filepath(String b_filepath) {
+		this.b_filepath = b_filepath;
+	}
 	public Date getB_date() {
 		return b_date;
 	}
