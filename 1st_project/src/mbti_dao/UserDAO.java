@@ -81,14 +81,18 @@ public class UserDAO extends DBConn{
 		boolean result = false;
 		
 		try {
-			String sql = " INSERT INTO USER_TABLE(U_ID,U_PASS,U_MBTI,U_DATE) "
-					+ " VALUES(?,?,?,sysdate)";
+			String sql = " INSERT INTO USER_TABLE(U_ID,U_PASS,U_MBTI,U_DATE,U_CHAR) "
+					+ " VALUES(?,?,?,sysdate,?)";
 					
 			getPreparedStatement(sql);
 			
 			pstmt.setString(1, user.getU_id());
 			pstmt.setString(2, user.getU_pass());
 			pstmt.setString(3, user.getU_mbti());
+			
+			FileInputStream fin = new FileInputStream("images/merge_charactor.png");
+			
+			pstmt.setBinaryStream(4, fin, fin.available());
 			
 			int val = pstmt.executeUpdate();
 			if(val != 0) {
