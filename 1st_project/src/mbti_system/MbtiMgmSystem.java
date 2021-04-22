@@ -79,9 +79,19 @@ public class MbtiMgmSystem {
 		return u_idao.getUserBottomItem(id);
 	}
 	
-	/** 회원 완성캐릭터 수정 **/
+	/** 회원 완성캐릭터 수정 (헤어,상의,하의 다 있을 때)**/
 	public int saveUserChar(String id, ImageIcon hair, ImageIcon top, ImageIcon bottom) {
 		return udao.saveUserCharResult(id, hair, top, bottom);
+	}
+	
+	/** 회원 완성캐릭터 수정(헤어,상의,하의 중 하나만 있을 때) **/
+	public int saveUserChar(String id, ImageIcon hair, ImageIcon top) {
+		return udao.saveUserCharResult(id, hair, top);
+	}
+	
+	/** 회원 완성캐릭터 수정(초기상태) **/
+	public int saveUserChar(String id) {
+		return udao.saveUserCharResult(id);
 	}
 	
 	/** 회원 완성캐릭터 조회 **/
@@ -95,9 +105,9 @@ public class MbtiMgmSystem {
 	}
 
 	/** 모든 아이템 조회 **/
-	public ArrayList<ItemVO> getItem() {
-		return idao.getItemResult();
-	}
+//	public ArrayList<ItemVO> getItem() {
+//		return idao.getItemResult();
+//	}
 
 	/** 내 mbti 조회 **/
 	public MbtiVO getMbti(UserVO user) {

@@ -21,9 +21,11 @@ import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
 
 public class ClosetUI extends JPanel implements ActionListener, MouseListener{
-	ImageIcon character;
-
-	JLabel character_l;
+	ImageIcon character,char_reset;
+	ImageIcon nohair = new ImageIcon("images/merge_charactor_nohair.png");		
+	ImageIcon notop = new ImageIcon("images/merge_charactor_notop.png");		
+	ImageIcon nobottom = new ImageIcon("images/merge_charactor_nobottom.png");		
+	JLabel character_l,char_reset_l,nohair_l,notop_l,nobottom_l;
 	
 	ArrayList<ImageIcon> cl_list = new ArrayList<ImageIcon>();//내옷장 안 작은 이미지 리스트
 	ArrayList<JButton> btn_list = new ArrayList<JButton>();//내옷장 안 작은 이미지를 버튼으로 만든 리스트
@@ -42,6 +44,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	MbtiMainUI main;
 	UserItemVO uitem;
 	UserVO userch;
+	int result=0;
 	
 	int hidx=0,tidx=0,bidx=0,type=-1;
 //	JButton btn_hair;
@@ -59,6 +62,17 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		setBackground(Color.white);
 		con = new JPanel();
 		con.setSize(900,700);
+		
+		
+		nohair_l = new JLabel(nohair);
+		notop_l = new JLabel(notop);
+		nobottom_l = new JLabel(nobottom);
+		nohair_l.setBounds(0,2,142,500);
+		notop_l.setBounds(0,2,142,500);
+		nobottom_l.setBounds(0,2,142,500);
+		
+		char_reset = new ImageIcon("images/merge_charactor.png");
+		char_reset_l = new JLabel(char_reset);
 		
 		userch = main.system.getUserChar(main.id_tf.getText());
 		character = new ImageIcon(userch.getU_char());
@@ -207,8 +221,11 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			
 			revalidate();
 		}else if(obj == btn_reset) {
-			
-			character_l.setVisible(true);
+			character_l.setVisible(false);
+			nohair_l.setVisible(false);
+			notop_l.setVisible(false);
+			nobottom_l.setVisible(false);
+			char_reset_l.setVisible(true);
 			if(hair_list.size() != 0) {
 				for(int i=0;i<hair_list.size();i++) {
 					hair_list.get(i).setVisible(false);
@@ -225,17 +242,30 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 				}
 			}
 			
-			add(character_l,BorderLayout.WEST);	//#####################
+			add(char_reset_l,BorderLayout.WEST);	//#####################
 			con.repaint();
 			revalidate();
 			
 		}else if(obj == btn_save) {
-			if(main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), cb_list.get(bidx)) != 0) {
+			if(nohair_l.isVisible()) {
+				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), nohair);
+//			}else if(notop_l.isVisible()) {
+//				result = main.system.saveUserChar(main.id_tf.getText(), notop, ct_list.get(tidx));
+//			}else if(nobottom_l.isVisible()) {
+//				result = main.system.saveUserChar(main.id_tf.getText(), nobottom, cb_list.get(bidx));
+			}else if(char_reset_l.isVisible()) {
+				result = main.system.saveUserChar(main.id_tf.getText());
+			}else if(hair_list.get(hidx).isVisible() && top_list.get(tidx).isVisible() && bottom_list.get(bidx).isVisible()) {
+				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), cb_list.get(bidx));
+			}
+			if(result != 0) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("저장되었습니다"));
 			}else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("저장에 실패하였습니다"));
 			}
+			
 		}else {
+			char_reset_l.setVisible(false);
 			character_l.setVisible(false);
 			for(int i=0;i<cl_list.size();i++) {
 				if(obj == btn_list.get(i)) {
@@ -243,20 +273,32 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 						for(int j=0;j<=hidx;j++) {
 							hair_list.get(j).setVisible(false);
 						}
+						nohair_l.setVisible(true);
+						notop_l.setVisible(false);
+						nobottom_l.setVisible(false);
+						add(nohair_l,BorderLayout.WEST);
 						hair_list.get(i).setVisible(true);
 						add(hair_list.get(i),BorderLayout.WEST);
 						hidx=i;
 					}else if(type==1) {
 						for(int j=0;j<=tidx;j++) {
-							top_list.get(j).setVisible(false);
+						top_list.get(j).setVisible(false);
 						}
+						notop_l.setVisible(true);
+						nohair_l.setVisible(false);
+						nobottom_l.setVisible(false);
 						top_list.get(i).setVisible(true);
+						add(notop_l,BorderLayout.WEST);
 						add(top_list.get(i),BorderLayout.WEST);
 						tidx=i;
 					}else if(type==2) {
 						for(int j=0;j<=bidx;j++) {
 							bottom_list.get(j).setVisible(false);
 						}
+						nohair_l.setVisible(false);
+						notop_l.setVisible(false);
+						nobottom_l.setVisible(true);
+						add(nobottom_l,BorderLayout.WEST);
 						bottom_list.get(i).setVisible(true);
 						add(bottom_list.get(i),BorderLayout.WEST);
 						bidx=i;
