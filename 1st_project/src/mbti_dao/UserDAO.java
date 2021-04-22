@@ -1,5 +1,6 @@
 package mbti_dao;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -159,9 +160,18 @@ public class UserDAO extends DBConn{
 			String sql = " UPDATE USER_TABLE SET U_CHAR = ?"
 					+ " WHERE U_ID = ? ";
 			getPreparedStatement(sql);
-			BufferedImage himg = (BufferedImage) hair.getImage();
-			BufferedImage timg = (BufferedImage) top.getImage();
-			BufferedImage bimg = (BufferedImage) bottom.getImage();
+			 BufferedImage himg = new BufferedImage(hair.getImage().getWidth(null),hair.getImage().getHeight(null),BufferedImage.TYPE_INT_ARGB); 
+	         Graphics bhimg = himg.getGraphics(); 
+	         bhimg.drawImage(hair.getImage(), 0, 0, null);
+	         bhimg.dispose();
+	         BufferedImage timg = new BufferedImage(top.getImage().getWidth(null),top.getImage().getHeight(null),BufferedImage.TYPE_INT_ARGB); 
+	         Graphics btimg = timg.getGraphics(); 
+	         btimg.drawImage(top.getImage(), 0, 0, null);
+	         btimg.dispose();
+	         BufferedImage bimg = new BufferedImage(bottom.getImage().getWidth(null),bottom.getImage().getHeight(null),BufferedImage.TYPE_INT_ARGB); 
+	         Graphics bbimg = bimg.getGraphics(); 
+	         bbimg.drawImage(bottom.getImage(), 0, 0, null);
+	         bbimg.dispose();
 			
 			BufferedImage merge = new BufferedImage(timg.getWidth(),
 					bimg.getHeight(),BufferedImage.TYPE_INT_ARGB);
@@ -196,8 +206,18 @@ public class UserDAO extends DBConn{
 			String sql = " UPDATE USER_TABLE SET U_CHAR = ?"
 					+ " WHERE U_ID = ? ";
 			getPreparedStatement(sql);
-			BufferedImage himg = (BufferedImage) hair.getImage();
-			BufferedImage timg = (BufferedImage) top.getImage();
+//			BufferedImage himg = (BufferedImage) hair.getImage();
+//			BufferedImage timg = (BufferedImage) top.getImage();
+			
+	         BufferedImage himg = new BufferedImage(hair.getImage().getWidth(null),hair.getImage().getHeight(null),BufferedImage.TYPE_INT_ARGB); 
+	         Graphics bhimg = himg.getGraphics(); 
+	         bhimg.drawImage(hair.getImage(), 0, 0, null);
+	         bhimg.dispose();
+
+	         BufferedImage timg = new BufferedImage(top.getImage().getWidth(null),top.getImage().getHeight(null),BufferedImage.TYPE_INT_ARGB); 
+	         Graphics btimg = himg.getGraphics(); 
+	         btimg.drawImage(top.getImage(), 0, 0, null);
+	         btimg.dispose();
 			
 			BufferedImage merge = new BufferedImage(timg.getWidth(),
 					timg.getHeight(),BufferedImage.TYPE_INT_ARGB);
