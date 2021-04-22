@@ -25,7 +25,10 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	ImageIcon nohair = new ImageIcon("images/merge_charactor_nohair.png");		
 	ImageIcon notop = new ImageIcon("images/merge_charactor_notop.png");		
 	ImageIcon nobottom = new ImageIcon("images/merge_charactor_nobottom.png");		
-	JLabel character_l,char_reset_l,nohair_l,notop_l,nobottom_l;
+	ImageIcon onlyhair = new ImageIcon("images/merge_hair2.png");		
+	ImageIcon onlytop = new ImageIcon("images/merge_charactor_onlytop.png");		
+	ImageIcon onlybottom = new ImageIcon("images/merge_charactor_onlybottom.png");		
+	JLabel character_l,char_reset_l,nohair_l,notop_l,nobottom_l,onlyhair_l,onlytop_l,onlybottom_l;
 	
 	ArrayList<ImageIcon> cl_list = new ArrayList<ImageIcon>();//내옷장 안 작은 이미지 리스트
 	ArrayList<JButton> btn_list = new ArrayList<JButton>();//내옷장 안 작은 이미지를 버튼으로 만든 리스트
@@ -46,7 +49,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	UserVO userch;
 	int result=0;
 	
-	int hidx=0,tidx=0,bidx=0,type=-1;
+	int hidx=-1,tidx=-1,bidx=-1,type=-1;
 //	JButton btn_hair;
 
 	public ClosetUI(MbtiMainUI main) {
@@ -70,6 +73,12 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		nohair_l.setBounds(0,2,142,500);
 		notop_l.setBounds(0,2,142,500);
 		nobottom_l.setBounds(0,2,142,500);
+		onlyhair_l = new JLabel(onlyhair);
+		onlytop_l = new JLabel(onlytop);
+		onlybottom_l = new JLabel(onlybottom);
+		onlyhair_l.setBounds(0,2,142,500);
+		onlytop_l.setBounds(0,2,142,500);
+		onlybottom_l.setBounds(0,2,142,500);
 		
 		char_reset = new ImageIcon("images/merge_charactor.png");
 		char_reset_l = new JLabel(char_reset);
@@ -241,21 +250,27 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 					bottom_list.get(i).setVisible(false);
 				}
 			}
-			
+			hidx=-1;
+			tidx=-1;
+			bidx=-1;
 			add(char_reset_l,BorderLayout.WEST);	//#####################
 			con.repaint();
 			revalidate();
 			
 		}else if(obj == btn_save) {
-			if(nohair_l.isVisible()) {
-				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), nohair);
-//			}else if(notop_l.isVisible()) {
-//				result = main.system.saveUserChar(main.id_tf.getText(), notop, ct_list.get(tidx));
-//			}else if(nobottom_l.isVisible()) {
-//				result = main.system.saveUserChar(main.id_tf.getText(), nobottom, cb_list.get(bidx));
-			}else if(char_reset_l.isVisible()) {
-				result = main.system.saveUserChar(main.id_tf.getText());
-			}else if(hair_list.get(hidx).isVisible() && top_list.get(tidx).isVisible() && bottom_list.get(bidx).isVisible()) {
+			if(hidx!=-1 && tidx==-1 && bidx==-1) {
+				result = main.system.saveUserChar(main.id_tf.getText(), nohair, ch_list.get(hidx));
+			}else if(hidx!=-1 && tidx!=-1 && bidx==-1) {
+				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), onlybottom);
+			}else if(hidx!=-1 && tidx==-1 && bidx!=-1) {
+				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), cb_list.get(bidx), onlytop);
+			}else if(hidx==-1 && tidx!=-1 && bidx==-1) {
+				result = main.system.saveUserChar(main.id_tf.getText(), ct_list.get(tidx), notop);
+			}else if(hidx==-1 && tidx!=-1 && bidx!=-1) {
+				result = main.system.saveUserChar(main.id_tf.getText(), onlyhair, ct_list.get(tidx), cb_list.get(bidx));
+			}else if(hidx==-1 && tidx==-1 && bidx!=-1) {
+				result = main.system.saveUserChar(main.id_tf.getText(), cb_list.get(bidx), nobottom);
+			}else if(hidx!=-1 && tidx!=-1 && bidx!=-1) {
 				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), cb_list.get(bidx));
 			}
 			if(result != 0) {
@@ -273,35 +288,72 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 						for(int j=0;j<=hidx;j++) {
 							hair_list.get(j).setVisible(false);
 						}
-						nohair_l.setVisible(true);
+						hidx=i;
+						nohair_l.setVisible(false);
 						notop_l.setVisible(false);
 						nobottom_l.setVisible(false);
-						add(nohair_l,BorderLayout.WEST);
+						onlyhair_l.setVisible(false);
+						onlytop_l.setVisible(false);
+						onlybottom_l.setVisible(false);
+						if(hidx!=-1 && tidx==-1 && bidx==-1) {
+							nohair_l.setVisible(true);
+							add(nohair_l,BorderLayout.WEST);
+						}else if(hidx!=-1 && tidx!=-1 && bidx==-1) {
+							onlybottom_l.setVisible(true);
+							add(onlybottom_l,BorderLayout.WEST);
+						}else if(hidx!=-1 && tidx==-1 && bidx!=-1) {
+							onlytop_l.setVisible(true);
+							add(onlytop_l,BorderLayout.WEST);
+						}
 						hair_list.get(i).setVisible(true);
 						add(hair_list.get(i),BorderLayout.WEST);
-						hidx=i;
+						
 					}else if(type==1) {
 						for(int j=0;j<=tidx;j++) {
 						top_list.get(j).setVisible(false);
 						}
-						notop_l.setVisible(true);
-						nohair_l.setVisible(false);
-						nobottom_l.setVisible(false);
-						top_list.get(i).setVisible(true);
-						add(notop_l,BorderLayout.WEST);
-						add(top_list.get(i),BorderLayout.WEST);
 						tidx=i;
+						nohair_l.setVisible(false);
+						notop_l.setVisible(false);
+						nobottom_l.setVisible(false);
+						onlyhair_l.setVisible(false);
+						onlytop_l.setVisible(false);
+						onlybottom_l.setVisible(false);
+						if(hidx==-1 && tidx!=-1 && bidx==-1) {
+							notop_l.setVisible(true);
+							add(notop_l,BorderLayout.WEST);
+						}else if(hidx!=-1 && tidx!=-1 && bidx==-1) {
+							onlybottom_l.setVisible(true);
+							add(onlybottom_l,BorderLayout.WEST);
+						}else if(hidx==-1 && tidx!=-1 && bidx!=-1) {
+							onlyhair_l.setVisible(true);
+							add(onlyhair_l,BorderLayout.WEST);
+						}
+						top_list.get(i).setVisible(true);
+						add(top_list.get(i),BorderLayout.WEST);
 					}else if(type==2) {
 						for(int j=0;j<=bidx;j++) {
 							bottom_list.get(j).setVisible(false);
 						}
+						bidx=i;
 						nohair_l.setVisible(false);
 						notop_l.setVisible(false);
-						nobottom_l.setVisible(true);
-						add(nobottom_l,BorderLayout.WEST);
+						nobottom_l.setVisible(false);
+						onlyhair_l.setVisible(false);
+						onlytop_l.setVisible(false);
+						onlybottom_l.setVisible(false);
+						if(hidx==-1 && tidx==-1 && bidx!=-1) {
+							nobottom_l.setVisible(true);
+							add(nobottom_l,BorderLayout.WEST);
+						}else if(hidx!=-1 && tidx==-1 && bidx!=-1) {
+							onlytop_l.setVisible(true);
+							add(onlytop_l,BorderLayout.WEST);
+						}else if(hidx==-1 && tidx!=-1 && bidx!=-1) {
+							onlyhair_l.setVisible(true);
+							add(onlyhair_l,BorderLayout.WEST);
+						}
 						bottom_list.get(i).setVisible(true);
 						add(bottom_list.get(i),BorderLayout.WEST);
-						bidx=i;
 					}
 				}
 			}
