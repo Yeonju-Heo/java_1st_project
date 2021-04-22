@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -54,8 +55,8 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	JTable list_table = new JTable(model);
 
 	AdminMainUI main;
-	BoardVO bvo = new BoardVO();
-	BoardVO board;
+//	BoardVO bvo = new BoardVO();
+//	BoardVO board;
 	JTextField search_tf, title_tf;
 	JTextArea content_ta;
 	JButton btn_search, btn_list, btn_delete;
@@ -66,6 +67,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	String title, id, content, good, bad, filepath; // &&&
 	BufferedImage img;
 	JLabel search_label;
+	boolean flag = true;
 
 	// Constructor
 	public AdminBoardUI(AdminMainUI main) {
@@ -197,8 +199,8 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	}
 	
 	public void getInfo() {
-		board = main.system.readBoard(no);
-//		BoardVO board = main.system.readBoard(no);
+//		board = main.system.readBoard(no);
+		BoardVO board = main.system.readBoard(no);
 		title = board.getB_title();
 		id = board.getB_id();
 		content = board.getB_content();
@@ -241,17 +243,39 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		title_panel.add(BorderLayout.EAST, writer_label);
 
 		// 센터패널 - 내용
+//		if (img != null) { // &&&&
+//			if (img.getWidth() >= 400 && img.getHeight() >= 250) {
+//				Image rimg = img.getScaledInstance(400, 250, Image.SCALE_SMOOTH);
+//				img_label = new JLabel(new ImageIcon(rimg));
+//			} else {
+//				img_label = new JLabel(new ImageIcon(img));
+//			}
+//			content_panel.add(img_label, BorderLayout.NORTH);
+//			img_label.addMouseListener(this);
+//		}
+
+
 		if (img != null) { // &&&&
-			if (img.getWidth() >= 400 && img.getHeight() >= 250) {
-				Image rimg = img.getScaledInstance(400, 250, Image.SCALE_SMOOTH);
-				img_label = new JLabel(new ImageIcon(rimg));
-			} else {
-				img_label = new JLabel(new ImageIcon(img));
+			int width = img.getWidth();
+			int height = img.getHeight();
+
+			while (flag) {
+				if (width > 500 || height > 250) {
+					width = width / 2;
+					height = height / 2;
+				} else {
+					flag = false;
+				}
 			}
+			Image rimg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			img_label = new JLabel(new ImageIcon(rimg));
+
 			content_panel.add(img_label, BorderLayout.NORTH);
 			img_label.addMouseListener(this);
+			img = null;
 		}
-
+		
+		
 		JTextArea rcontent_ta = new JTextArea(15, 45);
 		rcontent_ta.setEditable(false);
 		rcontent_ta.setFont(Commons.getFont(15));
@@ -329,7 +353,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		if (obj == btn_search || obj == search_tf) {
 			search_Proc();
 		} else if (obj == btn_list) {
-			init();
+			new AdminBoardUI(main);
 		} else if (obj == btn_delete) {
 			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
 			if (con == 0) {
@@ -364,14 +388,42 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 	}
 	
+//	public void showImg() {
+//		JFrame img_frame = new JFrame("image");
+//
+//		ImageIcon origin_icon = new ImageIcon(img);
+//		JLabel origin_label = new JLabel(origin_icon);
+//
+//		img_frame.add(origin_label);
+//		img_frame.setSize(img.getWidth(), img.getHeight());
+//
+//		img_frame.setVisible(true);
+//
+//		img_frame.addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent e) {
+//				img_frame.dispose();
+//			}
+//		});
+//
+//	}
+	
 	public void showImg() {
 		JFrame img_frame = new JFrame("image");
+		Image rimg = img;
 
-		ImageIcon origin_icon = new ImageIcon(img);
-		JLabel origin_label = new JLabel(origin_icon);
+		Double window_width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		Double window_height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-		img_frame.add(origin_label);
-		img_frame.setSize(img.getWidth(), img.getHeight());
+		if (img.getWidth() > window_width || img.getHeight() > window_height) {
+			rimg = img.getScaledInstance(img.getWidth() / 2, img.getHeight() / 2, Image.SCALE_SMOOTH);
+			img_frame.setSize(img.getWidth(), img.getHeight());
+		} else {
+			img_frame.setSize(img.getWidth()+100, img.getHeight()+100);
+		}
+
+		ImageIcon rimg_icon = new ImageIcon(rimg);
+		JLabel rimg_label = new JLabel(rimg_icon);
+		img_frame.add(rimg_label);
 
 		img_frame.setVisible(true);
 

@@ -47,7 +47,7 @@ public class AdminMainUI implements ActionListener{
 	
 	JButton log_out;
 
-	Panel main_panel = new Panel();
+	Panel main_panel = new Panel(new GridLayout(2,1,0,150));
 	Panel user_panel = new Panel();
 	Panel board_panel = new Panel();
 	Panel content_panel = new Panel();
@@ -64,15 +64,8 @@ public class AdminMainUI implements ActionListener{
 	}
 
 	public void init() { // 관리자
-		log_out = new JButton("로그아웃");
-		log_out.setFont(Commons.getFont());
 		menu_panel = new JPanel(new GridLayout(1, 3, 5, 5));
-//		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
-		bottom_panel2 = new JPanel(new GridLayout(0,1));
-		logout_panel = new JPanel();
-		status_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		
+		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
 
 		for (String name : admin_menulist) {
 			JButton btn_menu = new JButton(name);
@@ -82,21 +75,22 @@ public class AdminMainUI implements ActionListener{
 			btn_menu.addActionListener(this);
 		}
 
+		log_out = new JButton("로그아웃");
+		log_out.setFont(Commons.getFont());
+		JPanel logout_panel = new JPanel();
+		logout_panel.add(log_out);
+		
 		ImageIcon icon = new ImageIcon("images/mainlogo.png");
 		JLabel main_label = new JLabel(icon);
 		main_panel.add(main_label);
+		main_panel.add(logout_panel);
 		content_panel.add(main_panel);
 		
 		JLabel status_label = new JLabel("※ 관리자 계정으로 접속중입니다. ※");
 		status_label.setFont(Commons.getFont(17));
 		status_label.setForeground(Color.RED);
-		status_label.setHorizontalAlignment(JLabel.CENTER);
-		logout_panel.add(log_out);
-		bottom_panel2.add(logout_panel);
-		status_panel.add(status_label);
-		bottom_panel2.add(status_panel);
-		
-		bottom_panel.add(bottom_panel2);
+		status_label.setHorizontalAlignment(JLabel.CENTER);	
+		bottom_panel.add(status_label);
 		
 		log_out.addActionListener(this);
 		
@@ -108,8 +102,6 @@ public class AdminMainUI implements ActionListener{
 		content_panel.setBackground(Color.white);
 		bottom_panel.setBackground(Color.white);
 		logout_panel.setBackground(Color.white);
-		status_panel.setBackground(Color.white);
-		bottom_panel2.setBackground(Color.white);
 
 		adminFrame.setSize(900, 700);
 
@@ -136,14 +128,11 @@ public class AdminMainUI implements ActionListener{
 		main_panel.setVisible(false);
 		user_panel.setVisible(false);
 		board_panel.setVisible(false);
-		logout_panel.setVisible(false);
 
 		switch (menu) {
 		case MAIN:
 			main_panel.removeAll();
 			main_panel.setVisible(true);
-			logout_panel.removeAll();
-			logout_panel.setVisible(true);
 		case USER:
 			user_panel.removeAll();
 			user_panel.setVisible(true);
