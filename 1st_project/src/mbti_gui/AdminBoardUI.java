@@ -272,7 +272,6 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 			content_panel.add(img_label, BorderLayout.NORTH);
 			img_label.addMouseListener(this);
-			img = null;
 		}
 		
 		
