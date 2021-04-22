@@ -42,6 +42,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
 		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
 			boolean result = false;
+			
 			if (c == 5)
 				result = true;
 			return result;
@@ -64,6 +65,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	int no;
 	String title, id, content, good, bad, filepath; // &&&
 	BufferedImage img;
+	JLabel search_label;
 
 	// Constructor
 	public AdminBoardUI(AdminMainUI main) {
@@ -91,9 +93,12 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		top_panel.add(board_label);
 
 		// 센터패널 - 검색
+		search_label = new JLabel("제목 검색 : ");
+		search_label.setFont(Commons.getFont());
 		search_tf = new JTextField(20);
 		btn_search = new JButton("검색");
 		btn_search.setFont(Commons.getFont());
+		search_panel.add(search_label);
 		search_panel.add(search_tf);
 		search_panel.add(btn_search);
 

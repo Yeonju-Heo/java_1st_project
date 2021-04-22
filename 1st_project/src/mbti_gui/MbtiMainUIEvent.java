@@ -68,6 +68,7 @@ public class MbtiMainUIEvent implements ActionListener {
 				MbtiMgmSystem.LOGIN_RESULT = true;
 			} else if (result == ADMIN) {
 				new AdminMainUI();
+				main.firstFrame.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디와 비밀번호가 일치하지 않습니다."));
 			}
