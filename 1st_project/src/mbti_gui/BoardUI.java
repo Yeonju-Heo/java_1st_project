@@ -45,6 +45,7 @@ public class BoardUI implements MouseListener, ActionListener {
 	JButton btn_search, btn_write, btn_insert, btn_cancel, btn_list, btn_delete, btn_update;
 	JLabel up_label;
 	JLabel down_label;
+	JLabel search_label;
 
 	// Constructor
 	public BoardUI(MbtiMainUI main) {
@@ -72,9 +73,12 @@ public class BoardUI implements MouseListener, ActionListener {
 		top_panel.add(board_label);
 
 		// 센터패널 - 검색
+		search_label = new JLabel("제목 검색 : ");
+		search_label.setFont(Commons.getFont());
 		search_tf = new JTextField(20);
 		btn_search = new JButton("검색");
 		btn_search.setFont(Commons.getFont());
+		search_panel.add(search_label);
 		search_panel.add(search_tf);
 		search_panel.add(btn_search);
 

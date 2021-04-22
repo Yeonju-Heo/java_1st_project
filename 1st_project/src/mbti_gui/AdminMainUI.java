@@ -70,7 +70,7 @@ public class AdminMainUI implements ActionListener{
 		bottom_panel2 = new JPanel(new GridLayout(0,1));
 		logout_panel = new JPanel();
 		status_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 30));
+		bottom_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
 
 		for (String name : admin_menulist) {
@@ -135,11 +135,14 @@ public class AdminMainUI implements ActionListener{
 		main_panel.setVisible(false);
 		user_panel.setVisible(false);
 		board_panel.setVisible(false);
+		logout_panel.setVisible(false);
 
 		switch (menu) {
 		case MAIN:
 			main_panel.removeAll();
 			main_panel.setVisible(true);
+			logout_panel.removeAll();
+			logout_panel.setVisible(true);
 		case USER:
 			user_panel.removeAll();
 			user_panel.setVisible(true);

@@ -35,7 +35,7 @@ public class ChatServer {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class ChatServer {
 			
 						
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 

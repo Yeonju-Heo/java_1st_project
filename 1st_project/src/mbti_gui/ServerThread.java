@@ -17,6 +17,7 @@ public class ServerThread extends Thread{
 			oos = new ObjectOutputStream(s.getOutputStream());
 			
 		} catch (Exception e) {
+			
 		}
 		
 	}
@@ -29,6 +30,7 @@ public class ServerThread extends Thread{
 				ChatServer.broadcasting(vo);
 			}
 		} catch (Exception e) {
+			
 		}
 	}
 }
