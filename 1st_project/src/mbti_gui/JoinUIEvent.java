@@ -54,15 +54,15 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		                jlist.add(jtf);   
 					}
 				}
-				UserVO user = new UserVO();
-				MbtiVO mbti = new MbtiVO();
-				user.setU_id(jlist.get(0).getText());
-				user.setU_pass(jlist.get(1).getText());
-				user.setU_cpass(jlist.get(2).getText());
-				user.setU_mbti(jlist.get(3).getText());
-				mbti.setMbti_type(jlist.get(3).getText());
+				UserVO uservo = new UserVO();
+				MbtiVO mbtivo = new MbtiVO();
+				uservo.setU_id(jlist.get(0).getText());
+				uservo.setU_pass(jlist.get(1).getText());
+				uservo.setU_cpass(jlist.get(2).getText());
+				uservo.setU_mbti(jlist.get(3).getText());
+				mbtivo.setMbti_type(jlist.get(3).getText());
 				
-				boolean result = main.system.join(user);
+				boolean result = main.system.join(uservo);
 				boolean id_check = main.system.idCheck(ui.tf.getText());
 				if(result == true) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 완료되었습니다."));
@@ -117,7 +117,8 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 			ui.cpf.requestFocus();
 		}else if(cb.getSelectedItem().equals("== CHOICE ==")) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
-		}else if(pf.getText().trim()!=cpf.getText().trim()) {
+			cb.requestFocus();
+		}else if(!pf.getText().trim().equals(cpf.getText())) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호가 일치하지 않습니다."));
 		}else {
 			join_mbti = (String) cb.getSelectedItem();
