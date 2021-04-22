@@ -49,6 +49,7 @@ public class BoardUI implements MouseListener, ActionListener {
 
 	// Constructor
 	public BoardUI(MbtiMainUI main) {
+		
 		this.main = main;
 		init();
 	}

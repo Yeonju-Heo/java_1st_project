@@ -42,6 +42,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	DefaultTableModel model = new DefaultTableModel(colNames, 0) {
 		public boolean isCellEditable(int i, int c) { // 내용 편집 막기
 			boolean result = false;
+			
 			if (c == 5)
 				result = true;
 			return result;

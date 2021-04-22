@@ -58,6 +58,7 @@ public class AdminMainUI implements ActionListener{
 
 	// Constructor
 	public AdminMainUI() {
+		
 		system = new MbtiMgmSystem();
 		init();
 	}
