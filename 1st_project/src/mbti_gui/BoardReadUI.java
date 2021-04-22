@@ -48,6 +48,7 @@ public class BoardReadUI implements MouseListener, ActionListener {
 	String title, id, content, good, bad, filepath; // &&&
 	BufferedImage img;
 	int no;
+	boolean flag = true;
 
 	public static final int GOOD = 1;
 	public static final int BAD = 0;
@@ -103,13 +104,34 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		title_panel.add(BorderLayout.EAST, writer_label);
 
 		// 센터패널 - 내용
+//		if (img != null) { // &&&&
+//			if (img.getWidth() >= 400 || img.getHeight() >= 250) {
+//				Image rimg = img.getScaledInstance(400, 250, Image.SCALE_SMOOTH);
+//				img_label = new JLabel(new ImageIcon(rimg));
+//			} else {
+//				img_label = new JLabel(new ImageIcon(img));
+//			}
+//			content_panel.add(img_label, BorderLayout.NORTH);
+//			img_label.addMouseListener(this);
+//		}
+
 		if (img != null) { // &&&&
-			if (img.getWidth() >= 400 && img.getHeight() >= 250) {
-				Image rimg = img.getScaledInstance(400, 250, Image.SCALE_SMOOTH);
-				img_label = new JLabel(new ImageIcon(rimg));
-			} else {
-				img_label = new JLabel(new ImageIcon(img));
+
+			int width = img.getWidth();
+			int height = img.getHeight();
+
+			while (flag) {
+				if (width > 500 || height > 250) {
+					width = width / 2;
+					height = height / 2;
+				} else {
+					flag = false;
+				}
 			}
+
+			Image rimg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			img_label = new JLabel(new ImageIcon(rimg));
+
 			content_panel.add(img_label, BorderLayout.NORTH);
 			img_label.addMouseListener(this);
 		}
@@ -195,12 +217,21 @@ public class BoardReadUI implements MouseListener, ActionListener {
 
 	public void showImg() {
 		JFrame img_frame = new JFrame("image");
+		Image rimg = img;
 
-		ImageIcon origin_icon = new ImageIcon(img);
-		JLabel origin_label = new JLabel(origin_icon);
+		Double window_width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		Double window_height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-		img_frame.add(origin_label);
-		img_frame.setSize(img.getWidth(), img.getHeight());
+		if (img.getWidth() > window_width || img.getHeight() > window_height) {
+			rimg = img.getScaledInstance(img.getWidth() / 2, img.getHeight() / 2, Image.SCALE_SMOOTH);
+			img_frame.setSize(img.getWidth(), img.getHeight());
+		} else {
+			img_frame.setSize(img.getWidth()+100, img.getHeight()+100);
+		}
+
+		ImageIcon rimg_icon = new ImageIcon(rimg);
+		JLabel rimg_label = new JLabel(rimg_icon);
+		img_frame.add(rimg_label);
 
 		img_frame.setVisible(true);
 
