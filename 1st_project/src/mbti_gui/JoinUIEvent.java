@@ -120,6 +120,7 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 			cb.requestFocus();
 		}else if(!pf.getText().trim().equals(cpf.getText())) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호가 일치하지 않습니다."));
+			ui.cpf.requestFocus();
 		}else {
 			join_mbti = (String) cb.getSelectedItem();
 			result = true;

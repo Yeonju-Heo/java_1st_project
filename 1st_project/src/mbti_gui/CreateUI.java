@@ -48,7 +48,7 @@ public class CreateUI implements ActionListener{
 	public void init() {
 		main.switch_panel(MbtiMainUI.CREATE);
 		user = main.system.searchUser(main.id_tf.getText());
-		item = main.system.getItem();
+//		item = main.system.getItem();
 		
 		/** 포인트 패널 **/
 		point_panel = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,50));

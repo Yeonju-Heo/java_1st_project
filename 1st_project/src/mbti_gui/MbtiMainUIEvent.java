@@ -10,6 +10,7 @@ import mbti_system.MbtiMgmSystem;
 public class MbtiMainUIEvent implements ActionListener {
 	// Field
 	MbtiMainUI main;
+	AdminMainUI adminmain;
 
 	public static final int ADMIN = 0;
 	public static final int USER = 1;
@@ -67,10 +68,11 @@ public class MbtiMainUIEvent implements ActionListener {
 				main.btn_login.setText("LOGOUT");
 				MbtiMgmSystem.LOGIN_RESULT = true;
 			} else if (result == ADMIN) {
-				new AdminMainUI();
 				main.firstFrame.dispose();
+				new AdminMainUI();
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디와 비밀번호가 일치하지 않습니다."));
+				main.id_tf.setText("");		main.pw_tf.setText("");
 			}
 		}
 
