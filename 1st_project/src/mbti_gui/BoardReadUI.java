@@ -265,12 +265,12 @@ public class BoardReadUI implements MouseListener, ActionListener {
 			result = main.system.updateRecommend(GOOD, no);
 			if (result != 0)
 				JOptionPane.showMessageDialog(null, Commons.getMsg("추천 완료"));
-			init();
+			new BoardReadUI(main, no);
 		} else if (obj == bad_label) {
 			result = main.system.updateRecommend(BAD, no);
 			if (result != 0)
 				JOptionPane.showMessageDialog(null, Commons.getMsg("비추천 완료"));
-			init();
+			new BoardReadUI(main, no);
 		} else if (obj == img_label) {
 			showImg();
 		}
