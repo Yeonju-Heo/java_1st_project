@@ -23,14 +23,13 @@ import javax.swing.JRadioButton;
 import mbti_vo.MbtiVO;
 
 
-public class MbtiCheckUI implements ActionListener, ItemListener{
+public class MbtiCheckUI implements ActionListener {
 	//Field
 	JoinUI ui;
 	MbtiMainUI main;
 	JFrame f;
 	JPanel title_p, center_p, text_p,choice_p, btn_p;
 	JButton check_btn;
-//	JRadioButton yes1, yes2, yes3, yes4, no1, no2, no3, no4;
 	
 	JRadioButton yes[] = new JRadioButton[4];
     JRadioButton no[] = new JRadioButton[4];
@@ -86,22 +85,15 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		center_p.add(text_p,BorderLayout.WEST);
 		
 		/** center, choice **/
-		JLabel yes_l = new JLabel("YES");
-		JLabel no_l = new JLabel("NO");
-		yes_l.setFont(Commons.getFont());
-		no_l.setFont(Commons.getFont());
-		
 		ButtonGroup choice1 = new ButtonGroup();
 		ButtonGroup choice2 = new ButtonGroup();
 		ButtonGroup choice3 = new ButtonGroup();
 		ButtonGroup choice4 = new ButtonGroup();
 		
-		
 //		ButtonGroup[][] choice = new ButtonGroup[4][2];
-//		
 		
-		choice_p.add(new JLabel("예"));
-		choice_p.add(new JLabel("아니오"));
+		choice_p.add(new JLabel("YES"));
+		choice_p.add(new JLabel("NO"));
 		for(int i=0;i<yes.length;i++) {
         	yes[i] = new JRadioButton();
         	choice_p.add(yes[i]);
@@ -133,7 +125,7 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		check_btn.setFont(Commons.getFont());
 		btn_p.add(check_btn);
 		
-		/** ȭ����� **/
+		/** 화면구성 **/
 		f.add(BorderLayout.NORTH,title_p);
 		f.add(BorderLayout.CENTER,center_p);
 		f.add(BorderLayout.SOUTH,btn_p);
@@ -162,58 +154,49 @@ public class MbtiCheckUI implements ActionListener, ItemListener{
 		});
 		
 		check_btn.addActionListener(this);
-//		yes1.addItemListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		
+		for(int i=0;i<mlist.length;i++) {
+			if(obj==yes[i]) {
+				mlist[i] = yes_type[i];
+			}else if(obj==no[i]) {
+				mlist[i] = no_type[i];
+			}
+		}
+		
 		if(obj == ui.mbti_check_btn) {
 			mbti_check();
+			
 		}else if(obj == check_btn) {
-			if(!mlist[0].equals("")&&!mlist[1].equals("")&&!mlist[2].equals("")&&!mlist[3].equals("")) {
-		          
-		        JOptionPane.showMessageDialog(null,"당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다");
-		        MbtiVO mbti = new MbtiVO();
-		        mbti.setMbti_type(mlist[0]+mlist[1]+mlist[2]+mlist[3]);
-		        f.dispose();
-		        ui.mbtilist.setSelectedItem(mbti.getMbti_type());
-	      }
-		}
-		
-//		String s = e.getActionCommand();
-			for(int i=0;i<mlist.length;i++) {
-				if(obj==yes[i]) {
-					mlist[i] = yes_type[i];
-				}else if(obj==no[i]) {
-					mlist[i] = no_type[i];
+			if(form_check()) {
+				
+				if(!mlist[0].equals("")&&!mlist[1].equals("")&&!mlist[2].equals("")&&!mlist[3].equals("")) {
+					JOptionPane.showMessageDialog(null,Commons.getMsg("당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다"));
+					MbtiVO mbti = new MbtiVO();
+					mbti.setMbti_type(mlist[0]+mlist[1]+mlist[2]+mlist[3]);
+					f.dispose();
+					ui.mbtilist.setSelectedItem(mbti.getMbti_type());
 				}
+			}
 		}
-      
-      
-		
 	}
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		Object obj = e.getSource();
-//		if(obj == yes1) {
-//			System.out.println("E");
-//		}else if(obj == no1) {
-//			System.out.println("I");
-//		}else if(obj == yes2) {
-//			System.out.println("S");
-//		}else if(obj == no2) {
-//			System.out.println("N");
-//		}else if(obj == yes3) {
-//			System.out.println("F");
-//		}else if(obj == no3) {
-//			System.out.println("T");
-//		}else if(obj == yes4) {
-//			System.out.println("J");
-//		}else if(obj == no4) {
-//			System.out.println("P");
-//		}
-		
+	
+	public boolean form_check() {
+		boolean result = false;
+		for(int i=0;i<mlist.length;i++) {
+			if(mlist[i] == null) {
+				JOptionPane.showMessageDialog(null,Commons.getMsg((i+1)+" 번 질문에 해당하는 답을 체크해주세요."));
+				i = mlist.length;
+			}else if(i == mlist.length-1) {
+				result = true;
+			}
+		}
+		return result;
 	}
+	
 	
 }
