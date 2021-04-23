@@ -67,7 +67,6 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	String title, id, content, good, bad, filepath; // &&&
 	BufferedImage img;
 	JLabel search_label;
-	boolean flag = true;
 
 	// Constructor
 	public AdminBoardUI(AdminMainUI main) {
@@ -256,6 +255,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 
 
 		if (img != null) { // &&&&
+			boolean flag = true;
 			int width = img.getWidth();
 			int height = img.getHeight();
 
