@@ -107,11 +107,9 @@ public class ChatUI implements ActionListener{
 		//채팅 보내는 장소
 		chat_tf.setFont(Commons.getFont());
 		btn_send.setFont(Commons.getFont());
-	//			JPanel setbotton_panel = new JPanel(new FlowLayout());
 		botton_panel.add(chat_tf); 
 		botton_panel.add(btn_send);
 		
-	//			botton_panel.add(setbotton_panel);
 		
 		//center_panel
 		center_panel.setLayout(new BorderLayout());
@@ -138,10 +136,9 @@ public class ChatUI implements ActionListener{
 				if(evt.getClickCount() == 2) {
 					//클릭 이벤트
 					String un = list.getSelectedValue().toString();
-					//jiwon2581(entj)
 					String user_name = un.substring(0,un.length()-6);
 					System.out.println(user_name);
-					Frame image = new Frame("유저 캐릭터");
+					Frame image = new Frame(user_name);
 					//DB에서 사진 불러오기
 					UserVO char_image = main.system.getUserChar(user_name);
 					ImageIcon img_char = new ImageIcon(char_image.getU_char());
