@@ -2,17 +2,16 @@ package mbti_gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -134,23 +133,21 @@ public class ChatUI implements ActionListener{
 		/**유저리스트를 클릭해서 유저 프로필 보기**/
 		user_list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				MessageVO vo = new MessageVO();
 				JList list = (JList)evt.getSource();
 				if(evt.getClickCount() == 2) {
 					//클릭 이벤트
-					int index = list.locationToIndex(evt.getPoint());
+					String un = list.getSelectedValue().toString();
+					//jiwon2581(entj)
+					String user_name = un.substring(0,un.length()-6);
+					System.out.println(user_name);
 					Frame image = new Frame("유저 캐릭터");
 					//DB에서 사진 불러오기
-					UserVO char_image = main.system.getUserChar(main.id_tf.getText());
+					UserVO char_image = main.system.getUserChar(user_name);
 					ImageIcon img_char = new ImageIcon(char_image.getU_char());
 					JLabel image_Label = new JLabel(img_char);
 					JPanel image_Panel = new JPanel();
 					image_Panel.add(image_Label);
-					
-//					Dimension frame_size = image.getSize();
-//					Dimension screen_size = Toolkit.getDefaultToolkit().getScreenSize();
-//					int width = (int)(screen_size.getWidth()-main.firstFrame.getWidth());
-//					int height = (int)(screen_size.getHeight()-main.firstFrame.getHeight())/2;
-//					image.setLocation(width, height);
 					
 					image.add(image_Panel);
 					image.setSize(300,500);
