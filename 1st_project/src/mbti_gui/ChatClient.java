@@ -32,10 +32,10 @@ public class ChatClient {
 			MessageVO vo = new MessageVO();
 			UserVO uvo = main.system.getChatUserDataSelect(main.id_tf.getText());
 			MbtiVO mvo = main.system.getMbti(uvo);
-			vo.setName(uvo.getU_id()); //uvo에서 id불러오기 그걸 메시지 vo에 저장(입장)
-			vo.setMbti(mvo.getMbti_type());;//mvo에서 mbti불러오기 그걸 메시지 vo에 저장
-			vo.setStatus(MessageVO.CONNECT); //연결상태전송
-			oos.writeObject(vo); //전송
+			vo.setName(uvo.getU_id()); 
+			vo.setMbti(mvo.getMbti_type());;
+			vo.setStatus(MessageVO.CONNECT); 
+			oos.writeObject(vo); 
 			
 			System.out.println("클라이언트 연결");
 			
@@ -46,5 +46,4 @@ public class ChatClient {
 		
 	}
 	
-	//Method
 }
