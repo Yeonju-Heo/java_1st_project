@@ -117,8 +117,10 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 
 		btn_p = new JPanel(new BorderLayout());
 		btn_reset = new JButton("모두 벗기");
+		btn_reset.setFont(Commons.getFont());
 		btn_reset.setPreferredSize(new Dimension(90,30));
 		btn_save = new JButton("저장");
+		btn_save.setFont(Commons.getFont());
 		btn_save.setPreferredSize(new Dimension(90,30));
 //		btn_reset.setBounds(500, 370, 100, 30);
 //		btn_save.setBounds(660, 370, 100, 30);
