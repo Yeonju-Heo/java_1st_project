@@ -44,8 +44,10 @@ public class MbtiMainUIEvent implements ActionListener {
 			main.secondFrame.setTitle("마이페이지");
 		} else if (obj == main.buttonlist.get(5)) {
 			int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("종료하시겠습니까?"));
-			if (confirm == 0)
+			if (confirm == 0) {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("다음에 또 만나요 :)"));
 				System.exit(0);
+			}
 		}
 
 	}
