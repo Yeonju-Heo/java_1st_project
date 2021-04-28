@@ -48,7 +48,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	
 	MbtiMainUI main;
 	UserItemVO uitem;
-	UserVO userch;
+	UserVO userch,user;
 	int result=0;
 	
 	int hidx=-1,tidx=-1,bidx=-1,type=-1;
@@ -60,7 +60,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	}
 
 	public void init() {
-		
+		user = main.system.searchUser(main.id_tf.getText());
 		setLayout(new BorderLayout());
 //		setSize(900,700);
 		setPreferredSize(new Dimension(550,500));
@@ -267,19 +267,21 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 			
 		}else if(obj == btn_save) {
 			if(hidx!=-1 && tidx==-1 && bidx==-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), nohair, ch_list.get(hidx));
+				result = main.system.saveUserChar(user.getU_id(), nohair, ch_list.get(hidx));
 			}else if(hidx!=-1 && tidx!=-1 && bidx==-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), onlybottom);
+				result = main.system.saveUserChar(user.getU_id(), ch_list.get(hidx), ct_list.get(tidx), onlybottom);
 			}else if(hidx!=-1 && tidx==-1 && bidx!=-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), cb_list.get(bidx), onlytop);
+				result = main.system.saveUserChar(user.getU_id(), ch_list.get(hidx), cb_list.get(bidx), onlytop);
 			}else if(hidx==-1 && tidx!=-1 && bidx==-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), ct_list.get(tidx), notop);
+				result = main.system.saveUserChar(user.getU_id(), ct_list.get(tidx), notop);
 			}else if(hidx==-1 && tidx!=-1 && bidx!=-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), onlyhair, ct_list.get(tidx), cb_list.get(bidx));
+				result = main.system.saveUserChar(user.getU_id(), onlyhair, ct_list.get(tidx), cb_list.get(bidx));
 			}else if(hidx==-1 && tidx==-1 && bidx!=-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), cb_list.get(bidx), nobottom);
+				result = main.system.saveUserChar(user.getU_id(), cb_list.get(bidx), nobottom);
 			}else if(hidx!=-1 && tidx!=-1 && bidx!=-1) {
-				result = main.system.saveUserChar(main.id_tf.getText(), ch_list.get(hidx), ct_list.get(tidx), cb_list.get(bidx));
+				result = main.system.saveUserChar(user.getU_id(), ch_list.get(hidx), ct_list.get(tidx), cb_list.get(bidx));
+			}else if(hidx==-1 && tidx ==-1 && bidx ==-1) {
+				result = main.system.saveUserChar(user.getU_id());
 			}
 			if(result != 0) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("저장되었습니다"));
