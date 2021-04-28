@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import mbti_vo.UserItemVO;
 import mbti_vo.UserVO;
@@ -42,6 +43,7 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 	JButton btn_menu_hair,btn_menu_top,btn_menu_bottom,btn_reset,btn_save;
 
 	JPanel panel,menu_p,btn_p,img_p;
+	JScrollPane scroll;
 	Container con;
 	
 	MbtiMainUI main;
@@ -92,7 +94,9 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 		
 		
 		panel = new JPanel(new BorderLayout());
-		img_p = new JPanel(new GridLayout(0,4,5,5));
+		panel.setPreferredSize(new Dimension(275,200));
+		img_p = new JPanel(new GridLayout(2,4,5,5));
+		
 		menu_p = new JPanel(new BorderLayout());
 		btn_menu_hair = new JButton("헤어");
 		btn_menu_hair.setFont(Commons.getFont());
@@ -112,8 +116,9 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 //		btn_menu_bottom.setBounds(690,70,120,30);
 		menu_p.add(btn_menu_bottom,BorderLayout.EAST);
 		btn_menu_bottom.addMouseListener(this);
+		scroll = new JScrollPane(img_p);
 		panel.add(menu_p,BorderLayout.NORTH);
-		panel.add(img_p,BorderLayout.CENTER);
+		panel.add(scroll,BorderLayout.CENTER);
 
 		btn_p = new JPanel(new BorderLayout());
 		btn_reset = new JButton("모두 벗기");
