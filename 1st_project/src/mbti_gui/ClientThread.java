@@ -40,7 +40,6 @@ public class ClientThread extends Thread{
 					//접속자 리스트
 					user_list.setListData(vo.getUser_list());
 					user_count.setText(String.valueOf(vo.getUser_list().size()) + "명 접속중");//몇명 접속했는지
-					
 				}
 			} catch (Exception e) {
 			}

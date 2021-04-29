@@ -54,7 +54,6 @@ public class MbtiMainUI {
 		system = new MbtiMgmSystem();
 
 		firstView();
-//		secondView();
 	}
 	//Method
 	public void firstView() {

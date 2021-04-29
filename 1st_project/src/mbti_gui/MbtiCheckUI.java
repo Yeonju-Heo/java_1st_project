@@ -175,7 +175,7 @@ public class MbtiCheckUI implements ActionListener {
 			if(form_check()) {
 				
 				if(!mlist[0].equals("")&&!mlist[1].equals("")&&!mlist[2].equals("")&&!mlist[3].equals("")) {
-					JOptionPane.showMessageDialog(null,Commons.getMsg("당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다"));
+					JOptionPane.showMessageDialog(null,"당신의 MBTI는 "+mlist[0]+mlist[1]+mlist[2]+mlist[3]+" 입니다");
 					MbtiVO mbti = new MbtiVO();
 					mbti.setMbti_type(mlist[0]+mlist[1]+mlist[2]+mlist[3]);
 					f.dispose();
@@ -189,7 +189,7 @@ public class MbtiCheckUI implements ActionListener {
 		boolean result = false;
 		for(int i=0;i<mlist.length;i++) {
 			if(mlist[i] == null) {
-				JOptionPane.showMessageDialog(null,Commons.getMsg((i+1)+" 번 질문에 해당하는 답을 체크해주세요."));
+				JOptionPane.showMessageDialog(null,(i+1)+" 번 질문에 해당하는 답을 체크해주세요.");
 				i = mlist.length;
 			}else if(i == mlist.length-1) {
 				result = true;

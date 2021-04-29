@@ -1,7 +1,5 @@
 package mbti_gui;
 
-
-
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -48,7 +46,7 @@ public class ChatServer {
 				Vector<String> copy_list = (Vector<String>)user_list.clone();
 				vo.setUser_list(copy_list);
 				vo.setMsg("---------------->>" + 
-						vo.getName() + "(" + vo.getMbti() + ")" + "님이 입장하셧습니다.");
+						vo.getName() + "(" + vo.getMbti() + ")" + "님이 입장하셨습니다.");
 				
 			}else if(vo.getStatus() == MessageVO.TALK) {
 				Vector<String> copy_list = (Vector<String>)user_list.clone();

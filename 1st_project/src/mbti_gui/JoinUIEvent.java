@@ -34,12 +34,12 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		if(obj == ui.id_check_btn) {
 			boolean result = main.system.idCheck(ui.tf.getText());
 			if(ui.tf.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요."));
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.");
 			}else if(result == true){
-				JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다."));
+				JOptionPane.showMessageDialog(null, "이미 사용중인 아이디입니다.");
 				ui.tf.setText("");
 			}else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("사용 가능한 아이디입니다."));
+				JOptionPane.showMessageDialog(null, "사용 가능한 아이디입니다.");
 			}
 			
 		}else if(obj == ui.join_btn) {
@@ -65,7 +65,7 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 				boolean result = main.system.join(uservo);
 				boolean id_check = main.system.idCheck(ui.tf.getText());
 				if(result == true) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입이 완료되었습니다."));
+					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.");
 					for(Object obj2 : ui.obj_list) {
 						if(obj2 == ui.mbtilist) {
 							ui.mbtilist.setSelectedIndex(0);
@@ -77,10 +77,10 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 					ui.f.setVisible(false);
 					
 				}else if(id_check == true){
-					JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복 확인을 해주세요."));
+					JOptionPane.showMessageDialog(null, "아이디 중복 확인을 해주세요.");
 					
 				}else {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 다시 진행해주세요."));
+					JOptionPane.showMessageDialog(null, "회원가입을 다시 진행해주세요.");
 				}
 			} 
 		}else if(obj == ui.cancel_btn){
@@ -107,19 +107,19 @@ public class JoinUIEvent extends WindowAdapter implements ActionListener {
 		JComboBox cb = (JComboBox)ui.obj_list.get(3);
 		
 		if(tf.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요."));
+			JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.");
 			ui.tf.requestFocus();
 		}else if(pf.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호를 입력해주세요."));
+			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요.");
 			ui.pf.requestFocus();
 		}else if(cpf.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호확인을 입력해주세요."));
+			JOptionPane.showMessageDialog(null, "비밀번호확인을 입력해주세요.");
 			ui.cpf.requestFocus();
 		}else if(cb.getSelectedItem().equals("== CHOICE ==")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("MBTI를 선택해주세요."));
+			JOptionPane.showMessageDialog(null, "MBTI를 선택해주세요.");
 			cb.requestFocus();
 		}else if(!pf.getText().trim().equals(cpf.getText())) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호가 일치하지 않습니다."));
+			JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
 			ui.cpf.requestFocus();
 		}else {
 			join_mbti = (String) cb.getSelectedItem();

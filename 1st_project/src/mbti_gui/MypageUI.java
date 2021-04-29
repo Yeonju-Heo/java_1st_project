@@ -190,38 +190,54 @@ public class MypageUI implements ActionListener{
 	         
 	      }else if(obj == btn_update_info) {
 			System.out.println("정보수정");
-			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("회원정보를 수정하시겠습니까?"));
-			if(con == 0) {
-				if(main.system.updateUser(user, pwd.getText())!=0) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("수정이 완료되었습니다"));
-					pwd.setText("");
-				}else {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("수정에 실패하였습니다"));
+			if(writeCheck()) {
+				int con = JOptionPane.showConfirmDialog(null, "회원정보를 수정하시겠습니까?");
+				if(con == 0) {
+					if(main.system.updateUser(user, pwd.getText())!=0) {
+						JOptionPane.showMessageDialog(null, "수정이 완료되었습니다");
+						pwd.setText("");
+					}else {
+						JOptionPane.showMessageDialog(null, "수정에 실패하였습니다");
+					}
 				}
 			}
 		}else if(obj == btn_delete_account) {
 			System.out.println("회원탈퇴");
-			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("회원탈퇴를 진행하시겠습니까?"));
+			int con = JOptionPane.showConfirmDialog(null, "회원탈퇴를 진행하시겠습니까?");
 			if(con == 0) {
 				if(main.system.deleteAdminUser(user.getU_id())) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("탈퇴가 완료되었습니다"));
+					JOptionPane.showMessageDialog(null, "탈퇴가 완료되었습니다");
 					main.secondFrame.dispose();
 //					new MbtiMainUI().firstView();
 					main.firstView();
 				}else {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("탈퇴에 실패하였습니다"));
+					JOptionPane.showMessageDialog(null, "탈퇴에 실패하였습니다");
 				}
 			}
 		}else if(obj == btn_logout) {
 			System.out.println("로그아웃");
-			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("로그아웃 하시겠습니까?"));
+			int con = JOptionPane.showConfirmDialog(null, "로그아웃 하시겠습니까?");
 			if(con == 0) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다"));
+					JOptionPane.showMessageDialog(null, "로그아웃이 완료되었습니다");
 					main.secondFrame.dispose();
 					new MbtiMainUI();
 			}
 		}
 	
+	}
+	
+	/** 유효성 검사 **/
+	public boolean writeCheck() {
+		boolean result = false;
+		
+		if (pwd.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요.");
+			pwd.requestFocus();
+		} else {
+			result = true;
+		}
+			
+		return result;
 	}
 	
 }

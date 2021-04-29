@@ -207,15 +207,6 @@ public class MbtiMgmSystem {
 		return udao.getUserDataResult();
 	}
 
-//	/** 유저 삭제 **/
-//	public UserVO getUserDateDelete(String id){
-//		System.out.println("삭제");
-//		return udao.getUserDateResult(id);
-//	public  UserVO getUserDatSelect(String id){
-//		System.out.println("메인시스템");
-//		return udao.getUserDataResult();
-//	}
-
 	/** 관리자 유저 삭제 **/
 	public boolean deleteAdminUser(String name) {
 		return udao.getDeleteUserAdmin(name);

@@ -354,15 +354,15 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 		} else if (obj == btn_list) {
 			new AdminBoardUI(main);
 		} else if (obj == btn_delete) {
-			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+			int con = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?");
 			if (con == 0) {
 				// delete process
 				// 어떤거를 삭제할지 어떻게 알려주지...
 				if (main.system.deleteAdminBoard(no)) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제가 완료되었습니다."));
+					JOptionPane.showMessageDialog(null, "삭제가 완료되었습니다.");
 					new AdminBoardUI(main);
 				} else {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제를 실패했습니다."));
+					JOptionPane.showMessageDialog(null, "삭제를 실패했습니다.");
 				}
 			}
 			// 해당 버튼을 누르면 게시글 삭제
@@ -373,7 +373,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 	public void search_Proc() {
 		if (search_tf.getText().equals("")) {
 			// 메소드로 갖고 와서 그 값이 비어있다면
-			JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 이름을 입력해주세요."));
+			JOptionPane.showMessageDialog(null, "검색할 이름을 입력해주세요.");
 			search_tf.requestFocus();
 		} else {
 			// 아니라면 검색
@@ -381,7 +381,7 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 				ArrayList<BoardVO> board = main.system.searchAdminBoard(search_tf.getText());
 				createJtableData(board);
 			} else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
+				JOptionPane.showMessageDialog(null, "해당하는 데이터가 없습니다.");
 			}
 		}
 
@@ -472,9 +472,9 @@ public class AdminBoardUI implements ActionListener, MouseListener {
 			jb.addActionListener(e -> {
 				if (list_table.getSelectedRow() != -1) {
 					String bno = list_table.getValueAt(list_table.getSelectedRow(), 0).toString();
-					int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+					int con = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?");
 					if (con == 0) {
-						JOptionPane.showMessageDialog(null, Commons.getMsg("삭제되었습니다."));
+						JOptionPane.showMessageDialog(null, "삭제되었습니다.");
 						main.system.deleteAdminBoard(Integer.parseInt(bno));
 						new AdminBoardUI(main);
 					}

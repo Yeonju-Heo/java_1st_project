@@ -175,13 +175,13 @@ public class BoardReadUI implements MouseListener, ActionListener {
 
 	public void deleteProc() {
 		if (id.equals(main.id_tf.getText())) {
-			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 삭제하시겠습니까?"));
+			int con = JOptionPane.showConfirmDialog(null, "정말 삭제하시겠습니까?");
 			if (con == 0) {
 				if (main.system.deleteBoard(no)) {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("글이 삭제되었습니다."));
+					JOptionPane.showMessageDialog(null, "글이 삭제되었습니다.");
 					new BoardUI(main);
 				} else {
-					JOptionPane.showMessageDialog(null, Commons.getMsg("삭제에 실패했습니다."));
+					JOptionPane.showMessageDialog(null, "삭제에 실패했습니다.");
 				}
 			}
 		} else {
@@ -235,12 +235,12 @@ public class BoardReadUI implements MouseListener, ActionListener {
 		if (obj == good_label) {
 			result = main.system.updateRecommend(GOOD, no);
 			if (result != 0)
-				JOptionPane.showMessageDialog(null, Commons.getMsg("추천 완료"));
+				JOptionPane.showMessageDialog(null, "추천 완료");
 			init();
 		} else if (obj == bad_label) {
 			result = main.system.updateRecommend(BAD, no);
 			if (result != 0)
-				JOptionPane.showMessageDialog(null, Commons.getMsg("비추천 완료"));
+				JOptionPane.showMessageDialog(null, "비추천 완료");
 			init();
 		} else if (obj == img_label) {
 			showImg();

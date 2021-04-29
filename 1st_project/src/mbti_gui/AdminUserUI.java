@@ -195,7 +195,7 @@ public class AdminUserUI implements ActionListener {
 
 	public void UserSearchProc() {
 		if (search_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("검색할 아이디를 입력해주세요."));
+			JOptionPane.showMessageDialog(null, "검색할 아이디를 입력해주세요.");
 			search_tf.requestFocus();
 		} else {
 			// 검색한 내용 있으면 해당 글 제목을 화면에 출력, 없으면 없다고 출력
@@ -204,7 +204,7 @@ public class AdminUserUI implements ActionListener {
 				System.out.println("검색");
 				createJtableData(user);
 			} else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("해당하는 데이터가 없습니다."));
+				JOptionPane.showMessageDialog(null, "해당하는 데이터가 없습니다.");
 				search_tf.requestFocus();
 			}
 		}
@@ -220,9 +220,9 @@ public class AdminUserUI implements ActionListener {
 				if(list_table.getSelectedRow() != -1) {
 					String user_name = list_table.getValueAt(list_table.getSelectedRow(), 1).toString();
 					if (user_name.equals("admin")) {
-						JOptionPane.showMessageDialog(null, Commons.getMsg("관리자 계정은 삭제할 수 없습니다."));
+						JOptionPane.showMessageDialog(null, "관리자 계정은 삭제할 수 없습니다.");
 					} else {
-						int con = JOptionPane.showConfirmDialog(null, Commons.getMsg(user_name + "님을 정말 삭제하시겠습니까?"));
+						int con = JOptionPane.showConfirmDialog(null, user_name + "님을 정말 삭제하시겠습니까?");
 						if (con == 0) {
 							// DB연동해서 삭제 진행
 							JOptionPane.showMessageDialog(null, user_name + "님이 삭제되었습니다.");
