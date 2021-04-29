@@ -43,9 +43,9 @@ public class MbtiMainUIEvent implements ActionListener {
 			new MypageUI(main);
 			main.secondFrame.setTitle("마이페이지");
 		} else if (obj == main.buttonlist.get(5)) {
-			int confirm = JOptionPane.showConfirmDialog(null, "종료하시겠습니까?");
+			int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("종료하시겠습니까?"));
 			if (confirm == 0) {
-				JOptionPane.showMessageDialog(null, "다음에 또 만나요 :)");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("다음에 또 만나요 :)"));
 				System.exit(0);
 			}
 		}
@@ -55,7 +55,7 @@ public class MbtiMainUIEvent implements ActionListener {
 	/** 로그인 이벤트 **/
 	public void loginUI_proc() {
 		if (main.id_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "아이디를 입력해주세요");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요"));
 			main.id_tf.requestFocus();
 		} else if (main.pw_tf.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요");
@@ -64,7 +64,7 @@ public class MbtiMainUIEvent implements ActionListener {
 			// 로그인 체크 : system.loginCheck(아이디,비밀번호)
 			int result = main.system.loginCheck(main.id_tf.getText(), main.pw_tf.getText());
 			if (result == USER) {
-				JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다."));
 				main.firstFrame.dispose();
 				main.secondView();
 				main.btn_login.setText("LOGOUT");
@@ -73,7 +73,7 @@ public class MbtiMainUIEvent implements ActionListener {
 				main.firstFrame.dispose();
 				new AdminMainUI();
 			} else {
-				JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 일치하지 않습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디와 비밀번호가 일치하지 않습니다."));
 				main.id_tf.setText("");		main.pw_tf.setText("");
 			}
 		}

@@ -284,9 +284,9 @@ public class ClosetUI extends JPanel implements ActionListener, MouseListener{
 				result = main.system.saveUserChar(user.getU_id());
 			}
 			if(result != 0) {
-				JOptionPane.showMessageDialog(null, "저장되었습니다");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("저장되었습니다"));
 			}else {
-				JOptionPane.showMessageDialog(null, "저장에 실패하였습니다");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("저장에 실패하였습니다"));
 			}
 			
 		}else {

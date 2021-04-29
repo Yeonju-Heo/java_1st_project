@@ -1,10 +1,10 @@
 package mbti_gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Label;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class Commons {
 	
@@ -32,9 +32,9 @@ public class Commons {
 	
 
 	/** 메시지 출력 **/
-	public static Label getMsg(String msg) {
+	public static JLabel getMsg(String msg) {
 		Font font = new Font("맑은 고딕", Font.BOLD, 12);
-		Label label = new Label(msg);
+		JLabel label = new JLabel(msg);
 		label.setFont(font);		
 		return label;
 	}

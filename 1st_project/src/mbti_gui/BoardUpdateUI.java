@@ -48,7 +48,7 @@ public class BoardUpdateUI implements ActionListener {
 			content_ta.setText(board.getB_content());
 			img_tf.setText(board.getB_filepath());
 		} else {
-			JOptionPane.showMessageDialog(null, "권한이 없습니다.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("권한이 없습니다."));
 		}
 	}
 
@@ -140,9 +140,9 @@ public class BoardUpdateUI implements ActionListener {
 		if (obj == btn_update) {
 			updateResultProc();
 		} else if (obj == btn_cancel) {
-			int result = JOptionPane.showConfirmDialog(null, "게시물 수정을 취소하시겠습니까?");
+			int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("게시물 수정을 취소하시겠습니까?"));
 			if (result == 0) {
-				JOptionPane.showMessageDialog(null, "게시물 수정이 취소되었습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물 수정이 취소되었습니다."));
 				new BoardUI(main);
 			}
 		} else if (obj == btn_img) {// &&&&&&&&&&&&&&&
@@ -162,10 +162,10 @@ public class BoardUpdateUI implements ActionListener {
 
 			int result = main.system.updateBoard(board);
 			if (result != 0) {
-				JOptionPane.showMessageDialog(null, "게시물이 수정되었습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물이 수정되었습니다."));
 				new BoardUI(main);
 			} else {
-				JOptionPane.showMessageDialog(null, "게시물 수정에 실패했습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("게시물 수정에 실패했습니다."));
 			}
 		}
 	}
@@ -181,7 +181,7 @@ public class BoardUpdateUI implements ActionListener {
 			img_tf.setText(filepath);
 
 		} else {
-			JOptionPane.showMessageDialog(null, "이미지를 선택하지 않았습니다.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("이미지를 선택하지 않았습니다."));
 		}
 	}
 
@@ -190,10 +190,10 @@ public class BoardUpdateUI implements ActionListener {
 		boolean result = false;
 
 		if (title_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "제목을 입력하세요.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("제목을 입력하세요."));
 			title_tf.requestFocus();
 		} else if (content_ta.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "내용을 입력하세요.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력하세요."));
 			content_ta.requestFocus();
 		} else {
 			result = true;

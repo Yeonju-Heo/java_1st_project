@@ -213,7 +213,7 @@ public class ChatUI implements ActionListener{
 					e2.printStackTrace();
 				}
 			}else {
-				JOptionPane.showMessageDialog(null, "메시지를 입력해주세요.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("메시지를 입력해주세요."));
 				chat_tf.requestFocus();
 			}
 	}

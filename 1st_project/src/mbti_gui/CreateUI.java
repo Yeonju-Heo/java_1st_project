@@ -201,10 +201,10 @@ public class CreateUI implements ActionListener{
 					}
 				});
 			}else {
-				JOptionPane.showMessageDialog(null, "포인트가 부족합니다. 포인트를 충전해주세요.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "포인트가 부족합니다. 포인트를 충전해주세요.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 		}
 	}
 	
@@ -264,10 +264,10 @@ public class CreateUI implements ActionListener{
 					}
 				});
 			}else {
-				JOptionPane.showMessageDialog(null, "포인트가 부족합니다. 포인트를 충전해주세요.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "포인트가 부족합니다. 포인트를 충전해주세요.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 		}
 	}
 	
@@ -324,10 +324,10 @@ public class CreateUI implements ActionListener{
 					}
 				});
 			}else {
-				JOptionPane.showMessageDialog(null, "포인트가 부족합니다. 포인트를 충전해주세요.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "포인트가 부족합니다. 포인트를 충전해주세요.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("포인트가 부족합니다. 포인트를 충전해주세요."));
 		}
 	}
 	

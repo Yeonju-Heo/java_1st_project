@@ -150,11 +150,11 @@ public class AdminMainUI implements ActionListener{
 			switch_panel(MAIN);
 			init();
 		} else if(obj == log_out) {
-			int con = JOptionPane.showConfirmDialog(null, "정말로 로그아웃 하시겠습니까?");
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 로그아웃 하시겠습니까?"));
 			if(con == 0) {
 				adminFrame.setVisible(false);
 				adminFrame.dispose();
-				JOptionPane.showMessageDialog(null, "로그아웃이 완료되었습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg("로그아웃이 완료되었습니다."));
 //				System.exit(0);
 				new MbtiMainUI();
 			}
@@ -163,7 +163,7 @@ public class AdminMainUI implements ActionListener{
 		} else if (obj == admin_buttonlist.get(2)) {
 			new AdminBoardUI(this);
 		} else if (obj == admin_buttonlist.get(3)) {
-			int con = JOptionPane.showConfirmDialog(null, "정말 종료하시겠습니까?");
+			int con = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말 종료하시겠습니까?"));
 			if (con == 0)
 				System.exit(0);
 			

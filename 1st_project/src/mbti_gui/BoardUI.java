@@ -186,11 +186,11 @@ public class BoardUI implements MouseListener, ActionListener {
 	/** 검색 **/
 	public void searchProc() {
 		if (search_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "검색어를 입력해주세요.");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("검색어를 입력해주세요."));
 		} else {
 			ArrayList<BoardVO> list = main.system.searchBoard(search_tf.getText());
 			if(list.size() == 0) {
-				JOptionPane.showMessageDialog(null, search_tf.getText() + "에 대한 검색 결과가 없습니다.");
+				JOptionPane.showMessageDialog(null, Commons.getMsg(search_tf.getText() + "에 대한 검색 결과가 없습니다."));
 			} else {
 				createJtableData(main.system.searchBoard(search_tf.getText()));
 			}
