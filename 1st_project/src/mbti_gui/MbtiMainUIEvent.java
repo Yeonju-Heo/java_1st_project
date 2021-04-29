@@ -58,7 +58,7 @@ public class MbtiMainUIEvent implements ActionListener {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요"));
 			main.id_tf.requestFocus();
 		} else if (main.pw_tf.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요");
+			JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호를 입력해주세요"));
 			main.pw_tf.requestFocus();
 		} else {  //#############################
 			// 로그인 체크 : system.loginCheck(아이디,비밀번호)
