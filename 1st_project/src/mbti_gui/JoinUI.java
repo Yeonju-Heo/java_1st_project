@@ -1,12 +1,10 @@
 package mbti_gui;
 
 import java.awt.BorderLayout;
-import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.Panel;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -14,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
  
@@ -22,9 +21,9 @@ public class JoinUI {
 	//Field
 	MbtiMainUI main;
 	JFrame f;
-	Panel label_panel, tf_panel, check_panel,id_check_panel, btn_panel;
+	Panel JLabel_panel, tf_panel, check_panel,id_check_panel, btn_panel;
 	JButton id_check_btn, mbti_check_btn, join_btn, cancel_btn;
-	Label textlabel, fieldlabel;
+	JLabel textJLabel, fieldJLabel;
 	String namelist[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	String namelistCheck[] = {"아이디","비밀번호","비밀번호확인","MBTI"};
 	JTextField tf;
@@ -46,7 +45,7 @@ public class JoinUI {
 	public void init() {
 		f = new JFrame("회원가입");
 		
-		label_panel = new Panel(new GridLayout(4,1));
+		JLabel_panel = new Panel(new GridLayout(4,1));
 		tf_panel = new Panel(new GridLayout(4,1));
 		check_panel = new Panel(new BorderLayout());
 		id_check_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
@@ -68,9 +67,9 @@ public class JoinUI {
 		
 		for(String name : namelist) {
 			Panel l_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
-			Label textlabel = new Label(name); 
-			l_panel.add(textlabel);
-			label_panel.add(l_panel);
+			JLabel textJLabel = new JLabel(name); 
+			l_panel.add(textJLabel);
+			JLabel_panel.add(l_panel);
 			
 			Panel t_panel = new Panel(new FlowLayout(FlowLayout.LEFT));
 			
@@ -101,12 +100,12 @@ public class JoinUI {
 			}
 		}
 		
-		f.add(BorderLayout.WEST,label_panel);
+		f.add(BorderLayout.WEST,JLabel_panel);
 		f.add(BorderLayout.CENTER,tf_panel);
 		f.add(BorderLayout.EAST,check_panel);
 		f.add(BorderLayout.SOUTH,btn_panel);
 		
-		label_panel.setBackground(Color.white);
+		JLabel_panel.setBackground(Color.white);
 		tf_panel.setBackground(Color.white);
 		check_panel.setBackground(Color.white);
 		btn_panel.setBackground(Color.white);
